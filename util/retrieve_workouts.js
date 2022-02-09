@@ -1,9 +1,9 @@
 module.exports = function () {
+    // This function retrieves workouts from the database and creates the html code
     console.log('loaded retrieve_workouts', Date.now())
     const express = require('express');
     const app = express();
     // const sqlite3 = require('sqlite3').verbose();
-    console.log('8 running retrieve_workouts.js', Date.now())
     const router = express.Router();
     module.exports = router;
     global_constants = require('./global_constants')
@@ -14,6 +14,7 @@ module.exports = function () {
     app.use('/../routes', modify_workout)
     var workout_array = []
     var workouts_htmlGLOBAL = {}
+    // Create the master file html file(categories and workouts)
     try {
         if (DEBUG) console.log('24 start retrieve_workouts: ', Date.now())
         let join_categories_to_workouts = `
@@ -37,44 +38,71 @@ module.exports = function () {
     }
     setTimeout(() => {
         workouts_html = write_html(workout_array)
-        // module.exports.test_data = 'test49'
-        // module.exports.workout_array = workout_array
-        // console.log('41 module.exports in retrieve_data', Date.now(), module.exports)
-    }, INTERVAL_TIME * 0) // This delay needed 1/1/22 
+        // This if/else probably isn't needed TODO delete if not 2/9/22
+        if ((typeof workouts_html === 'undefined') || (typeof workouts_html === 'object')) {
+            console.log('** 43 workouts_html is undefined or an object')
+        } else {
+            console.log('** 45 workouts_html', workouts_html)
+            console.log('**46 (workouts_html.length', (workouts_html.length))
+            if (workouts_html.length > 14) {
+                console.log('** 48 workouts_html immediately after workouts_html = write_html(workout_array)', Date.now(), workouts_html.substring(0, 15), workouts_html.substring(16, 54))
+                if (workouts_html.substring(0, 15) == '[object Object]') {
+                    workouts_html = workouts_html.substring(16)
+                    console.log('** 46 workouts_html after workouts_html = workouts_html.substring(15)', Date.now(), workouts_html.substring(0, 60))
+
+                }
+            }
+        }
+    }, INTERVAL_TIME * 0) // This delay needed 1/1/22, not needed 2/9/22 
 
     function write_html(workout_array) {
         workouts_htmlGLOBAL = {}
-        // console.log('179 workout_array in write_html', Date.now(), workout_array[0].date_array, '\n')
-        //workout_array is updated here
-        var last_category = -1
+        var last_category = -1 // Flag to show that we are not on the last category
         for (let i = 0; i < workout_array.length; i++) {
+            // Check for end of a category
             if (last_category != workout_array[i].category_position) {
                 if (last_category != -1) {
                     write_details_end_html()
                 }
-                // TODO Fix undefined for the first row
                 write_details_beginning_html(workout_array[i])
             }
             write_workouts(workout_array[i])
             last_category = workout_array[i].category_position
         }
-        write_details_end_html()
-        console.log('66 workouts_htmlGLOBAL in retrieve_workouts', Date.now(), workouts_htmlGLOBAL.substring(9, 52))
-        // module.exports.workoutsHTML = workouts_htmlGLOBAL //Commented out 1/28/22
-        module.exports.test = 'test'
-        // console.log('73 module.exports in retrieve_workouts', module.exports.workoutsHTML.substring(16, 54))
+        if (workout_array.length > 0) {
+            write_details_end_html()
+            if (typeof workouts_htmlGLOBAL === 'undefined') {
+                if (DEBUG) console.log('75 workouts_htmlGLOBAL is undefined')
+            } else {
+                if (workouts_htmlGLOBAL.substring(0, 15) == '[object Object]') {
+                    workouts_htmlGLOBAL = workouts_htmlGLOBAL.substring(16)
+                    if (DEBUG) console.log('79 workouts_htmlGLOBAL in retrieve_workouts', Date.now(), workouts_htmlGLOBAL.substring(0, 50))
+                }
+            }
+        }
         return workouts_htmlGLOBAL
     }
 
     function write_details_end_html() {
-        workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
+        if (workouts_htmlGLOBAL > 0) {
+            workouts_htmlGLOBAL == '</ul></details>'
+            console.log('** 103 workouts_htmlGLOBAL', workouts_htmlGLOBAL)
+        } else {
+            workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
+            // console.log('** 92 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 60))
+        }
     }
 
     function write_details_beginning_html(workout_row) {
         if (workout_row.isClosed == 1) details = 'open'
         else details = 'closed'
-        workouts_htmlGLOBAL = workouts_htmlGLOBAL + `<details ${details}><summary>${workout_row.category_name}</summary>
+        if (workouts_htmlGLOBAL.length > 0) {
+            workouts_htmlGLOBAL = workouts_htmlGLOBAL + `<details ${details}><summary>${workout_row.category_name}</summary>
     <ul class="workouts">`
+        } else {
+            workouts_htmlGLOBAL = `<details ${details}><summary>${workout_row.category_name}</summary>
+    <ul class="workouts">`
+        }
     }
 
     function write_workouts(workout_row) {
@@ -118,8 +146,8 @@ module.exports = function () {
         workouts_html = write_html(workout_array)
     }, INTERVAL_TIME * 2) // This delay needed 1/1/22, however output indicates not so 1/22/22
     setTimeout(() => {
-        console.log('124 workouts_html in retrieve_workouts before return', Date.now(), workouts_html.substring(16, 54))
-        return workouts_html
+        // console.log('124 workouts_html in retrieve_workouts before return', Date.now(), workouts_html.substring(16, 54))
+        // return workouts_html
     }, INTERVAL_TIME * 0) // This delay needed 1/1/22, however output indicates not so 1/22/22
 
     module.exports = router;
