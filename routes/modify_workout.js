@@ -9,7 +9,8 @@ if (DEBUG) console.log('loaded modify_workout.js', Date.now())
 
 router.post('/modify_workout', (req, res) => {
   var workout_id = req.body.name
-  console.log('17 workout_id in modify_workout', workout_id, Date.now()) // workout_id is passed
+  var category_name = req.body.category_name
+  console.log('** 13 req.body in modify_workout', req.body)
   today = new Date()
   new_date = date_format.format(today,'MM/DD/YYYY')
   workout_actionGLOBAL = 'Modify'
@@ -23,6 +24,8 @@ router.post('/modify_workout', (req, res) => {
     // TODO: Make async function
     db.get(select_workout, [], (err, row) => {
     workoutGLOBAL = row
+    console.log('** 26 category_name in modify_workout', category_name)
+    workoutGLOBAL.category_name = category_name
     module.exports.workoutGLOBAL = workoutGLOBAL
   })
   setTimeout(()=>{

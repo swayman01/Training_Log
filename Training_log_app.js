@@ -1,4 +1,4 @@
-// cd /Users/swayman/Documents/Yoga_Training_Log
+// cd /Users/swayman/Documents/Yoga_Training_Log/Training_log_App
 // nodemon Training_log_app.js
 //  Read .css file here and add to variable
 // Express tutorial https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website

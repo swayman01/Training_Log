@@ -20,7 +20,6 @@ router.post('/new_workout_date', (req, res) => {
   workout_name = workoutGLOBAL.workout_name
   console.log('22 workout_name in new_workout_date', Date.now(), workout_name)
   let new_date = req.body.workout_date
-  console.log('\n23 update_db_date\n', req.body, new_date)
   workout = require("./../routes/modify_workout")
   date_arraySTR = workout.workoutGLOBAL.date_array
   workout_id = workout.workoutGLOBAL.id

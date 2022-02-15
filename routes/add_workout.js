@@ -16,11 +16,15 @@ router.post('/', (req, res, next) => {  // This is needed to prevent multiple en
 router.post('/add_workout', (req, res) => {
   // TODO Add checks for undefined
   // TODO Add Categories, comma separated
+  if (DEBUG) console.log('19 in add_workout workoutGLOBAL: ', workoutGLOBAL)
+  let new_date = req.body.workout_date
+  var category_name = workoutGLOBAL.category_name
+  console.log('** 26\n workoutGLOBAL in add_workout', workoutGLOBAL)
   toRepeat = 'N'
   if ((workoutGLOBAL.toRepeat == 1) || (workoutGLOBAL.toRepeat == 'Y')) toRepeat = 'Y'
   workout_name = workoutGLOBAL.workout_name
-  console.log('22 workout_name in add_workout', Date.now(), workout_name)
   workout_actionGLOBAL = 'Add'
+  console.log('** 26 category_name in add_workout', category_name)
   module.exports.workout_actionGLOBAL = workout_actionGLOBAL
   var add_workout_html = `
 <!DOCTYPE html>
@@ -31,21 +35,21 @@ router.post('/add_workout', (req, res) => {
 
 <form action="/add_workout" method="POST">
 <label for="category_name">Category Name:</label><br>
-<input type="text" id="category_name" name="category_name" ><br>
+<input type="text" id="category_name" name="category_name" name="category_name" value="${category_name}"><br>
 
 <label for="workout__name">Workout Name:</label><br>
 <input type="text" id="workout_name" name="workout_name" ><br>
 
 <label for="workout_url">Workout URL (optional) :</label><br>
-<input type="text" id="workout_url" name="workout_url" value="${workoutGLOBAL.workout_url}"><br>
+<input type="text" id="workout_url" name="workout_url" value=""><br>
 <label for="date">Workout Dates:</label><br>
-<input type="text" id="workout_date" name="workout_date" value="${workoutGLOBAL.date_array}"><br>
+<input type="text" id="workout_date" name="workout_date" value="${new_date}"><br>
 <label for="workout_length">Workout Length (optional) :</label><br>
-<input type="text" id="workout_length" name="workout_length" value="${workoutGLOBAL.workout_length}" ><br>
+<input type="text" id="workout_length" name="workout_length" ><br>
 <label for="toRepeat">Repeat Workout:</label><br>
 <input type="text" id="toRepeat" name="toRepeat" value="${toRepeat}"><br>
 <label for="workout_comment">Workout Comment (optional) :</label><br>
-<input type="text" id="workout_comment" name="workout_comment" value="${workoutGLOBAL.workout_comment}"><br>
+<input type="text" id="workout_comment" name="workout_comment" value=""><br>
 <input type="submit" value="Add Workout" formaction="/update_db_workout">
 <input type="submit" value="Cancel" formaction="/">
 </form> 
