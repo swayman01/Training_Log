@@ -18,18 +18,17 @@ router.post('/new_workout_date', (req, res) => {
   toRepeat = 'N'
   if ((workoutGLOBAL.toRepeat == 1) || (workoutGLOBAL.toRepeat == 'Y')) toRepeat = 'Y'
   workout_name = workoutGLOBAL.workout_name
-  console.log('22 workout_name in new_workout_date', Date.now(), workout_name)
+  // console.log('22 workout_name in new_workout_date', Date.now(), workout_name)
   let new_date = req.body.workout_date
   workout = require("./../routes/modify_workout")
   date_arraySTR = workout.workoutGLOBAL.date_array
   workout_id = workout.workoutGLOBAL.id
-  console.log('57 update_dates input', Date.now(), workout_id, new_date, date_arraySTR)
   update_dates = require("./../util/update_dates");
   update_dates(workout_id, new_date, date_arraySTR)
   setTimeout(() => {
     if (DEBUG) console.log('32 call retrieve_workouts from new_workout_date ', Date.now())
     workoutsHTML = retrieve_workouts()
-    console.log('34 retrieving workouts in new_workout_date: ', Date.now(), '\n', workouts_html.substring(500, 540))
+    // console.log('34 retrieving workouts in new_workout_date: ', Date.now(), '\n', workouts_html.substring(500, 540))
     },
   INTERVAL_TIME * 1)
   setTimeout(() => {

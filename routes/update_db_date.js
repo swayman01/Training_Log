@@ -1,5 +1,5 @@
 app.post('/update_db_date', (req, res) => {
-  console.log('170 app.post update_db_date', Date.now())
+  console.log('2 app.post update_db_date', Date.now())
   let new_date = req.body.workout_date
   //add date to date array
   workoutGLOBAL.date_array.split(',').push(new_date)

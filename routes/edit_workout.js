@@ -15,7 +15,6 @@ router.post('/', (req, res, next) => {
 
 router.post('/edit_workout', (req, res) => {
   // TODO Add checks for undefined
-  // TODO Add Categories, comma separated
   toRepeat = 'N'
   if ((workoutGLOBAL.toRepeat == 1) || (workoutGLOBAL.toRepeat == 'Y')) toRepeat = 'Y'
   workout_name = workoutGLOBAL.workout_name
@@ -30,8 +29,6 @@ router.post('/edit_workout', (req, res) => {
 <h2>${workout_actionGLOBAL} Workout ${workoutGLOBAL.workout_name}</h2>
 
 <form action="/add_workout" method="POST">
-<label for="workout_name">Category Name:</label><br>
-<input type="text" id="category_name" name="category_name" ><br>
 <label for="workout_url">Workout URL (optional) :</label><br>
 <input type="text" id="workout_url" name="workout_url" value="${workoutGLOBAL.workout_url}"><br>
 <label for="date">Workout Dates:</label><br>
@@ -47,9 +44,7 @@ router.post('/edit_workout', (req, res) => {
 </form> 
 </body>
 </html>
-
 `
 res.end(edit_workout_html)
 })
-
 module.exports = router;

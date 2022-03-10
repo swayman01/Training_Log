@@ -15,7 +15,6 @@ module.exports = function () {
     var workouts_htmlGLOBAL = {}
     // Create the master file html file(categories and workouts)
     try {
-        if (DEBUG) console.log('24 start retrieve_workouts: ', Date.now())
         let join_categories_to_workouts = `
       SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
       workout_url, date_array, toRepeat, workout_length, workout_comment, workouts.id
@@ -71,7 +70,6 @@ module.exports = function () {
     function write_details_end_html() {
         if (workouts_htmlGLOBAL > 0) {
             workouts_htmlGLOBAL == '</ul></details>'
-            console.log('** 73 workouts_htmlGLOBAL', workouts_htmlGLOBAL)
         } else {
             workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
             // console.log('** 92 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 60))
@@ -82,7 +80,6 @@ module.exports = function () {
         if (workout_row.isClosed == 1) details = 'open'
         else details = 'closed'
         if (workouts_htmlGLOBAL.length > 0) {
-            // if(DEBUG) console.log('** 85 workout_row.category_name in retrieve_workouts', workout_row.category_name)
             workouts_htmlGLOBAL = workouts_htmlGLOBAL + `<details ${details}><summary>${workout_row.category_name}</summary>
     <ul class="workouts">`
         } else {
@@ -92,11 +89,11 @@ module.exports = function () {
     }
 
     function write_workouts(workout_row) {
-        // Put button and form on one line
+        var category_name = workout_row.category_name
         var add_date = `
     <form action="/modify_workout" method="POST">
       <input type="hidden" name="name" id="name" autocomplete="false" value=${workout_row.id}>
-      <input type="hidden" name="category_name" id="category_name" autocomplete="false" value="${workout_row.category_name}">
+      <input type="hidden" name="category_name" id="category_name" autocomplete="false" value="${category_name}">
     <button type="submit" class="block">+</button>
   </form> 
     `
@@ -132,9 +129,7 @@ module.exports = function () {
         if (DEBUG) console.log('130 setTimeout in retrieve_workouts', Date.now())
         workouts_html = write_html(workout_array)
     }, INTERVAL_TIME * 2) // This delay needed 1/1/22, however output indicates not so 1/22/22
-    setTimeout(() => {
-    }, INTERVAL_TIME * 0) // This delay needed 1/1/22, however output indicates not so 1/22/22
+    setTimeout(() => {}, INTERVAL_TIME * 0) // This delay needed 1/1/22, however output indicates not so 1/22/22
 
     module.exports = router;
-
 }

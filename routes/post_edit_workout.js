@@ -15,7 +15,6 @@ router.post('/', (req, res, next) => {
 
 router.post('/edit_workout', (req, res) => {
   // TODO Add checks for undefined
-  // TODO Add Categories, comma separated
   toRepeat = 'N'
   if ((workoutGLOBAL.toRepeat == 1) || (workoutGLOBAL.toRepeat == 'Y')) toRepeat = 'Y'
   workout_name = workoutGLOBAL.workout_name
@@ -51,5 +50,4 @@ router.post('/edit_workout', (req, res) => {
 `
 res.end(edit_workout_html)
 })
-
 module.exports = router;

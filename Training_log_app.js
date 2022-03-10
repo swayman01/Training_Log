@@ -1,18 +1,15 @@
 // cd /Users/swayman/Documents/Yoga_Training_Log/Training_log_App
-// nodemon Training_log_app.js
+// node Training_log_app.js
 //  Read .css file here and add to variable
 // Express tutorial https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website
-// http://expressjs.com/en/starter/static-files.html
-// TODO: Organize routes - https://stackoverflow.com/questions/59681974/how-to-organize-routes-in-nodejs-express-app
-//  and https://vegibit.com/node-js-routes-tutorial/
+// http://expressjs.com/en/starter/static-files.htm
+
 // TODO: look up guide in https://stackoverflow.com/questions/59898760/assigning-a-promise-result-to-a-variable-in-nodejs
 // See Simple_Form_nodeJS.js for ways to read in css files
 // TODO: fix date sort for 2 digit months
 // TODO: Open/Close on Categories
 // TODO: tooltips on + button
 // TODO: Check for duplicate workout names when adding a workout
-// TODO: Don't fill in fields, except for category in Add Workout
-// TODO: reorganize categories to separate morning for others - index by 10
 // const sqlite3 = require('sqlite3').verbose();
 // Safebackups are in Yoga_Training_Log folder
 // Flow
@@ -21,6 +18,7 @@
 //     modify_workout.js
 //        add_workout or
 //        edit_workout
+//        edit_categories
 //     post_update_workout.js
 //     new_workout_date
 //     TODO: Add retrieve workouts, home_get, home_post Continue from here
@@ -35,6 +33,7 @@ const post_update_db_workout = require('./routes/post_update_db_workout')
 const new_workout_date = require('./routes/new_workout_date')
 const add_workout = require('./routes/add_workout')
 const edit_workout = require('./routes/edit_workout')
+const edit_categories = require('./routes/edit_categories')
 const modify_workout = require('./routes/modify_workout')
 
 global_constants = require('./util/global_constants')
@@ -63,9 +62,10 @@ app.use('/', modify_workout)
 app.use('/', new_workout_date)
 app.use('/', add_workout)
 app.use('/', edit_workout)
+app.use('/', edit_categories)
 app.use('/', post_update_db_workout)
 
 app.listen(port, () => {
-  console.log(`199: server is listening on port ${port} ....`)
+  console.log(`Server is listening on port ${port} ....`)
 })
 module.exports = app;

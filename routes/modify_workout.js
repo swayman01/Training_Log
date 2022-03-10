@@ -10,7 +10,6 @@ if (DEBUG) console.log('loaded modify_workout.js', Date.now())
 router.post('/modify_workout', (req, res) => {
   var workout_id = req.body.name
   var category_name = req.body.category_name
-  console.log('** 13 req.body in modify_workout', req.body)
   today = new Date()
   new_date = date_format.format(today,'MM/DD/YYYY')
   workout_actionGLOBAL = 'Modify'
@@ -23,11 +22,12 @@ router.post('/modify_workout', (req, res) => {
     `
     // TODO: Make async function
     db.get(select_workout, [], (err, row) => {
-    workoutGLOBAL = row
-    console.log('** 26 category_name in modify_workout', category_name)
-    workoutGLOBAL.category_name = category_name
-    module.exports.workoutGLOBAL = workoutGLOBAL
-  })
+      selected_workout = row
+      workoutGLOBAL = row
+      workoutGLOBAL.category_name = category_name
+      workoutGLOBAL.workout_name = selected_workout.workout_name
+      module.exports.workoutGLOBAL = workoutGLOBAL
+    })
   setTimeout(()=>{
     var add_date_html = `
   <!DOCTYPE html>
@@ -42,6 +42,7 @@ router.post('/modify_workout', (req, res) => {
   <input type="submit" value="Submit New Date">
   <input type="submit" value="Add New Workout" formaction="/add_workout">
   <input type="submit" value="Edit This Workout" formaction="/edit_workout">
+  <input type="submit" value="Edit categories" formaction="/edit_categories">
   <input type="submit" value="Cancel" formaction="/">
 </form> 
 </body>

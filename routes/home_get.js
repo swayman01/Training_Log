@@ -21,10 +21,3 @@ setTimeout(() => {
     })
 }, INTERVAL_TIME * 2)
 module.exports = router;
-
-// *** Start test stuff from https://www.tutorialsteacher.com/nodejs/nodejs-module-exports
-// var test = require('./test.js');
-// console.log('33 in home_get.js', test('test message'));
-// test('Use this approach for retrieve workouts')
-// console.log('34 in home_get.js', test.logger);
-// *** End test stuff from https://www.tutorialsteacher.com/nodejs/nodejs-module-exports
