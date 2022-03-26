@@ -13,7 +13,7 @@ module.exports = function () {
     app.use('/../routes', modify_workout)
     var workout_array = []
     var workouts_htmlGLOBAL = {}
-    // Create the master file html file(categories and workouts)
+    // Create the master file html file (categories and workouts)
     try {
         let join_categories_to_workouts = `
       SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
@@ -32,18 +32,18 @@ module.exports = function () {
             }
         })
     } catch (e) {
-        console.log('36 Did not retrieve data in retrieve_workouts:)', e) // Is this used? Yes
+        console.log('35 Did not retrieve data in retrieve_workouts:)', e) // Is this used? Yes
     }
     setTimeout(() => {
         workouts_html = write_html(workout_array)
-    }, INTERVAL_TIME * 0) // This delay needed 1/1/22, not needed 2/9/22 
+    }, INTERVAL_TIME * 0) // This delay needed 1/1/22, not needed 2/18/22 
 
     function write_html(workout_array) {
         workouts_htmlGLOBAL = {}
+        // Check for end of a category
         var last_category = -1 // Flag to show that we are not on the last category
         for (let i = 0; i < workout_array.length; i++) {
             // workout_array is undefined first go around
-            // Check for end of a category
             if (last_category != workout_array[i].category_position) {
                 if (last_category != -1) {
                     write_details_end_html()
@@ -72,12 +72,12 @@ module.exports = function () {
             workouts_htmlGLOBAL == '</ul></details>'
         } else {
             workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
-            // console.log('** 92 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 60))
+     
         }
     }
 
     function write_details_beginning_html(workout_row) {
-        if (workout_row.isClosed == 1) details = 'open'
+        if (workout_row.isClosed == 0) details = 'open'
         else details = 'closed'
         if (workouts_htmlGLOBAL.length > 0) {
             workouts_htmlGLOBAL = workouts_htmlGLOBAL + `<details ${details}><summary>${workout_row.category_name}</summary>

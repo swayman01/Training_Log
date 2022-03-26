@@ -1,3 +1,4 @@
+// It creates the screen that allows the user to select the next action
 const express = require('express');
 const router = express.Router();
 exported_variables = require('./../util/read_head');
@@ -33,9 +34,7 @@ router.post('/modify_workout', (req, res) => {
   <!DOCTYPE html>
 <html>
 <body>
-
 <h2>${workout_actionGLOBAL} ${workoutGLOBAL.workout_name}</h2>
-
 <form action="/new_workout_date" method="POST">
   <label for="date">Workout Date:</label><br>
   <input type="text" id="workout_date" name="workout_date" value=${new_date}><br>

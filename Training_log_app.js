@@ -14,21 +14,21 @@
 // Safebackups are in Yoga_Training_Log folder
 // Flow
 // Training_log.js
+//  retrieve_workouts.js
 //   home_get.js
 //     modify_workout.js
-//        add_workout or
-//        edit_workout
+//        add_workout, 
+//        edit_workout , or
 //        edit_categories
 //     post_update_workout.js
 //     new_workout_date
-//     TODO: Add retrieve workouts, home_get, home_post Continue from here
+//     TODO: check retrieve workouts, home_get, home_post Continue from here
 
 const express = require('express')
 const app = express()
 const path = require('path')
 const home_get = require('./routes/home_get')
 const home_post = require('./routes/home_post')
-// const retrieve_workouts = require('./util/retrieve_workouts')
 const post_update_db_workout = require('./routes/post_update_db_workout')
 const new_workout_date = require('./routes/new_workout_date')
 const add_workout = require('./routes/add_workout')
