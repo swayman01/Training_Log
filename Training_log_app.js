@@ -2,16 +2,16 @@
 // node Training_log_app.js
 //  Read .css file here and add to variable
 // Express tutorial https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website
-// http://expressjs.com/en/starter/static-files.htm
+// http://expressjs.com/en/starter/static-files.html
 
 // TODO: look up guide in https://stackoverflow.com/questions/59898760/assigning-a-promise-result-to-a-variable-in-nodejs
 // See Simple_Form_nodeJS.js for ways to read in css files
-// TODO: fix date sort for 2 digit months
-// TODO: Open/Close on Categories
-// TODO: tooltips on + button
-// TODO: Check for duplicate workout names when adding a workout
+ // TODO: fix date sort for 2 digit months, 2 digit year
+// TODO: when there are more than 5 dates, display the first 3 and plus x more
+// TODO: tooltips
+// TODO: Check for duplicate workout names when adding a workout and category
 // const sqlite3 = require('sqlite3').verbose();
-// Safebackups are in Yoga_Training_Log folder
+// Safe backups are in Yoga_Training_Log folder
 // Flow
 // Training_log.js
 //  retrieve_workouts.js
@@ -23,6 +23,7 @@
 //     post_update_workout.js
 //     new_workout_date
 //     TODO: check retrieve workouts, home_get, home_post Continue from here
+//       post_edit_categories,post_edit_workouts?
 
 const express = require('express')
 const app = express()

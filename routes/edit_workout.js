@@ -18,7 +18,6 @@ router.post('/edit_workout', (req, res) => {
   toRepeat = 'N'
   if ((workoutGLOBAL.toRepeat == 1) || (workoutGLOBAL.toRepeat == 'Y')) toRepeat = 'Y'
   workout_name = workoutGLOBAL.workout_name
-  console.log('22 workout_name in edit_workout', Date.now(), workout_name)
   workout_actionGLOBAL = 'Edit'
   module.exports.workout_actionGLOBAL = workout_actionGLOBAL
   var edit_workout_html = `

@@ -1,3 +1,4 @@
+// This module is activated by the + button.
 // It creates the screen that allows the user to select the next action
 const express = require('express');
 const router = express.Router();
