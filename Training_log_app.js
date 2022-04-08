@@ -1,16 +1,13 @@
 // cd /Users/swayman/Documents/Yoga_Training_Log/Training_log_App
 // node Training_log_app.js
-//  Read .css file here and add to variable
 // Express tutorial https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website
 // http://expressjs.com/en/starter/static-files.html
 
 // TODO: look up guide in https://stackoverflow.com/questions/59898760/assigning-a-promise-result-to-a-variable-in-nodejs
-// See Simple_Form_nodeJS.js for ways to read in css files
  // TODO: fix date sort for 2 digit months, 2 digit year
 // TODO: when there are more than 5 dates, display the first 3 and plus x more
 // TODO: tooltips
 // TODO: Check for duplicate workout names when adding a workout and category
-// const sqlite3 = require('sqlite3').verbose();
 // Safe backups are in Yoga_Training_Log folder
 // Flow
 // Training_log.js
@@ -46,17 +43,8 @@ app.use(express.json());
 
 // TODO update base_dir to avoid hardcoded path See Multiple_Submit_Buttons.js
 const base_dir = path.resolve(__dirname)
-const {
-  readFile,
-  readFileSync,
-  writeFile,
-  writeFileSync,
-  appendFileSync
-} = require('fs')
+
 const port = 5001
-// Use setTimeout since db does not seem to work with Promises
-const INTERVAL_TIME = global_constants.INTERVAL_TIME
-// TODO: See if we need all of the app.use here, or if the other routines are okay
 app.use('/', home_get)
 app.use('/', home_post)
 app.use('/', modify_workout)

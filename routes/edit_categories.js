@@ -9,7 +9,7 @@ DEBUG = global_constants.DEBUG
 INTERVAL_TIME = global_constants.INTERVAL_TIME
 workoutGLOBAL = modify_workout_variables.workoutGLOBAL
 db = global_constants.db
-if (DEBUG) console.log('loaded edit_workout.js', Date.now())
+if (DEBUG) console.log('loaded edit_categories.js', Date.now())
 router.post('/', (req, res, next) => {
   res.redirect("/")
 })
@@ -62,37 +62,32 @@ router.post('/edit_categories', (req, res) => {
     console.log('62 Did not retrieve categories in edit_categories:)', e)
   }
   // Start html file
-  var edit_categories_html = `
-<!DOCTYPE html>
-<html>
-<body>
-<h2>${workout_actionGLOBAL} for Workout ${workoutGLOBAL.workout_name}</h2>
-<form action="/update_db_workout" method="POST">
-`
+  var edit_categories_html = exported_variables.training_log_head_html + `
+    <h2>${workout_actionGLOBAL} for Workout ${workoutGLOBAL.workout_name}</h2>
+    <form action="/update_db_workout" method="POST">
+    `
   // TODO try label {horizontal-align: right; in css}
 add_new_category_label = 'Add New Category'
 var end_edit_categories_html = `
-<input type="checkbox" id="new_category" name="x_new_category_x"  >
-<input type="text" id="new_category_name" name="x_new_category_name_x" label=${add_new_category_label} value="Category Name">
-<label for="new_category">Add New Category</label>
-<br>
-<br>
-<input type="submit" value="Save Changes" formaction="/update_db_workout">
-<input type="submit" value="Cancel" formaction="/">
-</form> 
-</body>
-</html>
+  <input type="checkbox" id="new_category" name="x_new_category_x"  >
+  <input type="text" id="new_category_name" name="x_new_category_name_x" label=${add_new_category_label} value="Category Name">
+  <label for="new_category">Add New Category</label>
+  <br>
+  <br>
+  <input type="submit" value="Save Changes" formaction="/update_db_workout">
+  <input type="submit" value="Cancel" formaction="/">
+  </form> 
+  </body>
+  </html>
 `
 setTimeout(() => {
   // create entries for file
-  // console.log('xx100 category_array:\n ', category_array)
   for (let i = 0; i < category_array.length; i++) {
     category_name = category_array[i].category_name
     category_position = category_array[i].category_position
     isClosed = category_array[i].isClosed
     // console.log('xx129 ',  category_name, isClosed, category_position )
     checked_category_flag = 0
-    // console.log('xx98 category_name', category_name)
     // ref: https://www.javascripttutorial.net/javascript-dom/javascript-checkbox/
     for (let j = 0; j < checked_category_array.length; j++) {
       if (checked_category_array[j].category_name == category_name) {
@@ -111,7 +106,6 @@ setTimeout(() => {
         `
       }
     }
-      // console.log('xx152 category position, isClosed', category_position, isClosed)
       if (isClosed == 1) {
         form_entry_html = form_entry_html + `
         <input type = "number" id="position" name = "position" min="0" max="500" value = "${category_position}" >

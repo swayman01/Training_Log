@@ -1,7 +1,7 @@
 const express = require('express');
 // const router = express.Router();
 // exported_variables = require("./../Training_log_practice_NodeJs");
-console.log('loaded read_head.js')
+console.log('loaded read_head.js', Date.now())
 // exported_variables = require('/Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice/Training_log_practice_NodeJs.js')
 
 // import training_log_head_html from "Training_log_practice_NodeJs.js"

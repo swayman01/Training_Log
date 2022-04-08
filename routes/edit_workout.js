@@ -20,11 +20,8 @@ router.post('/edit_workout', (req, res) => {
   workout_name = workoutGLOBAL.workout_name
   workout_actionGLOBAL = 'Edit'
   module.exports.workout_actionGLOBAL = workout_actionGLOBAL
-  var edit_workout_html = `
-<!DOCTYPE html>
-<html>
-<body>
-
+  var edit_workout_html = exported_variables.training_log_head_html +
+  `
 <h2>${workout_actionGLOBAL} Workout ${workoutGLOBAL.workout_name}</h2>
 
 <form action="/add_workout" method="POST">
