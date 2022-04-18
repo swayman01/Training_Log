@@ -1,5 +1,5 @@
 // This module is activated by the + button.
-// It creates the screen that allows the user to select the next action
+// It creates the screen that allows the user to select the next action.
 const express = require('express');
 const router = express.Router();
 exported_variables = require('./../util/read_head');
@@ -31,23 +31,20 @@ router.post('/modify_workout', (req, res) => {
       module.exports.workoutGLOBAL = workoutGLOBAL
     })
   setTimeout(()=>{
-    var add_date_html = `
-  <!DOCTYPE html>
-<html>
-<body>
-<h2>${workout_actionGLOBAL} ${workoutGLOBAL.workout_name}</h2>
-<form action="/new_workout_date" method="POST">
-  <label for="date">Workout Date:</label><br>
-  <input type="text" id="workout_date" name="workout_date" value=${new_date}><br>
-  <input type="submit" value="Submit New Date">
-  <input type="submit" value="Add New Workout" formaction="/add_workout">
-  <input type="submit" value="Edit This Workout" formaction="/edit_workout">
-  <input type="submit" value="Edit categories" formaction="/edit_categories">
-  <input type="submit" value="Cancel" formaction="/">
-</form> 
-</body>
-</html>
-  `
+    var add_date_html = exported_variables.training_log_head_html + `
+      <h2>${workout_actionGLOBAL} ${workoutGLOBAL.workout_name}</h2>
+      <form action="/new_workout_date" method="POST">
+        <label for="date">Workout Date:</label><br>
+        <input type="text" id="workout_date" name="workout_date" value=${new_date}><br>
+        <input type="submit" value="Submit New Date">
+        <input type="submit" value="Add New Workout" formaction="/add_workout">
+        <input type="submit" value="Edit This Workout" formaction="/edit_workout">
+        <input type="submit" value="Edit categories" formaction="/edit_categories">
+        <input type="submit" value="Cancel" formaction="/">
+      </form> 
+      </body>
+      </html>
+    `
   res.end(add_date_html)
   }, INTERVAL_TIME)
 

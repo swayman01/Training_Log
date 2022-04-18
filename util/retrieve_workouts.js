@@ -13,7 +13,7 @@ module.exports = function () {
     app.use('/../routes', modify_workout)
     var workout_array = []
     var workouts_htmlGLOBAL = {}
-    // Create the master file html file (categories and workouts)
+    // Create the master html file (categories and workouts)
     try {
         let join_categories_to_workouts = `
       SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
@@ -28,7 +28,7 @@ module.exports = function () {
         db.all(join_categories_to_workouts, [], (err, rows) => {
             workout_array = rows
             if (err) {
-                console.log('32 error in join_categories_to_workouts in retrieve_workouts', Date.now(), err)
+                console.log('31 error in join_categories_to_workouts in retrieve_workouts', Date.now(), err)
             }
         })
     } catch (e) {
@@ -42,6 +42,7 @@ module.exports = function () {
         workouts_htmlGLOBAL = {}
         // Check for end of a category
         var last_category = -1 // Flag to show that we are not on the last category
+        console.log('** 45 in write_html: ', Date.now())
         for (let i = 0; i < workout_array.length; i++) {
             // workout_array is undefined first go around
             if (last_category != workout_array[i].category_position) {
@@ -60,7 +61,7 @@ module.exports = function () {
             } else {
                 if (workouts_htmlGLOBAL.substring(0, 15) == '[object Object]') {
                     workouts_htmlGLOBAL = workouts_htmlGLOBAL.substring(16)
-                    if (DEBUG) console.log('63 workouts_htmlGLOBAL in retrieve_workouts', Date.now(), workouts_htmlGLOBAL.substring(0, 50))
+                    // if (DEBUG) console.log('64 workouts_htmlGLOBAL in retrieve_workouts', Date.now(), workouts_htmlGLOBAL.substring(0, 50))
                 }
             }
         }
@@ -72,7 +73,6 @@ module.exports = function () {
             workouts_htmlGLOBAL == '</ul></details>'
         } else {
             workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
-     
         }
     }
 
@@ -125,8 +125,7 @@ module.exports = function () {
         workouts_htmlGLOBAL = workouts_htmlGLOBAL + workout
     }
     setTimeout(() => {
-        // module.workoutsGlobal = work_array
-        if (DEBUG) console.log('130 setTimeout in retrieve_workouts', Date.now())
+        if (DEBUG) console.log('129  setTimeout in retrieve_workouts', Date.now())
         workouts_html = write_html(workout_array)
     }, INTERVAL_TIME * 2) // This delay needed 1/1/22, however output indicates not so 1/22/22
     setTimeout(() => {}, INTERVAL_TIME * 0) // This delay needed 1/1/22, however output indicates not so 1/22/22

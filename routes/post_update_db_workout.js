@@ -73,7 +73,7 @@ router.post('/update_db_workout', (req, res) => {
         if (err) {
           console.log('74 update error in Add in post_update_db_workout: ', err)
         }
-      }
+      } // end else
       setTimeout(() => {
         if (DEBUG) console.log('\n78', Date.now(), workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date)
         table = 'workouts'
