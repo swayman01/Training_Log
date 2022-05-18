@@ -2,3 +2,4 @@ scratch_pad.txt
 debug_1.txt
 debug_2.txt
 routes/delete_post_edit_workout.js
+db/training_log.db

@@ -1,16 +1,21 @@
-// Connect to database
+const base_dir = '/Users/swayman/Documents/Yoga_Training_Log/Training_Log_App'
+const { PromisedDatabase } = require("promised-sqlite3"); // import the class
 const sqlite3 = require('sqlite3').verbose();
+const db = new PromisedDatabase(); // create a instance of PromisedDatabase
+    // note: at this state, the wrapped sqlite3.Database object is not created.
 date_format = require('date-and-time')
-var db = new sqlite3.Database('./db/training_log.db', (err) => {
+var db1 = new sqlite3.Database('./db/training_log.db', (err) => {
   if (err) {
     console.log('Could not connect to database:', err)
-  } else console.log('7 Connected to database in global_constants', Date.now())
+  } else console.log(' Connected to database in global_constants', Date.now())
 })
 const INTERVAL_TIME = 500 // 500 works, 200 doesn't
 module.exports.INTERVAL_TIME = INTERVAL_TIME
 const DEBUG = true;
 module.exports.db = db
+module.exports.db1 = db1
 module.exports.DEBUG = DEBUG
+module.exports.base_dir = base_dir
 
 const {
   readFile,
