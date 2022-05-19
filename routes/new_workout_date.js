@@ -1,48 +1,33 @@
 const express = require('express');
 const app = express()
 const router = express.Router();
-exported_variables = require('./../util/read_head');
-global_constants = require('./../util/global_constants')
-modify_workout_variables = require('./../routes/modify_workout')
-DEBUG = global_constants.DEBUG
-INTERVAL_TIME = global_constants.INTERVAL_TIME
-workoutGLOBAL = modify_workout_variables.workoutGLOBAL
-db = global_constants.db
-if (DEBUG) console.log('loaded new_workout_date.js', Date.now())
+const global_constants = require('./../util/global_constants')
+const base_dir = global_constants.base_dir
+const start_time = Date.now()
+const et = require(base_dir + '/util/elapsed_time')
+const exported_variables = require('./../util/read_head');
+const modify_workout_variables = require('./../routes/modify_workout')
+var DEBUG = global_constants.DEBUG
+const INTERVAL_TIME = global_constants.INTERVAL_TIME
+const workoutGLOBAL = modify_workout_variables.workoutGLOBAL
+if (DEBUG) console.log('loaded new_workout_date.js', et(start_time))
+
 router.post('/', (req, res, next) => {
   res.redirect("/")
 })
+
 router.post('/new_workout_date', (req, res) => {
   // TODO Add checks for undefined
-  // TODO Add Categories, comma separated
   toRepeat = 'N'
-  if ((workoutGLOBAL.toRepeat == 1) || (workoutGLOBAL.toRepeat == 'Y')) toRepeat = 'Y'
-  workout_name = workoutGLOBAL.workout_name
+  if ((modify_workout_variables.selected_workout.toRepeat == 1) || (modify_workout_variables.selected_workout.toRepeat == 'Y')) toRepeat = 'Y'
+  workout_name = modify_workout_variables.selected_workout.workout_name
   // console.log('22 workout_name in new_workout_date', Date.now(), workout_name)
   let new_date = req.body.workout_date
-  workout = require("./../routes/modify_workout")
-  date_arraySTR = workout.workoutGLOBAL.date_array
-  workout_id = workout.workoutGLOBAL.id
-  update_dates = require("./../util/update_dates");
+  var date_arraySTR = modify_workout_variables.selected_workout.date_array
+  var workout_id = modify_workout_variables.selected_workout.id
+  const update_dates = require("./../util/update_dates");
   update_dates(workout_id, new_date, date_arraySTR)
-  setTimeout(() => {
-    if (DEBUG) console.log('32 call retrieve_workouts from new_workout_date ', Date.now())
-    workoutsHTML = retrieve_workouts()
-    // console.log('34 retrieving workouts in new_workout_date: ', Date.now(), '\n', workouts_html.substring(500, 540))
-    },
-  INTERVAL_TIME * 1)
-  setTimeout(() => {
-    if (DEBUG) console.log('31 call home_get in post_update_db_workout (new_workout_date)', Date.now())
-    app.get('./../routes/home_get', (req, res, next) => {
-      console.log('33 in post_update_db_workout (new_workout_datr)', Date.now())
-    })
-    console.log('35 home_get in post_db_workout (Add)', Date.now())
-  }, INTERVAL_TIME * 2) // This delay is needed 1/1/22
-
-  setTimeout(() => {
-    console.log('39 res.redirect in post_db_workout new_workout_date:', Date.now())
+  if (DEBUG) console.log('30 res.redirect in post_db_workout new_workout_date:', et(start_time))
     res.redirect("/")
-  }, INTERVAL_TIME * 3) // Set to 0 1/1/22, reset on 1/6/22 after adding functionality
-
 })
 module.exports = router;

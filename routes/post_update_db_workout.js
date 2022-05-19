@@ -19,7 +19,6 @@ const edit_workout_globals = require('./../routes/edit_workout')
 const edit_categories_globals = require('./../routes/edit_categories')
 var DEBUG = global_constants.DEBUG
 const INTERVAL_TIME = global_constants.INTERVAL_TIME
-const workout_actionGLOBAL = edit_workout_globals.workout_actionGLOBAL
 var category_arrayGLOBAL = edit_categories_globals.category_array
 const db1 = global_constants.db1
 if (DEBUG) console.log('loaded post_update_db_workout.js', et(start_time))
@@ -38,6 +37,8 @@ router.post('/update_db_workout', (req, res) => {
   var workout_comment = req.body.workout_comment;
   var modify_workout_globals = require('./../routes/modify_workout')
   var workout_actionGLOBAL = modify_workout_globals.workout_actionGLOBAL
+  if (DEBUG) console.log('40 post_update_db_workout workout_actionGLOBAL',workout_actionGLOBAL, et(start_time))
+  
   // Check for existing category
   var select_categories = `
     SELECT id, category_name, category_position, isClosed, category_subheading
@@ -72,28 +73,15 @@ router.post('/update_db_workout', (req, res) => {
           console.log('74 update error in Add in post_update_db_workout: ', err)
         }
       } // end else
-      // setTimeout(() => {
-        // if (DEBUG) console.log('\n78', Date.now(), workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date)
         table = 'workouts'
         db1.run(`INSERT INTO ${table} (workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date) 
                     VALUES(?, ?, ?, ?, ?, ?, ?)`, [workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date]);
-      // }, INTERVAL_TIME * 1)
-      // setTimeout(() => {
-          // if (DEBUG) console.log('84 call retrieve_workouts from Add in post_update_db_workouts', Date.now())
-          // workoutsHTML = 'retrieve_workouts()'
-          // console.log('86 retrieving workouts in post_db_workout: ', workoutsHTML)
-        // }, INTERVAL_TIME * 2)
-      // setTimeout(() => {
         if (DEBUG) console.log('90 call home_get in post_update_db_workout (Add)', et(start_time))
         app.get('./../routes/home_get', (req, res, next) => {
-          console.log('91 in post_update_db_workout (Add)', et(start_time))
+          console.log('80 in post_update_db_workout (Add)', et(start_time))
         })
-        console.log('93 home_get in post_db_workout (Add)', et(start_time))
-      // }, INTERVAL_TIME * 3) // This delay is needed 1/1/22
-      // setTimeout(() => {
         console.log('96 res.redirect in post_db_workout:', et(start_time))
         res.redirect("/") // this works 1/28/22
-      // }, INTERVAL_TIME * 4) // Set to 0 1/1/22, reset on 1/6/22 after adding functionality
     }
 
     if (workout_actionGLOBAL == 'Edit') {
@@ -109,21 +97,24 @@ router.post('/update_db_workout', (req, res) => {
           toRepeat = "${toRepeat}",
           workout_comment = "${workout_comment}",
           last_date = "${last_date}"
-          WHERE id = "${workoutGLOBAL.id}"
+          WHERE id = "${selected_workout.id}"
           `, [], (err, rows) => {
       if (err) {
-        console.log('120 update error in EDIT post_update_db_workout: ', err, et(start_time))
+        console.log('103 update error in EDIT post_update_db_workout: ', err, et(start_time))
+      } else {
+        console.log('105 callback in EDIT', et(start_time))
       }
     }) // end db1.run(UPDATE)
 
       // setTimeout(() => {
-          if (DEBUG) console.log('124 call retrieve_workouts from post_update_workout ', et(start_time))
-          res.redirect("/") 
-        // }, INTERVAL_TIME * 1)
+          if (DEBUG) console.log('107 res.redirect from post_update_workout ', et(start_time))
+          res.redirect("/")
+  }
  
     if (workout_actionGLOBAL == 'Edit Categories') {
       // Get all the categories associated with the selected workout
-      workout_name = workoutGLOBAL.workout_name
+      workout_name = selected_workout.workout_name
+      if (DEBUG) console.log('114 in post_update_db_workouts Edit Categories', workout_name, et(start_time))
       delete_from_category_name = ''
       console.log('132 db1.run Update in Edit Categories in post_update_db_workouts', workout_name, et(start_time))
       let join_categories_to_workout = `
@@ -139,6 +130,7 @@ router.post('/update_db_workout', (req, res) => {
       // Retrieve categories selected for chosen workout
       db1.all(join_categories_to_workout, [], (err, rows) => {
         workout_array = rows
+        if (DEBUG) console.log('131 in db1.all in post_update_db_workout EDIT_Categories', et(start_time))
         // Ensure at least one box is checked
         if ((Object.keys(category_inputs).length == undefined) || (Object.keys(category_inputs).length == 0)) {
           console.log('*** ERROR: Each workout must have at least on category')
@@ -151,7 +143,7 @@ router.post('/update_db_workout', (req, res) => {
           in_workout_array_flag = 0;
           for (let i = 0; i < workout_array.length; i++) {
             if (workout_array[i].category_name == key) {
-              console.log('158 in post_updater_db_workout', workout_array[i].category_name, ' is already in categories to workouts')
+              console.log('154 in post_updater_db_workout', workout_array[i].category_name, ' is already in categories to workouts')
               in_workout_array_flag = 1;
             }
           }
@@ -159,7 +151,7 @@ router.post('/update_db_workout', (req, res) => {
             if (key == RESERVED_KEY) category_name = category_inputs[RESERVED_NAME]
             else category_name = key
             // TODO Check to see if key is a category name
-            console.log('166 Inserting ', category_name, workout_name, ' into categories_to_workout', et(start_time))
+            console.log('162 Inserting ', category_name, workout_name, ' into categories_to_workout', et(start_time))
             db1.run(`INSERT INTO categories_to_workouts (category_name, workout_name) 
                     VALUES(?, ?)`, [category_name, workout_name]);
           }
@@ -199,7 +191,7 @@ router.post('/update_db_workout', (req, res) => {
               category_name_exists_flag = 1
             }
           }
-          if (category_name_exists_flag == 1) console.log('222 ', category_inputs[RESERVED_NAME], 'is already in use')
+          if (category_name_exists_flag == 1) console.log('202 ', category_inputs[RESERVED_NAME], 'is already in use')
           else {
             category_name = category_inputs[RESERVED_NAME]
             // TODO Pull these values from form
@@ -280,10 +272,9 @@ router.post('/update_db_workout', (req, res) => {
   //     }, INTERVAL_TIME * 3) // This delay is needed 1/1/22
 
   //     setTimeout(() => {
-  //       res.redirect("/")
+        res.redirect("/")
   //       if (DEBUG) console.log('125 res.redirect in post_update_db_workout (Edit)', Date.now())
   //     }, INTERVAL_TIME * 4) // Set to 0 1/1/22, reset on 1/6/22 after adding functionality      
-    }
     }
   })
 })

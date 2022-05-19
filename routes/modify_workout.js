@@ -27,7 +27,7 @@ router.post('/modify_workout', (req, res) => {
     `
    
   async function add_date_html(workout_name) {
-    if (DEBUG) console.log('31 modify_workout add_date_html', workout_name, et(start_time))
+    if (DEBUG) console.log('30 modify_workout add_date_html', workout_name, et(start_time))
     var add_date_html = exported_variables.training_log_head_html + `
         <h2>${workout_actionGLOBAL} ${workout_name}</h2>
         <form action="/new_workout_date" method="POST">
