@@ -9,7 +9,7 @@ module.exports.INTERVAL_TIME = INTERVAL_TIME
 module.exports.base_dir = base_dir
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
-const DEBUG = true;
+const DEBUG = false;
 var db1 = new sqlite3.Database('./db/training_log.db', (err) => {
   if (err) {
     console.log('Could not connect to database:', err)

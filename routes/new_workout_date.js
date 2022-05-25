@@ -1,3 +1,4 @@
+// This routine adds the new date to the date_array
 const express = require('express');
 const app = express()
 const router = express.Router();
@@ -5,11 +6,8 @@ const global_constants = require('./../util/global_constants')
 const base_dir = global_constants.base_dir
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
-const exported_variables = require('./../util/read_head');
 const modify_workout_variables = require('./../routes/modify_workout')
 var DEBUG = global_constants.DEBUG
-const INTERVAL_TIME = global_constants.INTERVAL_TIME
-const workoutGLOBAL = modify_workout_variables.workoutGLOBAL
 if (DEBUG) console.log('loaded new_workout_date.js', et(start_time))
 
 router.post('/', (req, res, next) => {
@@ -27,7 +25,7 @@ router.post('/new_workout_date', (req, res) => {
   var workout_id = modify_workout_variables.selected_workout.id
   const update_dates = require("./../util/update_dates");
   update_dates(workout_id, new_date, date_arraySTR)
-  if (DEBUG) console.log('30 res.redirect in post_db_workout new_workout_date:', et(start_time))
+  if (DEBUG) console.log('28 res.redirect in post_db_workout new_workout_date:', et(start_time))
     res.redirect("/")
 })
 module.exports = router;

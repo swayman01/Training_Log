@@ -19,7 +19,8 @@
 //        edit_categories
 //     post_update_workout.js
 //     new_workout_date
-//     TODO: check retrieve workouts, home_get, home_post Continue from here
+//        update_db_date
+//     TODO: check home_get, home_post Continue from here
 //       post_edit_categories,post_edit_workouts?
 
 const express = require('express')
@@ -33,18 +34,16 @@ const add_workout = require('./routes/add_workout')
 const edit_workout = require('./routes/edit_workout')
 const edit_categories = require('./routes/edit_categories')
 const modify_workout = require('./routes/modify_workout')
+const global_constants = require('./util/global_constants')
+const port = 5001
+// TODO update base_dir to avoid hardcoded path See Multiple_Submit_Buttons.js
+const base_dir = path.resolve(__dirname)
 
-global_constants = require('./util/global_constants')
-db = global_constants.db
 app.use(express.urlencoded({
   extended: false
 }))
 app.use(express.json());
-
-// TODO update base_dir to avoid hardcoded path See Multiple_Submit_Buttons.js
-const base_dir = path.resolve(__dirname)
-
-const port = 5001
+//TODO See which of these are needed
 app.use('/', home_get)
 app.use('/', home_post)
 app.use('/', modify_workout)

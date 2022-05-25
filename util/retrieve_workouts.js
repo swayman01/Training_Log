@@ -9,6 +9,7 @@ module.exports = function () {
     INTERVAL_TIME = global_constants.INTERVAL_TIME
     db = global_constants.db
     DEBUG = global_constants.DEBUG
+    DEBUG = false
     const modify_workout = require('./../routes/modify_workout')
     app.use('/../routes', modify_workout)
     var workout_array = []

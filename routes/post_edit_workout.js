@@ -6,7 +6,7 @@ const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const post_modify_workout_variables = require('./../routes/post_modify_workout')
 var DEBUG = global_constants.DEBUG
-const INTERVAL_TIME = global_constants.INTERVAL_TIME
+DEBUG = false
 var workoutGLOBAL = post_modify_workout_variables.workoutGLOBAL
 if (DEBUG) console.log('loaded post_edit_workout.js', et(start_time))
 router.post('/', (req, res, next) => {

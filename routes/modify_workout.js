@@ -8,6 +8,7 @@ const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const exported_variables = require('./../util/read_head');
 var DEBUG = global_constants.DEBUG
+// DEBUG = true
 const INTERVAL_TIME = global_constants.INTERVAL_TIME
 const db = global_constants.db
 console.log('loaded modify_workout.js', et(start_time)) 
@@ -15,6 +16,7 @@ console.log('loaded modify_workout.js', et(start_time))
 router.post('/modify_workout', (req, res) => {
   var workout_id = req.body.name
   var category_name = req.body.category_name
+  module.exports.category_name = category_name
   today = new Date()
   new_date = date_format.format(today,'MM/DD/YY')
   workout_actionGLOBAL = 'Modify'
@@ -48,15 +50,12 @@ router.post('/modify_workout', (req, res) => {
   async function db_get() {
     try {
       x = 'db.get'
-      setTimeout(() => {
         var workout_name = ''
         if (DEBUG) console.log('55 db_get()', et(start_time))
         x = db.get(select_workout, [], (err, row) => {
-          // console.log('55 db.get error: ', err)
-          // if(err) {
-          // console.log('56 db.get error: ', err)
-          // } else{
-          // This doesn't execute
+          if(err) {
+            console.log('*** Error db.get in modify_workout: ', err)
+            } 
           selected_workout = row
           workoutGLOBAL = selected_workout
           workoutGLOBAL.category_name = category_name
@@ -64,63 +63,14 @@ router.post('/modify_workout', (req, res) => {
           workout_name = selected_workout.workout_name
           if (DEBUG) console.log('67 modify_workout db.get workout_name', workout_name, et(start_time))
           module.exports.workoutGLOBAL = workoutGLOBAL
-          // }
         })
-      }, INTERVAL_TIME * 0)  // set to 0 before 5/14/22
-      if (DEBUG) console.log('74 modify_workout db_get', db_get, x, et(start_time))
-      // TODO Remove setTimeout
-      // setTimeout(()=>{
-      // console.log('66 modify_workout db_get', db_get, workout_name, et(start_time))
-      // console.log('67 modify_workout db_get', db_get, db_get.toRepeat, et(start_time))
-      // add_date_html(workout_name)
-      // }, INTERVAL_TIME * 0)
-      // await add_date_html()
+      if (DEBUG) console.log('68 modify_workout db_get', db_get, x, et(start_time))
     } catch (err) {
-      console.log('***79 Promise error in modify_workout***', err, et(start_time))
+      console.log('*** Promise error in modify_workout***', err, et(start_time))
     }
   }
 
-  async function modify_workout_init() {
-    // Promise never closes - use init() for now 5/12/22
-    var x1 = 'line 88'
-    try {
-      var workout_name = ''
-      if (DEBUG) console.log('90', base_dir + '/db/practice_training_log.db', et(start_time))
-      x = await db.open(base_dir + '/db/practice_training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
-      if (DEBUG) console.log('92 x', x, et(start_time))
-      x1 = await db.get(select_workout, [], (err, row) => {
-        // This command works in db browser for sqlite
-        if (DEBUG) console.log('94 db_get() row', row)
-        // console.log('55 db.get error: ', err)
-        // if(err) {
-        // console.log('56 db.get error: ', err)
-        // } else{
-        // This doesn't execute
-        selected_workout = row
-        workout_name = selected_workout.workout_name
-        workoutGLOBAL = selected_workout
-        // workoutGLOBAL.category_name = category_name //commented out 5/13/22
-        // workoutGLOBAL.workout_name = selected_workout.workout_name //commented out 5/13/22
-        if (DEBUG) console.log('104 modify_workout db.get workout_name', workout_name, et(start_time))
-        module.exports.workoutGLOBAL = workoutGLOBAL
-        // }
-      })
-    } catch (err) {
-      console.log('***112 Promise error in modify_workout***', err, et(start_time))
-    }
-    if (DEBUG) console.log('114 x1, workout_name', x, workout_name, et(start_time))
-      // await add_date_html(workout_name)
-      if (DEBUG) console.log('117 end of modify_workout init', db_get, et(start_time))
-      // TODO Remove setTimeout
-      // setTimeout(()=>{
-      // add_date_html(workout_name)
-      // TODO transfer workout_name
-      // }, INTERVAL_TIME * 0)
-      await add_date_html(workout_name)
-   
-  }
-  // modify_workout_init()
-  // Try outside await
+ 
   const sqlite3 = require('sqlite3').verbose();
   var db1 = new sqlite3.Database(base_dir + '/db/training_log.db', (err) => {
     if (err) {
@@ -129,22 +79,20 @@ router.post('/modify_workout', (req, res) => {
   })
   
   function init() {
-    if (DEBUG) console.log('132 db1 in modify_workout', db1, et(start_time))
+    if (DEBUG) console.log('81 db1 in modify_workout', db1, et(start_time))
     var workout_name = ''
     x = db1.open
-    if (DEBUG) console.log('135 x ', x, et(start_time))
+    if (DEBUG) console.log('84 x ', x, et(start_time))
     x = db1.get(select_workout, [], (err, row) => {
-      if (DEBUG) console.log('136 workout_name', row.workout_name, et(start_time))
+      if (DEBUG) console.log('86 workout_name', row.workout_name, et(start_time))
       selected_workout = row
-      if (DEBUG) console.log('139 x ', x, et(start_time))
+      if (DEBUG) console.log('88 x ', x, et(start_time))
       workout_name = selected_workout.workout_name
       db.close
-      console.log('142 in modify_workout.js selected_workout', et(start_time))
       module.exports.selected_workout = selected_workout
       add_date_html(workout_name)
     })
   }
   init()
-  // modify_workout_init()
 })
 module.exports = router;

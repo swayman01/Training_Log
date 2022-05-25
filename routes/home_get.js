@@ -1,11 +1,11 @@
 // Reference: https://github.com/tguichaoua/promised-sqlite3
 const base_dir = '/Users/swayman/Documents/Yoga_Training_Log/Training_Log_App'
-global_constants = require('./../util/global_constants')
+const global_constants = require('./../util/global_constants')
 var DEBUG = global_constants.DEBUG
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 console.log('loaded home_get', et(start_time))
-DEBUG = false
+DEBUG = true
 const express = require('express');
 const router = express.Router();
 router.get('/', (req, res, next) => {
@@ -121,7 +121,7 @@ router.get('/', (req, res, next) => {
 
     async function init() {
         try {
-            if (DEBUG) console.log('1 home_get db', db, et(start_time))
+            if (DEBUG) console.log('124 home_get db', db, et(start_time))
             await db.open('./db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
             workout_array = await db.all(join_categories_to_workouts, [], (err, rows) => {
                if(err) {console.log('*** Error in db.open: ', err)}      
