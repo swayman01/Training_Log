@@ -1,0 +1,131 @@
+//# sourceMappingURL=http://Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice/static/stylesheets/Training_log_practice.css</pre>
+/* Reference: https://www.youtube.com/watch?v=aoQ6S1a32j8
+/* TODO
+Change color for Repeat = N
+Example from Jessica Chan class
+a,
+a:visited,
+a:hover {
+  text-decoration: none;
+}
+
+button,
+.button {
+  position: relative;
+  display: inline-block;
+  padding: 0.875rem 2.1875rem;
+  background-image: linear-gradient(to right, $limeGreen, $brightCyan);
+  border: 0;
+  border-radius: 50px;
+  cursor: pointer;
+  color: $white;
+  font-weight: 400;
+  font-size: $font-sm;
+  transition: opacity 300ms ease-in-out;
+  overflow: hidden; 
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.25);
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+*/
+$easytoreadcolor: #fbf5e6;
+$papercolor: #fbfbf8;
+/* Other white colors: https://encycolorpedia.com/fdf5e8 */
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: left;
+  margin-top: .5em;
+
+}
+
+.flex-container>div {
+  margin-right: .5em;
+}
+
+body {
+  background-color: $easytoreadcolor;
+  font-family: Arial
+}
+h1,h1+h5,h2+h5,h6 {text-align: center;}
+h2 {
+  @extend h1;
+  font-size: 1.5em;
+  font-weight: bold;
+  
+}
+summary {
+  @extend h2;
+  text-align: left;
+  transition: 0.4s;
+}
+
+ul {list-style-type: none;
+  padding-left: 0 
+}
+
+a:link {
+  color: blue;
+}
+a:visited {
+  color: blue;
+}
+a:hover {
+  color: green;
+}
+a:active {
+  color: yellow;
+}
+
+.plus_button {
+  cursor: pointer;
+  // color: red; //used to verify where this class is called
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  // border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: smaller;
+
+  /* Position the tooltip */
+  position: absolute;
+  top: -20px; left: 20px;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+
+/* Style the buttons that are used to open and close the accordion panel */
+
+.TODO {
+  color: red
+} 

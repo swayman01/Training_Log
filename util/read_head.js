@@ -6,9 +6,9 @@ const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const getFile = global_constants.getFile
 console.log('loaded read_head.js', et(start_time))
-var head_start = './static/html_inputs/head_start.html'
-var css_input = './static/stylesheets/style.css'
-var head_close = './static/html_inputs/head_close.html'
+const head_start = './static/html_inputs/head_start.html'
+const css_input = './static/stylesheets/Training_log.css'
+const head_close = './static/html_inputs/head_close.html'
 var results = []
 
 const f1 = getFile(head_start)

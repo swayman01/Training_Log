@@ -1,16 +1,15 @@
 // Reference: https://github.com/tguichaoua/promised-sqlite3
 const base_dir = '/Users/swayman/Documents/Yoga_Training_Log/Training_Log_App'
-const global_constants = require('./../util/global_constants')
+const global_constants = require(base_dir + '/util/global_constants')
 var DEBUG = global_constants.DEBUG
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 console.log('loaded home_get', et(start_time))
-DEBUG = true
 const express = require('express');
 const router = express.Router();
 router.get('/', (req, res, next) => {
     var DEBUG = false
-    if (DEBUG) console.log('15 home_get', et(start_time))
+    if (DEBUG) console.log('12 home_get', et(start_time))
     var join_categories_to_workouts = `
         SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
         workout_url, date_array, toRepeat, workout_length, workout_comment, workouts.id
@@ -33,9 +32,9 @@ router.get('/', (req, res, next) => {
     async function write_html(workout_array) {
         var last_category = -1 // Flag to show that we are on the last category
         if (workout_array.length>0) {
-            if (DEBUG) {console.log('36 in write_html: ', workout_array[0]['workout_name'], et(start_time))}
+            if (DEBUG) {console.log('56 in write_html: ', workout_array[0]['workout_name'], et(start_time))}
             }
-        else {console.log('38 in write_html workout_array: ', workout_array, et(start_time))}
+        else {console.log('37 in write_html workout_array: ', workout_array, et(start_time))}
         if (DEBUG) console.log('39 in write_html: ', et(start_time))
         for (let i = 0; i < workout_array.length; i++) {
             // Check for end of a category
@@ -50,15 +49,15 @@ router.get('/', (req, res, next) => {
         }
         if (workout_array.length > 0) {
             write_details_end_html()
-            if (DEBUG) console.log('53 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 15), et(start_time))
+            if (DEBUG) console.log('52 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 15), et(start_time))
             if (typeof workouts_htmlGLOBAL === 'undefined') {} else {
                 if (workouts_htmlGLOBAL.substring(0, 15) == '[object Object]') {
                     workouts_htmlGLOBAL = workouts_htmlGLOBAL.substring(16)
                 }
             }
         }
-        if (DEBUG) console.log('60 write_html (res stuff here) ', workouts_htmlGLOBAL.substring(0,20), et(start_time))
-            res.end( exported_head.training_log_head_html + workouts_htmlGLOBAL); // Error [ERR_STREAM_WRITE_AFTER_END]: write after end
+        if (DEBUG) console.log('59 write_html (res stuff here) ', workouts_htmlGLOBAL.substring(0,20), et(start_time))
+            res.end( exported_head.training_log_head_html + workouts_htmlGLOBAL);
     }
 
     function write_details_end_html() {
@@ -86,11 +85,14 @@ router.get('/', (req, res, next) => {
     function write_workouts(workout_row) {
         var category_name = workout_row.category_name
         var add_date = `
-            <form action="/modify_workout" method="POST">
-                <input type="hidden" name="name" id="name" autocomplete="false" value=${workout_row.id}>
-                <input type="hidden"  name="category_name" id="category_name" autocomplete="false" type="text" value="${category_name}">
-                <button type="submit" class="block">+</button>
-            </form> 
+        <form action="/modify_workout" method="POST">
+            <input type="hidden" name="name" id="name" autocomplete="false" value=${workout_row.id}>
+            <input type="hidden"  name="category_name" id="category_name" autocomplete="false" type="text" value="${category_name}">
+            <span class="plus_button tooltip">
+                <span class="tooltiptext">Click to Add or Edit Workouts</span>
+                <button type="submit" class="block button plus_button">+</button>
+            </span>
+        </form> 
             `
         strong_a = ' '
         strong_b = ' '
@@ -100,7 +102,7 @@ router.get('/', (req, res, next) => {
         }
         workout = `
             <li id="wo_${workout_row.id}" "class="workout" >
-            <div class="flex-container" "push_button">
+            <div class="flex-container">
                 <div>
                 ${add_date}
                 </div>
@@ -121,7 +123,7 @@ router.get('/', (req, res, next) => {
 
     async function init() {
         try {
-            if (DEBUG) console.log('124 home_get db', db, et(start_time))
+            if (DEBUG) console.log('126 home_get db', db, et(start_time))
             await db.open('./db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
             workout_array = await db.all(join_categories_to_workouts, [], (err, rows) => {
                if(err) {console.log('*** Error in db.open: ', err)}      
@@ -129,12 +131,11 @@ router.get('/', (req, res, next) => {
             await write_html(workout_array)
             db.close()
         } catch (err) {
-            console.log('***132 Promise error in home_get***', err, et(start_time))
+            console.log('*** Promise error in home_get***', err, et(start_time))
         }
     }
 
     init();
-    if (DEBUG) console.log('137 home_get after init()', et(start_time))
-    // res.end(exported_head.training_log_head_html + workouts_htmlGLOBAL);
+    if (DEBUG) console.log('139 home_get after init()', et(start_time))
 })
 module.exports = router;

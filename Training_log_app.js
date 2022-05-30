@@ -11,11 +11,11 @@
 // Safe backups are in Yoga_Training_Log folder
 // Flow
 // Training_log.js
-//  retrieve_workouts.js
 //   home_get.js
 //     modify_workout.js
-//        add_workout, 
-//        edit_workout , or
+//        add_date.html
+//        add_workout,rs
+//        edit_workout, or
 //        edit_categories
 //     post_update_workout.js
 //     new_workout_date
