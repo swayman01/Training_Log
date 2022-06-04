@@ -83,7 +83,6 @@ router.post('/update_db_workout', (req, res) => {
     }
 
     if (workout_actionGLOBAL == 'Edit') {
-      console.log('85 db1.run Update in Edit', et(start_time))
       last_dateSTR = date_array.split(',')[0]
       last_dateOBJ = new Date(last_dateSTR)
       last_date = last_dateOBJ.getTime()
@@ -100,7 +99,7 @@ router.post('/update_db_workout', (req, res) => {
       if (err) {
         console.log('100 update error in EDIT post_update_db_workout: ', err, et(start_time))
       } else {
-        console.log('102 callback in EDIT', et(start_time))
+        if (DEBUG) console.log('102 callback in EDIT', et(start_time))
       }
     }) // end db1.run(UPDATE)
       if (DEBUG) console.log('105 res.redirect from post_update_workout ', et(start_time))

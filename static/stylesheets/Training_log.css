@@ -1,46 +1,59 @@
-/* Reference: https://www.youtube.com/watch?v=aoQ6S1a32j8
-/* TODO
-Change color for Repeat = N
-Example from Jessica Chan class
-a,
-a:visited,
-a:hover {
-  text-decoration: none;
-}
-
-button,
-.button {
-  position: relative;
-  display: inline-block;
-  padding: 0.875rem 2.1875rem;
-  background-image: linear-gradient(to right, $limeGreen, $brightCyan);
-  border: 0;
-  border-radius: 50px;
-  cursor: pointer;
-  color: $white;
-  font-weight: 400;
-  font-size: $font-sm;
-  transition: opacity 300ms ease-in-out;
-  overflow: hidden; 
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(255, 255, 255, 0.25);
-    opacity: 0;
-    transition: opacity 150ms ease-in-out;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
-}
+/* Original Scheme 
+$easytoreadcolor: #fbf5e6;
+$headingcolor: #00303F;
+$fontcolor: blue;
+$activecolor: yellow;
+$hovercolor: green; 
 */
 /* Other white colors: https://encycolorpedia.com/fdf5e8 */
+/* https://www.canva.com/learn/website-color-schemes/ Earthy and Fresh #1 */
+/* https://www.canva.com/learn/website-color-schemes/ Earthy and Fresh #2 */
+/* https://www.susannerieker.com/10-color-schemes-for-your-wellness-or-yoga-website/ 
+  Power Yoga*/
+body {
+  background-color: #fbfbf8;
+  font-family: Arial;
+  color: #AF473C;
+}
+
+h1, h2, summary, h1 + h5, h2 + h5, summary + h5, h2 + h5, summary + h5, h6 {
+  text-align: center;
+  color: #3C3C3C;
+}
+
+h2, summary {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+summary {
+  text-align: left;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  color: #3C3C3C;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+a:link {
+  color: #AF473C;
+}
+
+a:visited {
+  color: #AF473C;
+}
+
+a:hover {
+  color: #626E60;
+}
+
+a:active {
+  color: #945D60;
+}
+
 .flex-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -57,45 +70,18 @@ button,
   margin-right: .5em;
 }
 
-body {
-  background-color: #fbf5e6;
-  font-family: Arial;
+.workout-form:active {
+  color: #945D60;
 }
 
-h1, h2, summary, h1 + h5, h2 + h5, summary + h5, h2 + h5, summary + h5, h6 {
-  text-align: center;
+.workout-form:hover {
+  color: #626E60;
 }
 
-h2, summary {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-summary {
-  text-align: left;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-a:link {
-  color: blue;
-}
-
-a:visited {
-  color: blue;
-}
-
-a:hover {
-  color: green;
-}
-
-a:active {
-  color: yellow;
+.no_repeat {
+  color: #58241e;
+  font-weight: 100;
+  font-size: smaller;
 }
 
 .plus_button {
@@ -125,10 +111,5 @@ a:active {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-}
-
-/* Style the buttons that are used to open and close the accordion panel */
-.TODO {
-  color: red;
 }
 /*# sourceMappingURL=Training_log.css.map */

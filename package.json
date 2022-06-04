@@ -1,0 +1,33 @@
+{
+    "name": "training_log",
+    "version": "1.0.0",
+    "description": "A html listing of workouts, grouped by user-defined categories. Fields in include the url, dates, length, to repeat, and comment",
+    "main": "Training_log_app.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/swayman01/Training_Log"
+      },
+    "license": "MIT License",
+    "private": true,
+    "private_note": "true-change-to-false and remove quotes when ready to publish",
+    "Reference1 (DELETE)": "https://docs.npmjs.com/cli/v8/configuring-npm/package-json",
+    "Reference2 (DELETE)": "https://codesweetly.com/package-json-file-explained/",
+    "keywords": [
+        "Promises",
+        "promised-sqlite3",
+        "sqlite3",
+        "workouts"
+    ],
+    "author": {
+        "name": "Steve Wayman",
+        "email": "steve.wayman@proton.me"
+      },
+      "dependencies": {
+        "sqlite3": ">=3.32.3",
+        "promised-sqlite3": "latest"
+      },
+    "engines": {
+        "node": ">= 14.17.4",
+        "npm": ">= 7.20.5"
+    }
+}

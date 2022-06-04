@@ -3,10 +3,8 @@
 // Express tutorial https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/skeleton_website
 // http://expressjs.com/en/starter/static-files.html
 
-// TODO: look up guide in https://stackoverflow.com/questions/59898760/assigning-a-promise-result-to-a-variable-in-nodejs
- // TODO: fix date sort for 2 digit months, 2 digit year
+// TODO: fix date sort for 2 digit months, 2 digit year
 // TODO: when there are more than 5 dates, display the first 3 and plus x more
-// TODO: tooltips
 // TODO: Check for duplicate workout names when adding a workout and category
 // Safe backups are in Yoga_Training_Log folder
 // Flow
@@ -20,14 +18,14 @@
 //     post_update_workout.js
 //     new_workout_date
 //        update_db_date
-//     TODO: check home_get, home_post Continue from here
+//     TODO: check read_head, home_post Continue from here
 //       post_edit_categories,post_edit_workouts?
 
 const express = require('express')
 const app = express()
 const path = require('path')
 const home_get = require('./routes/home_get')
-const home_post = require('./routes/home_post')
+// const home_post = require('./routes/home_post') // commented out 6/3/22
 const post_update_db_workout = require('./routes/post_update_db_workout')
 const new_workout_date = require('./routes/new_workout_date')
 const add_workout = require('./routes/add_workout')
@@ -45,7 +43,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 //TODO See which of these are needed
 app.use('/', home_get)
-app.use('/', home_post)
+// app.use('/', home_post) // commented 6/3/22
 app.use('/', modify_workout)
 app.use('/', new_workout_date)
 app.use('/', add_workout)

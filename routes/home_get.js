@@ -1,4 +1,6 @@
+// This file retrieves the data from the database, completes the html file and sends it to the server
 // Reference: https://github.com/tguichaoua/promised-sqlite3
+// TODO Delete unused classes see debug .txt Training_log, also workout is not used
 const base_dir = '/Users/swayman/Documents/Yoga_Training_Log/Training_Log_App'
 const global_constants = require(base_dir + '/util/global_constants')
 var DEBUG = global_constants.DEBUG
@@ -9,7 +11,7 @@ const express = require('express');
 const router = express.Router();
 router.get('/', (req, res, next) => {
     var DEBUG = false
-    if (DEBUG) console.log('12 home_get', et(start_time))
+    if (DEBUG) console.log('14 home_get', et(start_time))
     var join_categories_to_workouts = `
         SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
         workout_url, date_array, toRepeat, workout_length, workout_comment, workouts.id
@@ -32,10 +34,10 @@ router.get('/', (req, res, next) => {
     async function write_html(workout_array) {
         var last_category = -1 // Flag to show that we are on the last category
         if (workout_array.length>0) {
-            if (DEBUG) {console.log('56 in write_html: ', workout_array[0]['workout_name'], et(start_time))}
+            if (DEBUG) {console.log('37 in write_html: ', workout_array[0]['workout_name'], et(start_time))}
             }
-        else {console.log('37 in write_html workout_array: ', workout_array, et(start_time))}
-        if (DEBUG) console.log('39 in write_html: ', et(start_time))
+        else {console.log('39 in write_html workout_array: ', workout_array, et(start_time))}
+        if (DEBUG) console.log('40 in write_html: ', et(start_time))
         for (let i = 0; i < workout_array.length; i++) {
             // Check for end of a category
             if (last_category != workout_array[i].category_position) {
@@ -49,14 +51,14 @@ router.get('/', (req, res, next) => {
         }
         if (workout_array.length > 0) {
             write_details_end_html()
-            if (DEBUG) console.log('52 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 15), et(start_time))
+            if (DEBUG) console.log('54 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 15), et(start_time))
             if (typeof workouts_htmlGLOBAL === 'undefined') {} else {
                 if (workouts_htmlGLOBAL.substring(0, 15) == '[object Object]') {
                     workouts_htmlGLOBAL = workouts_htmlGLOBAL.substring(16)
                 }
             }
         }
-        if (DEBUG) console.log('59 write_html (res stuff here) ', workouts_htmlGLOBAL.substring(0,20), et(start_time))
+        if (DEBUG) console.log('61 write_html (res stuff here) ', workouts_htmlGLOBAL.substring(0,20), et(start_time))
             res.end( exported_head.training_log_head_html + workouts_htmlGLOBAL);
     }
 
@@ -64,7 +66,7 @@ router.get('/', (req, res, next) => {
         workouts_htmlGLOBAL
         if (workouts_htmlGLOBAL > 0) {
             workouts_htmlGLOBAL == '</ul></details>'
-            if (DEBUG) console.log('68 workouts_htmlGLOBAL', workouts_htmlGLOBAL)
+            if (DEBUG) console.log('69 workouts_htmlGLOBAL', workouts_htmlGLOBAL)
         } else {
             workouts_htmlGLOBAL = workouts_htmlGLOBAL + '</ul></details>'
         }
@@ -84,6 +86,16 @@ router.get('/', (req, res, next) => {
 
     function write_workouts(workout_row) {
         var category_name = workout_row.category_name
+        strong_a = ' '
+        strong_b = ' '
+        if ((workout_row.toRepeat == 'Y') || (workout_row.toRepeat == '1')) {
+            strong_a = '<strong>'
+            strong_b = '</strong>'
+            div_1 = '<div class="flex-container workout-form">'
+        }
+        else {
+            div_1 = '<div class="flex-container workout-form no_repeat">'
+        }
         var add_date = `
         <form action="/modify_workout" method="POST">
             <input type="hidden" name="name" id="name" autocomplete="false" value=${workout_row.id}>
@@ -93,16 +105,11 @@ router.get('/', (req, res, next) => {
                 <button type="submit" class="block button plus_button">+</button>
             </span>
         </form> 
-            `
-        strong_a = ' '
-        strong_b = ' '
-        if ((workout_row.toRepeat == 'Y') || (workout_row.toRepeat == '1')) {
-            strong_a = '<strong>'
-            strong_b = '</strong>'
-        }
+        `
+
         workout = `
             <li id="wo_${workout_row.id}" "class="workout" >
-            <div class="flex-container">
+            ${div_1}
                 <div>
                 ${add_date}
                 </div>
@@ -111,7 +118,7 @@ router.get('/', (req, res, next) => {
                     target="_blank" rel="noopener noreferrer" 
                     class="link">${strong_a}${workout_row.workout_name}${strong_b}</a>
                 </div>  
-                <div class="length">${workout_row.workout_length}</div>
+                <div class="workout-form">${workout_row.workout_length}</div>
                 <div class="separator">-</div>
                 <div class="dates">${workout_row.date_array}</div>
                 <div class="comments">${workout_row.workout_comment}</div>

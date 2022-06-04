@@ -1,94 +1,110 @@
-//# sourceMappingURL=http://Users/swayman/Documents/Classes/NodeJs/Practice/Training_log_practice/static/stylesheets/Training_log_practice.css</pre>
-/* Reference: https://www.youtube.com/watch?v=aoQ6S1a32j8
-/* TODO
-Change color for Repeat = N
-Example from Jessica Chan class
-a,
-a:visited,
-a:hover {
-  text-decoration: none;
-}
-
-button,
-.button {
-  position: relative;
-  display: inline-block;
-  padding: 0.875rem 2.1875rem;
-  background-image: linear-gradient(to right, $limeGreen, $brightCyan);
-  border: 0;
-  border-radius: 50px;
-  cursor: pointer;
-  color: $white;
-  font-weight: 400;
-  font-size: $font-sm;
-  transition: opacity 300ms ease-in-out;
-  overflow: hidden; 
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(255, 255, 255, 0.25);
-    opacity: 0;
-    transition: opacity 150ms ease-in-out;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
-}
-*/
+/* Original Scheme 
 $easytoreadcolor: #fbf5e6;
-$papercolor: #fbfbf8;
+$headingcolor: #00303F;
+$fontcolor: blue;
+$activecolor: yellow;
+$hovercolor: green; 
+*/
+
+// $papercolor: #fbfbf8; // not used
 /* Other white colors: https://encycolorpedia.com/fdf5e8 */
+
+$Teracotta: #945D60;
+$Herb: #626E60;
+$Chile: #AF473C;
+$Charcoal: #3C3C3C;
+/* https://www.canva.com/learn/website-color-schemes/ Earthy and Fresh #1 */
+$papercolor: #fbfbf8;
+$headingcolor: $Charcoal;
+$fontcolor: $Chile;
+$activecolor: $Teracotta;
+$hovercolor: $Herb;
+
+/* https://www.canva.com/learn/website-color-schemes/ Earthy and Fresh #2 */
+// $papercolor: #fbfbf8;
+// $headingcolor: $Charcoal;
+// $fontcolor: $Herb;
+// $activecolor:  $Teracotta;
+// $hovercolor: $Chile;
+
+/* https://www.susannerieker.com/10-color-schemes-for-your-wellness-or-yoga-website/ 
+  Power Yoga*/
+// I prefer Earthy and Fresh #1 to this
+// $papercolor: #F4F5F6;
+// $headingcolor: #221F20;
+// $fontcolor: #B82677;
+// $activecolor:  #A9D2CC;
+// $hovercolor: #EC7545;
+
+$weakfontcolor: $fontcolor/2; 
+
+body {
+  background-color: $papercolor;
+  font-family: Arial;
+  color: $fontcolor;
+}
+
+h1,h1+h5,h2+h5,h6 {
+  text-align: center;
+  color: $headingcolor;
+}
+
+h2 {
+  @extend h1;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+summary {
+  @extend h2;
+  text-align: left;
+  transition: 0.4s;
+  color: $headingcolor
+}
+
+ul {list-style-type: none;
+  padding-left: 0;
+}
+
+a:link {
+  color: $fontcolor;
+}
+
+a:visited {
+  color: $fontcolor;
+}
+
+a:hover {
+  color: $hovercolor;
+}
+
+a:active {
+  color: $activecolor;
+}
 
 .flex-container {
   display: flex;
   flex-wrap: wrap;
   align-items: left;
   margin-top: .5em;
-
 }
 
 .flex-container>div {
   margin-right: .5em;
 }
 
-body {
-  background-color: $easytoreadcolor;
-  font-family: Arial
-}
-h1,h1+h5,h2+h5,h6 {text-align: center;}
-h2 {
-  @extend h1;
-  font-size: 1.5em;
-  font-weight: bold;
-  
-}
-summary {
-  @extend h2;
-  text-align: left;
-  transition: 0.4s;
+.workout-form:active {
+  color: $activecolor;
 }
 
-ul {list-style-type: none;
-  padding-left: 0 
+.workout-form:hover {
+  color: $hovercolor;
 }
 
-a:link {
-  color: blue;
-}
-a:visited {
-  color: blue;
-}
-a:hover {
-  color: green;
-}
-a:active {
-  color: yellow;
+.no_repeat { //Fix this and hover properties
+  color: $weakfontcolor;
+  font-weight:100;
+  font-size:smaller;
 }
 
 .plus_button {
@@ -116,16 +132,8 @@ a:active {
   position: absolute;
   top: -20px; left: 20px;
   z-index: 1;
-}
+} 
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-
-
-
-/* Style the buttons that are used to open and close the accordion panel */
-
-.TODO {
-  color: red
-} 
