@@ -1,7 +1,8 @@
 // This module reads the html header file, css file, and closure file to create the
 // beginning of the html file
-const global_constants = require('./global_constants')
-const base_dir = global_constants.base_dir
+path = require('path')
+const base_dir = path.dirname(path.resolve(__dirname))
+const global_constants = require(base_dir + '/util/global_constants')
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const getFile = global_constants.getFile

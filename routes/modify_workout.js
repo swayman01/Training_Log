@@ -2,14 +2,14 @@
 // It creates the screen that allows the user to select the next action.
 const express = require('express');
 const router = express.Router();
-const global_constants = require('./../util/global_constants')
-const base_dir = global_constants.base_dir
+const path = require('path')
+const base_dir = path.dirname(path.resolve(__dirname))
+const global_constants = require(base_dir + '/util/global_constants')
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
-const exported_variables = require('./../util/read_head');
+const exported_variables = require(base_dir + '/util/read_head');
 var DEBUG = global_constants.DEBUG
 // DEBUG = true
-const INTERVAL_TIME = global_constants.INTERVAL_TIME
 const db = global_constants.db
 console.log('loaded modify_workout.js', et(start_time)) 
 

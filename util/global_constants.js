@@ -1,4 +1,6 @@
-const base_dir = '/Users/swayman/Documents/Yoga_Training_Log/Training_Log_App'
+// This file is a holding place for constants used across files
+const path = require('path')
+base_dir = path.dirname(path.resolve(__dirname))
 const { PromisedDatabase } = require("promised-sqlite3"); // import the class
 const sqlite3 = require('sqlite3').verbose();
 const db = new PromisedDatabase(); // create a instance of PromisedDatabase

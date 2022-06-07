@@ -1,8 +1,9 @@
 module.exports = function (workout_id, new_date, date_arraySTR) {
   // This function updates the date_array and last_date
-  const global_constants = require('./global_constants')
+  const path = require('path')
+  const base_dir = path.dirname(path.resolve(__dirname))
+  const global_constants = require(base_dir + '/util/global_constants')
   var DEBUG = global_constants.DEBUG
-  const base_dir = global_constants.base_dir
   const start_time = Date.now()
   const et = require(base_dir + '/util/elapsed_time')
   console.log('loaded update_dates', et(start_time))

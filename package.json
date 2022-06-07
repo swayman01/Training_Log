@@ -10,8 +10,6 @@
     "license": "MIT License",
     "private": true,
     "private_note": "true-change-to-false and remove quotes when ready to publish",
-    "Reference1 (DELETE)": "https://docs.npmjs.com/cli/v8/configuring-npm/package-json",
-    "Reference2 (DELETE)": "https://codesweetly.com/package-json-file-explained/",
     "keywords": [
         "Promises",
         "promised-sqlite3",
@@ -23,8 +21,11 @@
         "email": "steve.wayman@proton.me"
       },
       "dependencies": {
+        "express": "latest",  
         "sqlite3": ">=3.32.3",
-        "promised-sqlite3": "latest"
+        "promised-sqlite3": "latest",
+        "date-and-time": "latest"
+        
       },
     "engines": {
         "node": ">= 14.17.4",

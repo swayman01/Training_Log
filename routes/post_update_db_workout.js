@@ -5,13 +5,14 @@ function getMaxOfArray(numArray) {
 function getMinOfArray(numArray) {
   return Math.min.apply(null, numArray);
 }
+const path = require('path')
+const base_dir = path.dirname(path.resolve(__dirname))
 const express = require('express');
 const app = express()
 const router = express.Router();
 const RESERVED_KEY = 'x_new_category_x'
 const RESERVED_NAME = 'x_new_category_name_x'
 const global_constants = require('./../util/global_constants')
-const base_dir = global_constants.base_dir
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const edit_categories_globals = require('./../routes/edit_categories')

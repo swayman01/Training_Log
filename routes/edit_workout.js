@@ -1,12 +1,13 @@
 // This file posts the edit workout screen
+const path = require('path')
+const base_dir = path.dirname(path.resolve(__dirname))
 const express = require('express');
 const router = express.Router();
-const global_constants = require('./../util/global_constants')
-const base_dir = global_constants.base_dir
+const global_constants = require(base_dir + '/util/global_constants')
 const start_time = Date.now()
-const et = require(base_dir + '/util/elapsed_time')// const workoutsHTML = require('./../util/retrieve_workouts.js')
-const exported_variables = require('./../util/read_head');
-const modify_workout_variables = require('./../routes/modify_workout')
+const et = require(base_dir + '/util/elapsed_time')
+const exported_variables = require(base_dir + '/util/read_head');
+const modify_workout_variables = require(base_dir + '/routes/modify_workout')
 var DEBUG = global_constants.DEBUG
 if (DEBUG) console.log('loaded edit_workout.js', et(start_time))
 

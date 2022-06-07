@@ -1,16 +1,17 @@
 // This file retrieves the data from the database, completes the html file and sends it to the server
 // Reference: https://github.com/tguichaoua/promised-sqlite3
 // TODO Delete unused classes see debug .txt Training_log, also workout is not used
-const base_dir = '/Users/swayman/Documents/Yoga_Training_Log/Training_Log_App'
+const path = require('path')
+const base_dir = path.dirname(path.resolve(__dirname))
 const global_constants = require(base_dir + '/util/global_constants')
-var DEBUG = global_constants.DEBUG
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 console.log('loaded home_get', et(start_time))
 const express = require('express');
 const router = express.Router();
 router.get('/', (req, res, next) => {
-    var DEBUG = false
+    var DEBUG = global_constants.DEBUG
+    DEBUG = false
     if (DEBUG) console.log('14 home_get', et(start_time))
     var join_categories_to_workouts = `
         SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
@@ -25,9 +26,9 @@ router.get('/', (req, res, next) => {
     const express = require('express');
     const app = express();
     const db = global_constants.db
-    const exported_head = require("./../util/read_head")
-    const modify_workout = require('./../routes/modify_workout')
-    app.use('/../routes', modify_workout)
+    const exported_head = require(base_dir + '/util/read_head')
+    const modify_workout = require(base_dir + '/routes/modify_workout')
+    app.use(base_dir + '/routes', modify_workout)
     var workout_array = []
     var workouts_htmlGLOBAL = ''
 
