@@ -21,21 +21,20 @@ router.post('/edit_categories', (req, res) => {
   const db = global_constants.db
   var checked_category_array = []
   var form_entry_html = ''
-  if (DEBUG) console.log('19 router.post(/edit_categories', et(start_time))
+  if (DEBUG) console.log('24 router.post(/edit_categories', et(start_time))
   var edit_categories_html = exported_variables.training_log_head_html + `
       <h2>${workout_actionGLOBAL} for Workout ${selected_workout.workout_name}</h2>
       <form action="/update_db_workout" method="POST">
     `
 
   async function edit_categories(category_array) {
-    if (DEBUG) console.log('26 in edit_categories', category_array[0], et(start_time))
+    if (DEBUG) console.log('31 in edit_categories', category_array[0], et(start_time))
     var toRepeat = 'N'
     if ((selected_workout.toRepeat == 1) || (selected_workout.toRepeat == 'Y')) toRepeat = 'Y'
     var category_name = modify_workout_variables.category_name
     var workout_actionGLOBAL = 'Edit Categories'
     module.exports.workout_actionGLOBAL = workout_actionGLOBAL
     modify_workout_variables.workout_actionGLOBAL = workout_actionGLOBAL
-  // TODO try label {horizontal-align: right; in css}
     add_new_category_label = 'Add New Category'
     var end_edit_categories_html = `
       <input type="checkbox" id="new_category" name="x_new_category_x"  >
@@ -55,7 +54,7 @@ router.post('/edit_categories', (req, res) => {
       category_position = category_array[i].category_position
       isClosed = category_array[i].isClosed
       checked_category_flag = 0
-      if (DEBUG) console.log('53 in edit_categories', i, category_array[i], et(start_time))
+      if (DEBUG) console.log('57 in edit_categories', i, category_array[i], et(start_time))
       // ref: https://www.javascripttutorial.net/javascript-dom/javascript-checkbox/
       for (let j = 0; j < checked_category_array.length; j++) {
         if (checked_category_array[j].category_name == category_name) {
@@ -123,15 +122,15 @@ router.post('/edit_categories', (req, res) => {
       `
     var category_array = []
     try {
-      if (DEBUG) console.log('121 edit_categories db', db, et(start_time))
+      if (DEBUG) console.log('125 edit_categories db', db, et(start_time))
       db_open = await db.open('./db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
-      if (DEBUG)  console.log('123 edit_categories db_open', db_open, et(start_time))
+      if (DEBUG)  console.log('127 edit_categories db_open', db_open, et(start_time))
       category_array = await db.all(retrieve_categories, [], (err, rows) => {
         category_array = rows
         // TODO eliminate one of the two lines below
         module.exports.category_arrayGLOBAL = category_array
         module.exports.category_array = category_array
-        if (DEBUG) console.log('129 router.post in edit_categories  after run_edit_categories()', et(start_time))
+        if (DEBUG) console.log('133 router.post in edit_categories  after run_edit_categories()', et(start_time))
         db.close()
       })
       checked_category_array = await db.all(assigned_categories, [], (err, rows) => {
@@ -140,12 +139,12 @@ router.post('/edit_categories', (req, res) => {
           console.log('*** Error finding assigned categories in edit_categories', et(start_time), err)
         }
       })
-      if (DEBUG) console.log('138 checked_category_array', checked_category_array, et(start_time))
+      if (DEBUG) console.log('142 checked_category_array', checked_category_array, et(start_time))
       edit_categoriesPROMISE = await edit_categories(category_array, checked_category_array)
-      if (DEBUG) console.log('140 checked_category_array', checked_category_array, et(start_time))
+      if (DEBUG) console.log('166 checked_category_array', checked_category_array, et(start_time))
       // module.exports.category_arrayGLOBAL = category_array
       module.exports.category_array = category_array
-      if (DEBUG) console.log('143 edit_categoriesPROMISE', edit_categoriesPROMISE, et(start_time))
+      if (DEBUG) console.log('147 edit_categoriesPROMISE', edit_categoriesPROMISE, et(start_time))
     } catch (e) {
       console.log('***Promise error edit_categories:)', e)
     }

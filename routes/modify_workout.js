@@ -18,7 +18,7 @@ router.post('/modify_workout', (req, res) => {
   var category_name = req.body.category_name
   module.exports.category_name = category_name
   today = new Date()
-  new_date = date_format.format(today,'MM/DD/YY')
+  new_date = date_format.format(today, 'MM/DD/YY')
   workout_actionGLOBAL = 'Modify'
 
  var select_workout = `
@@ -29,7 +29,7 @@ router.post('/modify_workout', (req, res) => {
     `
    
   async function add_date_html(workout_name) {
-    if (DEBUG) console.log('30 modify_workout add_date_html', workout_name, et(start_time))
+    if (DEBUG) console.log('32 modify_workout add_date_html', workout_name, et(start_time))
     var add_date_html = exported_variables.training_log_head_html + `
         <h2>${workout_actionGLOBAL} ${workout_name}</h2>
         <form action="/new_workout_date" method="POST">
@@ -82,11 +82,11 @@ router.post('/modify_workout', (req, res) => {
     if (DEBUG) console.log('81 db1 in modify_workout', db1, et(start_time))
     var workout_name = ''
     x = db1.open
-    if (DEBUG) console.log('84 x ', x, et(start_time))
+    if (DEBUG) console.log('85 x ', x, et(start_time))
     x = db1.get(select_workout, [], (err, row) => {
-      if (DEBUG) console.log('86 workout_name', row.workout_name, et(start_time))
+      if (DEBUG) console.log('87 workout_name', row.workout_name, et(start_time))
       selected_workout = row
-      if (DEBUG) console.log('88 x ', x, et(start_time))
+      if (DEBUG) console.log('89 x ', x, et(start_time))
       workout_name = selected_workout.workout_name
       db.close
       module.exports.selected_workout = selected_workout

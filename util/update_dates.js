@@ -29,14 +29,14 @@ module.exports = function (workout_id, new_date, date_arraySTR) {
     var db1 = new sqlite3.Database(base_dir + '/db/training_log.db', (err) => {
       if (err) {
         console.log('Could not connect to database:', err)
-      } else if (DEBUG) console.log('31 Connected to database in update_dates', et(start_time))
+      } else if (DEBUG) console.log('32 Connected to database in update_dates', et(start_time))
     })
   db1.open
   var db_return = db1.run(update_command, (err) => {
-    if (DEBUG) console.log('35 db_return in update_dates.js', db_return)
+    if (DEBUG) console.log('36 db_return in update_dates.js', db_return)
     if (err) {
-      console.log('*** 37 in updated_dates update_command error', err)
+      console.log('*** 38 in updated_dates update_command error', err)
     }
-    if (DEBUG) console.log('39 update_command (new_date_array is updated): ', et(start_time)) //new_date_array is updated
+    if (DEBUG) console.log('40 update_command (new_date_array is updated): ', et(start_time)) //new_date_array is updated
   })
 }

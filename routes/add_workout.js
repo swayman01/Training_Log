@@ -29,7 +29,7 @@ router.post('/add_workout', (req, res) => {
   <h2>${workout_actionGLOBAL} Workout </h2>
     <form action="/add_workout" method="POST">
       <label for="category_name">Category Name:</label><br>
-      <input type="text" id="category_name" name="category_name" name="category_name" value="${category_name}"><br>
+      <input type="text" id="category_name" name="category_name" value="${category_name}"><br>
 
       <label for="workout__name">Workout Name:</label><br>
       <input type="text" id="workout_name" name="workout_name" ><br>
@@ -41,7 +41,7 @@ router.post('/add_workout', (req, res) => {
       <input type="text" id="workout_date" name="workout_date" value="${new_date}"><br>
       
       <label for="workout_length">Workout Length (optional) :</label><br>
-      <input type="text" id="workout_length" name="workout_length" ><br>
+      <input type="text" id="workout_length" name="workout_length" value=" "><br>
       
       <label for="toRepeat">Repeat Workout:</label><br>
       <input type="text" id="toRepeat" name="toRepeat" value="${toRepeat}"><br>
@@ -54,7 +54,7 @@ router.post('/add_workout', (req, res) => {
   </body>
   </html>
 `
-if(DEBUG) console.log('55 res.end(add_workout_html) in add_workout', et(start_time))
+if(DEBUG) console.log('57 res.end(add_workout_html) in add_workout', et(start_time))
 res.end(add_workout_html)
 })
 

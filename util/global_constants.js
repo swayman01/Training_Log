@@ -6,9 +6,9 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new PromisedDatabase(); // create a instance of PromisedDatabase
     // note: at this state, the wrapped sqlite3.Database object is not created.
 date_format = require('date-and-time')
-const INTERVAL_TIME = 500 // 500 works, 200 doesn't
-module.exports.INTERVAL_TIME = INTERVAL_TIME
-module.exports.base_dir = base_dir
+// const INTERVAL_TIME = 500 // 500 works, 200 doesn't
+// module.exports.INTERVAL_TIME = INTERVAL_TIME
+// module.exports.base_dir = base_dir
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const DEBUG = false;
@@ -27,7 +27,6 @@ const {
 } = require('fs')
 const getFile = (fileName) => {
   // This function is used to open multiple files asynchronous mode for using them
-  // See Training_Log_Promise_Practice for more details
   return new Promise((resolve, reject) => {
     readFile(fileName, 'utf8', (err, data) => {
       if (err) {

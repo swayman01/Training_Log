@@ -12,7 +12,7 @@ const app = express()
 const router = express.Router();
 const RESERVED_KEY = 'x_new_category_x'
 const RESERVED_NAME = 'x_new_category_name_x'
-const global_constants = require('./../util/global_constants')
+const global_constants = require(base_dir + '/util/global_constants')
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const edit_categories_globals = require('./../routes/edit_categories')
@@ -153,8 +153,7 @@ router.post('/update_db_workout', (req, res) => {
         if (category_inputs[RESERVED_NAME] == RESERVED_NAME) {
           console.log('ERROR: ', RESERVED_NAME, 'is a reserved name, use a different category name')
         }
-        category_arrayGLOBAL = edit_categories_globals.category_arrayGLOBAL //commented out 3/31/22
-        if (DEBUG) console.log('xx172 category_arrayGLOBAL', category_arrayGLOBAL)
+        category_arrayGLOBAL = edit_categories_globals.category_arrayGLOBAL
         // if add new category and name is unique insert into categories
         category_name_exists_flag = 0
         for (let i = 0; i < category_arrayGLOBAL.length; i++) {
@@ -257,7 +256,7 @@ router.post('/update_db_workout', (req, res) => {
       db.close()
     })
     changesDICT = await process_categories(workout_array)
-    if (DEBUG) console.log('258 changesDICT', changesDICT, et(start_time))
+    if (DEBUG) console.log('259 changesDICT', changesDICT, et(start_time))
     await update_db_categories(changesDICT)
   } catch (e) {
     console.log('*** Error in Edit Categories in post_update_db_workout:)', e)
