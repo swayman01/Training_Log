@@ -16,7 +16,6 @@
 //     modify_workout.js
 //        add_date_html
 //          new_workout_date.js
-//            update_dates.js
 //        add_workout.js
 //        edit_workout.js
 //        edit_categories
