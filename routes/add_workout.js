@@ -9,14 +9,14 @@ const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const modify_workout_variables = require(base_dir + '/routes/modify_workout')
 var DEBUG = global_constants.DEBUG
-if (DEBUG) console.log('loaded add_workout.js', et(start_time))
-router.post('/', (req, res, next) => {  // This is needed to prevent multiple entries, but doesn't work
+console.log('loaded add_workout.js', et(start_time))
+router.post('/', (req, res, next) => {  // This is needed to prevent multiple entries
     // TODO lock out button while working
     res.redirect("/")
 })
 
 router.post('/add_workout', (req, res) => {
-  // TODO Add checks for undefined and duplicates
+  // TODO Add checks for undefined and duplicates, don't allow a blank name
   var new_date = req.body.workout_date
   var category_name = modify_workout_variables.category_name
   var toRepeat = 'N'

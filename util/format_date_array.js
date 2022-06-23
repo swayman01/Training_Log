@@ -1,5 +1,5 @@
 module.exports = function (workout_row) { // This file formats the date array
-    // It creates a new dictionary entry, formatted_date_array for display purposes.
+    // This creates a new dictionary entry, formatted_date_array for display purposes.
     const path = require('path')
     const base_dir = path.dirname(path.resolve(__dirname))
     const global_constants = require(base_dir + '/util/global_constants')
@@ -13,7 +13,6 @@ module.exports = function (workout_row) { // This file formats the date array
     if (date_array.length < 5) {
         for (let j = 0; j < date_array.length; j++) {
             dateOBJ = new Date(date_array[j])
-            // if (j < 10) console.log('dateOBJ', j, dateOBJ)
             if (dateOBJ == 'Invalid Date') formatted_date = "Haven't tried"
             else formatted_date = date_format.format(dateOBJ, 'MM/DD/YY')
             if (j != (date_array.length - 1)) formatted_date = formatted_date + ', '
@@ -36,6 +35,5 @@ module.exports = function (workout_row) { // This file formats the date array
             formatted_date_arraySTR = formatted_date_arraySTR + ', Total Times Workout Completed: ' + `${date_array.length}`
         }
     workout_row['formatted_date_array'] = formatted_date_arraySTR
-    // if (DEBUG) console.log('38 workout_row', workout_row.formatted_date_array)
     return workout_row['formatted_date_array']
 }

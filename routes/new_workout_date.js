@@ -43,7 +43,7 @@ router.post('/new_workout_date', (req, res) => {
     async function init_update_dates() {
       try {
         if (DEBUG) console.log('45 in update_dates', et(start_time))
-        db_open = await db.open(base_dir + '/db/practice_training_log.db')
+        db_open = await db.open(base_dir + '/db/training_log.db')
         var db_return = await db.run(update_command, (err) => {
           if (DEBUG) console.log('48 db_return in update_dates.js', db_return)
           if (err) {
@@ -57,8 +57,5 @@ router.post('/new_workout_date', (req, res) => {
       }
     }
     init_update_dates()
-
-
- 
 })
 module.exports = router;

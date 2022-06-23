@@ -24,18 +24,25 @@
 
 const express = require('express')
 const app = express()
-const home_get = require('./routes/home_get')
-const post_update_db_workout = require('./routes/post_update_db_workout')
-const new_workout_date = require('./routes/new_workout_date')
-const add_workout = require('./routes/add_workout')
-const edit_workout = require('./routes/edit_workout')
-const edit_categories = require('./routes/edit_categories')
-const modify_workout = require('./routes/modify_workout')
+const path = require('path')
+const base_dir = path.resolve(__dirname)
+module.exports = base_dir;
+const home_get = require(base_dir + '/routes/home_get')
+// const home_post = require('./routes/home_post')
+const post_update_db_workout = require(base_dir + '/routes/post_update_db_workout')
+const new_workout_date = require(base_dir + '/routes/new_workout_date')
+const add_workout = require(base_dir + '/routes/add_workout')
+const edit_workout = require(base_dir + '/routes/edit_workout')
+const edit_categories = require(base_dir + '/routes/edit_categories')
+const modify_workout = require(base_dir + '/routes/modify_workout')
+const et = require('./util/elapsed_time')
+const global_constants = require(base_dir + '/util/global_constants')
 const port = 5001
 
 app.use(express.urlencoded({
   extended: false
 }))
+
 app.use(express.json());
 app.use('/', home_get)
 app.use('/', modify_workout)
@@ -46,6 +53,6 @@ app.use('/', edit_categories)
 app.use('/', post_update_db_workout)
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port} ....`)
+  console.log(`Server is listening on port ${port}`)
 })
 module.exports = app;

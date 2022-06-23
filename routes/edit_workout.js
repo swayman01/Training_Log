@@ -9,14 +9,13 @@ const et = require(base_dir + '/util/elapsed_time')
 const exported_variables = require(base_dir + '/util/read_head');
 const modify_workout_variables = require(base_dir + '/routes/modify_workout')
 var DEBUG = global_constants.DEBUG
-if (DEBUG) console.log('loaded edit_workout.js', et(start_time))
+console.log('loaded edit_workout.js', et(start_time))
 
 router.post('/edit_workout', (req, res) => {
   // TODO Add checks for undefined
   toRepeat = 'N'
   if ((selected_workout.toRepeat == 1) || (selected_workout.toRepeat == 'Y')) toRepeat = 'Y'
   workout_actionGLOBAL = 'Edit'
-  // module.exports.workout_actionGLOBAL = workout_actionGLOBAL
   modify_workout_variables.workout_actionGLOBAL =  workout_actionGLOBAL 
   var edit_workout_html = exported_variables.training_log_head_html +
   `

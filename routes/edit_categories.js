@@ -141,14 +141,14 @@ router.post('/edit_categories', (req, res) => {
       })
       if (DEBUG) console.log('142 checked_category_array', checked_category_array, et(start_time))
       edit_categoriesPROMISE = await edit_categories(category_array, checked_category_array)
-      if (DEBUG) console.log('166 checked_category_array', checked_category_array, et(start_time))
-      // module.exports.category_arrayGLOBAL = category_array
+      if (DEBUG) console.log('144 checked_category_array', checked_category_array, et(start_time))
       module.exports.category_array = category_array
-      if (DEBUG) console.log('147 edit_categoriesPROMISE', edit_categoriesPROMISE, et(start_time))
+      if (DEBUG) console.log('146 edit_categoriesPROMISE', edit_categoriesPROMISE, et(start_time))
     } catch (e) {
       console.log('***Promise error edit_categories:)', e)
     }
   }
   init_edit_categories()
 })
+
 module.exports = router;
