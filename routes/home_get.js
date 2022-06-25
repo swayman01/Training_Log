@@ -6,10 +6,10 @@ const base_dir = path.dirname(path.resolve(__dirname))
 const global_constants = require(base_dir + '/util/global_constants')
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
-console.log('loaded home_get', et(start_time))
 const express = require('express');
 const router = express.Router();
 const format_date_array = require(base_dir + '/util/format_date_array')
+console.log('loaded home_get', et(start_time))
 router.get('/', (req, res, next) => {
     var DEBUG = global_constants.DEBUG
     // DEBUG = false

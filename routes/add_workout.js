@@ -29,10 +29,10 @@ router.post('/add_workout', (req, res) => {
   <h2>${workout_actionGLOBAL} Workout </h2>
     <form action="/add_workout" method="POST">
       <label for="category_name">Category Name:</label><br>
-      <input type="text" id="category_name" name="category_name" value="${category_name}"><br>
+      <input type="text" id="category_name" name="category_name" value="${category_name}" required><br>
 
       <label for="workout__name">Workout Name:</label><br>
-      <input type="text" id="workout_name" name="workout_name" ><br>
+      <input type="text" id="workout_name" name="workout_name" required ><br>
 
       <label for="workout_url">Workout URL (optional) :</label><br>
       <input type="text" id="workout_url" name="workout_url" value=""><br>

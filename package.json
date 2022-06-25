@@ -8,8 +8,7 @@
         "url": "https://github.com/swayman01/Training_Log"
       },
     "license": "MIT License",
-    "private": true,
-    "private_note": "true-change-to-false and remove quotes when ready to publish",
+    "private": false,
     "keywords": [
         "Promises",
         "promised-sqlite3",
