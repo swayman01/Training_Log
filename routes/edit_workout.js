@@ -13,7 +13,11 @@ console.log('loaded edit_workout.js', et(start_time))
 
 router.post('/edit_workout', (req, res) => {
   // TODO Add checks for undefined
-  toRepeat = 'N'
+  let toRepeat = 'N'
+  let otherRepeat = 'Y'
+  if ((selected_workout.toRepeat == 1) || (selected_workout.toRepeat == 'Y')) toRepeat = 'Y'
+  if (toRepeat == 'Y') otherRepeat = 'N' 
+  if (toRepeat == 'N') otherRepeat = 'Y' 
   if ((selected_workout.toRepeat == 1) || (selected_workout.toRepeat == 'Y')) toRepeat = 'Y'
   workout_actionGLOBAL = 'Edit'
   modify_workout_variables.workout_actionGLOBAL =  workout_actionGLOBAL 
@@ -22,19 +26,23 @@ router.post('/edit_workout', (req, res) => {
 <h2>${workout_actionGLOBAL} Workout ${selected_workout.workout_name}</h2>
 <form action="/add_workout" method="POST">
   <label for="workout_url">Workout URL (optional) :</label><br>
-  <input type="text" id="workout_url" name="workout_url" value="${selected_workout.workout_url}"><br>
+  <input type="text" id="workout_url" name="workout_url" value="${selected_workout.workout_url}"><br><br>
   
-  <label for="date">Workout Dates:</label><br>
-  <input type="text" id="workout_date" name="workout_date" value="${selected_workout.date_array}"><br>
+  <label for="date">Workout Dates  (optional):</label><br>
+  <input type="text" id="workout_date" name="workout_date" value="${selected_workout.date_array}"><br><br>
   
-  <label for="workout_length">Workout Length (optional) :</label><br>
-  <input type="text" id="workout_length" name="workout_length" value="${selected_workout.workout_length}" ><br>
+  <label for="workout_length">Workout Length (optional):</label><br>
+  <input type="text" id="workout_length" name="workout_length" value="${selected_workout.workout_length}" ><br><br>
   
-  <label for="toRepeat">Repeat Workout:</label><br>
-  <input type="text" id="toRepeat" name="toRepeat" value="${toRepeat}"><br>
+  <label for="toRepeat">Repeat Workout (required):</label><br>
+  <select id="toRepeat" name="toRepeat">
+    <option value=${otherRepeat}>${otherRepeat}</option>
+    <option value=${toRepeat} selected>${toRepeat}</option>
+  </select>
+  <br><br>
   
   <label for="workout_comment">Workout Comment (optional) :</label><br>
-  <input type="text" id="workout_comment" name="workout_comment" value="${selected_workout.workout_comment}"><br>
+  <input type="text" id="workout_comment" name="workout_comment" value="${selected_workout.workout_comment}"><br><br>
   <input type="submit" value="Save Changes" formaction="/update_db_workout">
   <input type="submit" value="Cancel" formaction="/">
 </form> 

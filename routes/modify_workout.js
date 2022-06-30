@@ -29,11 +29,13 @@ router.post('/modify_workout', (req, res) => {
    
   function add_date_html(workout_name) {
     if (DEBUG) console.log('32 modify_workout add_date_html', workout_name, et(start_time))
+    const date_pattern = "^(0?[1-9]|1[012])[\\/\\-](0?[1-9]|[12][0-9]|3[01])[\\/\\-]\\d{2}$"
     var add_date_html = exported_variables.training_log_head_html + `
         <h2>${workout_actionGLOBAL} ${workout_name}</h2>
         <form action="/new_workout_date" method="POST">
-          <label for="date">Workout Date:</label><br>
-          <input type="text" id="workout_date" name="workout_date" value=${new_date}><br>
+          <label for="date">Workout Date (mm/dd/yy):</label>
+          <input type="text" id="workout_date" name="workout_date" value=${new_date}
+          pattern = "${date_pattern}"><br>
           <input type="submit" value="Submit New Date">
           <input type="submit" value="Add New Workout" formaction="/add_workout">
           <input type="submit" value="Edit This Workout" formaction="/edit_workout">

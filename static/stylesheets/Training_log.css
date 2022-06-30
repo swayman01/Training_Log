@@ -54,6 +54,15 @@ a:active {
   color: #945D60;
 }
 
+/* From https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation */
+input:invalid {
+  border: 2px dashed red;
+}
+
+input:valid {
+  border: 2px solid black;
+}
+
 .flex-container {
   display: -webkit-box;
   display: -ms-flexbox;
