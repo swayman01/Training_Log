@@ -21,6 +21,10 @@ router.post('/new_workout_date', (req, res) => {
   if ((modify_workout_variables.selected_workout.toRepeat == 1) || (modify_workout_variables.selected_workout.toRepeat == 'Y')) toRepeat = 'Y'
   workout_name = modify_workout_variables.selected_workout.workout_name
   let new_date = req.body.workout_date
+  if (new_date=='') {
+    res.redirect('/')
+    return
+  }
   var date_arraySTR = modify_workout_variables.selected_workout.date_array
   var workout_id = modify_workout_variables.selected_workout.id
   var date_array = date_arraySTR.split(',')

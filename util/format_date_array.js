@@ -18,20 +18,24 @@ module.exports = function (workout_row) { // This file formats the date array
     if (date_array.length < 5) {
         for (let j = 0; j < date_array.length; j++) {
             dateOBJ = new Date(date_array[j])
-            if (dateOBJ == 'Invalid Date') formatted_date = "Haven't tried"
+            // if (j < 10) console.log('dateOBJ', j, dateOBJ)
+            // if (dateOBJ == 'Invalid Date') formatted_date = "Haven't tried"
+            if ((dateOBJ == 'Invalid Date')&&(workout_row['date_array']!='')) formatted_date = '**' + date_array[j] +'**' 
+            else {
+                if (workout_row['date_array']=='') formatted_date = "Haven't tried"
+                else formatted_date = date_format.format(dateOBJ, 'MM/DD/YY')
+            }
+            if (j != (date_array.length - 1)) formatted_date = formatted_date + ', '
+            formatted_date_arraySTR = formatted_date_arraySTR + formatted_date
+        }
+    } else {
+        for (let j = 0; j < 3; j++) {
+            dateOBJ = new Date(date_array[j])
+            if ((dateOBJ == 'Invalid Date')&&(workout_row['date_array']!='')) formatted_date = '**' + date_array[j] +'**' 
             else formatted_date = date_format.format(dateOBJ, 'MM/DD/YY')
             if (j != (date_array.length - 1)) formatted_date = formatted_date + ', '
             formatted_date_arraySTR = formatted_date_arraySTR + formatted_date
         }
-        } else {
-            for (let j = 0; j < 3; j++) {
-                dateOBJ = new Date(date_array[j])
-                // if (j < 10) console.log('dateOBJ', j, dateOBJ)
-                if (dateOBJ == 'Invalid Date') formatted_date = "Haven't tried"
-                else formatted_date = date_format.format(dateOBJ, 'MM/DD/YY')
-                if (j != (date_array.length - 1)) formatted_date = formatted_date + ', '
-                formatted_date_arraySTR = formatted_date_arraySTR + formatted_date
-            }
           
             dateOBJ = new Date(date_array[date_array.length - 1])
             if (dateOBJ == 'Invalid Date') formatted_date = "Haven't tried"
