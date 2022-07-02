@@ -6,3 +6,4 @@ db/training_log.db
 db/training_log copy.db
 debug.txt
 Training_log.gan
+db/practice_training_log.db

@@ -8,6 +8,11 @@ module.exports = function (workout_row) { // This file formats the date array
     var DEBUG = global_constants.DEBUG
     date_format = require('date-and-time')
     if (workout_row['date_array']==null) workout_row['date_array'] = ''
+    // Strip trailing comma
+    // Someday:remove in data base
+    if (workout_row.date_array[workout_row.date_array.length - 1] == ',') {
+        workout_row.date_array = workout_row.date_array.substring(0, workout_row.date_array.length - 1)
+    }
     var date_array = workout_row['date_array'].split(',')
     var formatted_date_arraySTR = []
     if (date_array.length < 5) {
