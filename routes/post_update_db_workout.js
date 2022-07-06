@@ -54,40 +54,61 @@ router.post('/update_db_workout', (req, res) => {
     }
 
     if (workout_actionGLOBAL == 'Add') {
+
+        async function post_db_return(res) {
+          res.redirect('/')
+        }
+
+      var select_workout = `
+        SELECT workout_name
+        FROM workouts 
+        WHERE workout_name = '${workout_name}'
+        `
+
+      db1.get(select_workout, [], (err, rows) => {
+        console.log('124', DEBUG)
+        if (err) {
+          console.log('Error post_update_db_workout db1.get: ', et(start_time), err)
+          // TODO Add error handling here
+        }
+        DEBUG = true
+        if (DEBUG) console.log('79 post_update_db_workout workout_name rows', workout_name, rows, et(start_time))
+        if (rows != undefined) {
+          console.log('*** workout ', workout_name, ' already exists ', et(start_time))
+          res.end('82 workout_exists, add function to move to edit screen here')
+        } else {
+          try {
+            table = 'categories_to_workouts'
+            db1.run(`INSERT INTO ${table} (workout_name, category_name)
+                VALUES(?, ?)`, [workout_name, category_name]);
+            //   console.log('*** Update error in Add in post_update_db_workout: ', err)
+          } catch (e) {
+            console.log('*** Error in db1.get in post_update_db_workout:)', e)
+          }
+
+          table = 'workouts'
+          var db_return_workouts = db1.run(`INSERT INTO ${table} (workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date) 
+                VALUES(?, ?, ?, ?, ?, ?, ?)`, [workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date]);
+          if (DEBUG) console.log('96 db_return_workouts in post_update_db_workout', db_return_workouts, et(start_time))
+          post_db_return(res)
+        }
+        return
+      })
+
+
       async function init_add_workout() {
+        if (DEBUG) console.log('151 starting init_add_workout', et(start_time))
         last_dateSTR = date_array.split(',')[0]
         last_dateOBJ = new Date(last_dateSTR)
         last_date = last_dateOBJ.getTime()
-      if (DEBUG) console.log('61 db.run post_update_db_workout Add', et(start_time))
-      if (rows == undefined) {
-        console.log('Category Does Not Exist. Capability to be added. In the meantime add using DB Browser.', et(start_time))
-        res.end('/')
-      }
-      try {
-        table = 'categories_to_workouts'
-        db_open = await db.open(base_dir + '/db/training_log.db')
-        var db_return_cat_to_workout = await db.run(`INSERT INTO ${table} (workout_name, category_name) 
-            VALUES(?, ?)`, [workout_name, category_name]);
-        if (DEBUG) console.log('73 db_return_cat_to_workout', db_return_cat_to_workout, et(start_time))
-        if (err) {
-          console.log('*** Update error in Add in post_update_db_workout: ', err)
-              }
-        table = 'workouts'
-        var db_return_workouts = db.run(`INSERT INTO ${table} (workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date) 
-            VALUES(?, ?, ?, ?, ?, ?, ?)`, [workout_name, workout_url, date_array, workout_length, toRepeat, workout_comment, last_date]);
-        if (DEBUG) console.log('82 db_return_workouts in post_update_db_workout', db_return_workouts, et(start_time))
-        } catch (e) {
-          console.log('*** Error in Add Workout in post_update_db_workout:)', e)
+        if (rows == undefined) {
+          console.log('Category Does Not Exist. Capability to be added. In the meantime add using DB Browser.', et(start_time))
+          res.end('/')
         }
-          await post_db_return(res)
+      }
+
+      init_add_workout()
     }
-    async function post_db_return(res) {
-      if (DEBUG) console.log('90 post_db_return in add workout', et(start_time))
-      // db.close()
-      res.redirect('/')
-    }
-    init_add_workout()
-  }
 
     if (workout_actionGLOBAL == 'Edit') {
       if (DEBUG) console.log('93 db.run Update in Edit', et(start_time))
