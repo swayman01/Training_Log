@@ -36,6 +36,7 @@ router.post('/modify_workout', (req, res) => {
           <label for="date">Workout Date (mm/dd/yy):</label>
           <input type="text" id="workout_date" name="workout_date" value=${new_date}
           pattern = "${date_pattern}"><br>
+          <br><br>
           <input type="submit" value="Submit New Date">
           <input type="submit" value="Add New Workout" formaction="/add_workout">
           <input type="submit" value="Edit This Workout" formaction="/edit_workout">

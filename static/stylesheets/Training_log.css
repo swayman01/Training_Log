@@ -121,4 +121,12 @@ input:valid {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.TODO {
+  color: red;
+}
+
+.error {
+  color: red;
+}
 /*# sourceMappingURL=Training_log.css.map */

@@ -4,7 +4,7 @@ function getMaxOfArray(numArray) {
 }
 
 function getMinOfArray(numArray) {
-  return Math.min.apply(null, numArray);
+  return Math.min.apply(null, numArray)
 }
 
 const path = require('path')
@@ -18,6 +18,8 @@ const et = require(base_dir + '/util/elapsed_time')
 const RESERVED_KEY = 'x_new_category_x'
 const RESERVED_NAME = 'x_new_category_name_x'
 const edit_categories_globals = require('./../routes/edit_categories')
+const add_workout = require(base_dir + '/routes/add_workout')
+app.use('/', add_workout)
 var DEBUG = global_constants.DEBUG
 // DEBUG = true
 const db1 = global_constants.db1
@@ -55,8 +57,18 @@ router.post('/update_db_workout', (req, res) => {
 
     if (workout_actionGLOBAL == 'Add') {
 
+      async function workout_exists(workout_name) {
+        if (DEBUG) console.log('61 starting workout_exists', et(start_time))
+        const exported_variables = require(base_dir + '/util/read_head');
+        const add_workout_html_equals = require(base_dir + '/util/add_workout_html_equals')
+
         async function post_db_return(res) {
-          res.redirect('/')
+          try {
+            if (DEBUG) console.log('65 post_db_return in add workout', et(start_time))
+            res.redirect('/')
+          } catch (e) {
+            console.log('*** Error in Add Workout in post_update_db_workout:)', e)
+          }
         }
 
       var select_workout = `
@@ -72,16 +84,21 @@ router.post('/update_db_workout', (req, res) => {
           // TODO Add error handling here
         }
         DEBUG = true
-        if (DEBUG) console.log('79 post_update_db_workout workout_name rows', workout_name, rows, et(start_time))
+        if (DEBUG) console.log('84 post_update_db_workout workout_name rows', workout_name, rows, et(start_time))
         if (rows != undefined) {
           console.log('*** workout ', workout_name, ' already exists ', et(start_time))
-          res.end('82 workout_exists, add function to move to edit screen here')
-        } else {
+          add_workout_error_message = workout_name + ' already exists. Please choose a new name or edit the existing workout'
+
+        var add_workout_html = exported_variables.training_log_head_html + 
+          add_workout_html_equals(workout_actionGLOBAL, category_name, new_date, add_workout_error_message)
+          add_workout_error_message = ''
+        res.end(add_workout_html)
+      }
+      else {
           try {
             table = 'categories_to_workouts'
             db1.run(`INSERT INTO ${table} (workout_name, category_name)
                 VALUES(?, ?)`, [workout_name, category_name]);
-            //   console.log('*** Update error in Add in post_update_db_workout: ', err)
           } catch (e) {
             console.log('*** Error in db1.get in post_update_db_workout:)', e)
           }
@@ -92,8 +109,8 @@ router.post('/update_db_workout', (req, res) => {
           if (DEBUG) console.log('96 db_return_workouts in post_update_db_workout', db_return_workouts, et(start_time))
           post_db_return(res)
         }
-        return
       })
+    }
 
 
       async function init_add_workout() {
@@ -105,13 +122,15 @@ router.post('/update_db_workout', (req, res) => {
           console.log('Category Does Not Exist. Capability to be added. In the meantime add using DB Browser.', et(start_time))
           res.end('/')
         }
+        workout_exists(workout_name)
+        if (DEBUG) console.log('126 workout_exists', et(start_time))
       }
 
       init_add_workout()
     }
 
     if (workout_actionGLOBAL == 'Edit') {
-      if (DEBUG) console.log('93 db.run Update in Edit', et(start_time))
+      if (DEBUG) console.log('129 db.run Update in Edit', et(start_time))
       async function init_edit_workout() {
         last_dateSTR = date_array.split(',')[0]
         last_dateOBJ = new Date(last_dateSTR)
@@ -119,7 +138,7 @@ router.post('/update_db_workout', (req, res) => {
         if (DEBUG) console.log('100 db.run Update in Edit', et(start_time))
         try {
           db_open = await db.open(base_dir + '/db/training_log.db')
-          var db_return_edit_workout = await db.run(`UPDATE ${table} 
+          await db.run(`UPDATE ${table} 
           SET workout_url = "${workout_url}",
           date_array = "${date_array}",
           workout_length = "${workout_length}",
@@ -138,7 +157,7 @@ router.post('/update_db_workout', (req, res) => {
         await post_db_return(res)
       }
       async function post_db_return(res) {
-        if (DEBUG) console.log('120 post_db_return in add workout', et(start_time))
+        if (DEBUG) console.log('156 post_db_return in add workout', et(start_time))
         // db.close()
         res.redirect('/')
       }
@@ -150,7 +169,7 @@ router.post('/update_db_workout', (req, res) => {
     async function process_categories(workout_array) {
       // Ensure at least one box is checked
       if ((Object.keys(category_inputs).length == undefined) || (Object.keys(category_inputs).length == 0)) {
-        console.log('*** 132 ERROR: Each workout must have at least on category')
+        console.log('*** 168 ERROR: Each workout must have at least on category')
         res.redirect("/")
       }
       // If category is checked but not in categories_to_workout add entry in categories to workout
@@ -265,10 +284,10 @@ router.post('/update_db_workout', (req, res) => {
         WHERE category_name = "${category_name}"
         `)
         if (err) {
-          console.log('*** 247 update error in post_update_db_workout: ', err)             
+          console.log('*** 283 update error in post_update_db_workout: ', err)             
         }
       }
-      if (DEBUG) console.log('250 res.redirect in post_update_db_workout (Edit)', et(start_time))
+      if (DEBUG) console.log('286 res.redirect in post_update_db_workout (Edit)', et(start_time))
       res.redirect("/")
     } //end updated_db__categories
 
@@ -288,7 +307,7 @@ router.post('/update_db_workout', (req, res) => {
           `
   try {
     db_open = await db.open(base_dir + '/db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
-    if (DEBUG) console.log('270 edit_categories db', db, et(start_time))
+    if (DEBUG) console.log('306 edit_categories db', db, et(start_time))
     // Retrieve categories selected for chosen workout
     workout_array = await db.all(join_categories_to_workout, [], (err, rows) => {
       workout_array = rows
@@ -296,7 +315,7 @@ router.post('/update_db_workout', (req, res) => {
       db.close()
     })
     changesDICT = await process_categories(workout_array)
-    if (DEBUG) console.log('278 changesDICT', changesDICT, et(start_time))
+    if (DEBUG) console.log('314 changesDICT', changesDICT, et(start_time))
     await update_db_categories(changesDICT)
   } catch (e) {
     console.log('*** Error in Edit Categories in post_update_db_workout:)', e)

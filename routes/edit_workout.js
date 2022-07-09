@@ -12,7 +12,6 @@ var DEBUG = global_constants.DEBUG
 console.log('loaded edit_workout.js', et(start_time))
 
 router.post('/edit_workout', (req, res) => {
-  // TODO Add checks for undefined
   let toRepeat = 'N'
   let otherRepeat = 'Y'
   if ((selected_workout.toRepeat == 1) || (selected_workout.toRepeat == 'Y')) toRepeat = 'Y'
@@ -26,9 +25,9 @@ router.post('/edit_workout', (req, res) => {
 <h2>${workout_actionGLOBAL} Workout ${selected_workout.workout_name}</h2>
 <form action="/add_workout" method="POST">
   <label for="workout_url">Workout URL (optional) :</label><br>
-  <input type="text" id="workout_url" name="workout_url" value="${selected_workout.workout_url}"><br><br>
+  <input type="text" id="workout_url" name="workout_url" value="${selected_workout.workout_url}"><br>
   
-  <label for="date">Workout Dates  (optional):</label><br>
+  <label for="date">Workout Dates (optional):</label><br>
   <input type="text" id="workout_date" name="workout_date" value="${selected_workout.date_array}"><br><br>
   
   <label for="workout_length">Workout Length (optional):</label><br>

@@ -1,6 +1,6 @@
 // This file is a holding place for constants used across files
 const path = require('path')
-base_dir = path.dirname(path.resolve(__dirname))
+var base_dir = path.dirname(path.resolve(__dirname))
 var DEBUG = false;
 const { PromisedDatabase } = require("promised-sqlite3"); // import the class
 const sqlite3 = require('sqlite3').verbose();
@@ -19,6 +19,8 @@ module.exports.db = db
 module.exports.db1 = db1
 module.exports.DEBUG = DEBUG
 module.exports.base_dir = base_dir
+var add_workout_error_message = ''
+module.exports.add_workout_error_message = add_workout_error_message
 
 const {
   readFile,

@@ -8,6 +8,7 @@ const global_constants = require(base_dir + '/util/global_constants')
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const modify_workout_variables = require(base_dir + '/routes/modify_workout')
+const add_workout_html_equals = require(base_dir + '/util/add_workout_html_equals')
 var DEBUG = global_constants.DEBUG
 console.log('loaded add_workout.js', et(start_time))
 router.post('/', (req, res, next) => {  // This is needed to prevent multiple entries
@@ -16,7 +17,6 @@ router.post('/', (req, res, next) => {  // This is needed to prevent multiple en
 })
 
 router.post('/add_workout', (req, res) => {
-  // TODO Add checks for undefined and duplicates, don't allow a blank name
   var new_date = req.body.workout_date
   var category_name = modify_workout_variables.category_name
   var toRepeat = 'N'
@@ -24,41 +24,13 @@ router.post('/add_workout', (req, res) => {
   var workout_actionGLOBAL = 'Add'
   module.exports.workout_actionGLOBAL = workout_actionGLOBAL
   modify_workout_variables.workout_actionGLOBAL =  workout_actionGLOBAL
+  var add_workout_error_message = global_constants.add_workout_error_message
+  if (add_workout_error_message === undefined) add_workout_error_message = 'undefined - change to blank when done debugging'
+  if (DEBUG) console.log('31 post_update_db_workout add_workout_error_message', add_workout_error_message)
   var add_workout_html = exported_variables.training_log_head_html + 
-  `
-  <h2>${workout_actionGLOBAL} Workout </h2>
-    <form action="/add_workout" method="POST">
-      <label for="category_name">Category Name (required) :</label><br>
-      <input type="text" id="category_name" name="category_name" value="${category_name}" required><br>
-
-      <label for="workout__name">Workout Name (required) :</label><br>
-      <input type="text" id="workout_name" name="workout_name" required ><br>
-
-      <label for="workout_url">Workout URL (optional) :</label><br>
-      <input type="text" id="workout_url" name="workout_url" value=""><br>
-      
-      <label for="date">Workout Dates (optional):</label><br>
-      <input type="text" id="workout_date" name="workout_date" value="${new_date}"><br>
-      
-      <label for="workout_length">Workout Length (optional) :</label><br>
-      <input type="text" id="workout_length" name="workout_length" value=" "><br>
-      
-      <label for="toRepeat">Repeat Workout (required):</label><br>
-      <select id="toRepeat" name="toRepeat">
-        <option value="Y">Y</option>
-        <option value="N" selected>N</option>
-      </select>
-      <br>
-      
-      <label for="workout_comment">Workout Comment (optional) :</label><br>
-      <input type="text" id="workout_comment" name="workout_comment" value=""><br>
-      <input type="submit" value="Add Workout" formaction="/update_db_workout">
-      <input type="submit" value="Cancel" formaction="/">
-    </form> 
-  </body>
-  </html>
-`
-if(DEBUG) console.log('57 res.end(add_workout_html) in add_workout', et(start_time))
+    add_workout_html_equals(workout_actionGLOBAL, category_name, new_date, add_workout_error_message)
+  add_workout_error_message = ''
+if(DEBUG) console.log('35 res.end(add_workout_html) in add_workout', et(start_time))
 res.end(add_workout_html)
 })
 
