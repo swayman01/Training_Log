@@ -25,7 +25,7 @@ router.post('/edit_workout', (req, res) => {
 <h2>${workout_actionGLOBAL} Workout ${selected_workout.workout_name}</h2>
 <form action="/add_workout" method="POST">
   <label for="workout_url">Workout URL (optional) :</label><br>
-  <input type="text" id="workout_url" name="workout_url" value="${selected_workout.workout_url}"><br>
+  <input type="url" id="workout_url" name="workout_url" value="${selected_workout.workout_url}"><br><br>
   
   <label for="date">Workout Dates (optional):</label><br>
   <input type="text" id="workout_date" name="workout_date" value="${selected_workout.date_array}"><br><br>
@@ -34,14 +34,15 @@ router.post('/edit_workout', (req, res) => {
   <input type="text" id="workout_length" name="workout_length" value="${selected_workout.workout_length}" ><br><br>
   
   <label for="toRepeat">Repeat Workout (required):</label><br>
-  <select id="toRepeat" name="toRepeat">
+  <select id="toRepeat" name="toRepeat" class="toRepeat">
     <option value=${otherRepeat}>${otherRepeat}</option>
     <option value=${toRepeat} selected>${toRepeat}</option>
   </select>
   <br><br>
   
   <label for="workout_comment">Workout Comment (optional) :</label><br>
-  <input type="text" id="workout_comment" name="workout_comment" value="${selected_workout.workout_comment}"><br><br>
+  <input type="text" id="workout_comment" name="workout_comment" value="${selected_workout.workout_comment}"><br><br><br>
+  
   <input type="submit" value="Save Changes" formaction="/update_db_workout">
   <input type="submit" value="Cancel" formaction="/">
 </form> 
