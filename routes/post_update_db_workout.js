@@ -55,6 +55,11 @@ router.post('/update_db_workout', (req, res) => {
       console.log('Error post_update_db_workout select_categories: ', et(start_time), err)
     }
 
+    if (rows == undefined) {
+      console.log('Category Does Not Exist. Capability to be added. In the meantime add using DB Browser.', et(start_time))
+      res.redirect('/')
+    }
+
     if (workout_actionGLOBAL == 'Add') {
 
       async function workout_exists(workout_name) {
@@ -118,10 +123,6 @@ router.post('/update_db_workout', (req, res) => {
         last_dateSTR = date_array.split(',')[0]
         last_dateOBJ = new Date(last_dateSTR)
         last_date = last_dateOBJ.getTime()
-        if (rows == undefined) {
-          console.log('Category Does Not Exist. Capability to be added. In the meantime add using DB Browser.', et(start_time))
-          res.end('/')
-        }
         workout_exists(workout_name)
         if (DEBUG) console.log('126 workout_exists', et(start_time))
       }

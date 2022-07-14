@@ -17,18 +17,17 @@ router.post('/', (req, res, next) => {
 })
 
 router.post('/edit_categories', (req, res) => {
-  // TODO Add checks for undefined and duplicates
   const db = global_constants.db
   var checked_category_array = []
   var form_entry_html = ''
-  if (DEBUG) console.log('24 router.post(/edit_categories', et(start_time))
+  if (DEBUG) console.log('23 router.post(/edit_categories', et(start_time))
   var edit_categories_html = exported_variables.training_log_head_html + `
       <h2>${workout_actionGLOBAL} for Workout ${selected_workout.workout_name}</h2>
       <form action="/update_db_workout" method="POST">
     `
 
   async function edit_categories(category_array) {
-    if (DEBUG) console.log('31 in edit_categories', category_array[0], et(start_time))
+    if (DEBUG) console.log('30 in edit_categories', category_array[0], et(start_time))
     var toRepeat = 'N'
     if ((selected_workout.toRepeat == 1) || (selected_workout.toRepeat == 'Y')) toRepeat = 'Y'
     var category_name = modify_workout_variables.category_name
@@ -54,7 +53,7 @@ router.post('/edit_categories', (req, res) => {
       category_position = category_array[i].category_position
       isClosed = category_array[i].isClosed
       checked_category_flag = 0
-      if (DEBUG) console.log('57 in edit_categories', i, category_array[i], et(start_time))
+      if (DEBUG) console.log('56 in edit_categories', i, category_array[i], et(start_time))
       // ref: https://www.javascripttutorial.net/javascript-dom/javascript-checkbox/
       for (let j = 0; j < checked_category_array.length; j++) {
         if (checked_category_array[j].category_name == category_name) {
@@ -76,10 +75,10 @@ router.post('/edit_categories', (req, res) => {
       if (isClosed == 1) {
         form_entry_html = form_entry_html + `
             <input type = "number" id="position" name = "position" min="0" max="500" value = "${category_position}" >
-            <label for="position">Display Position (between 0 and 500)</label>
+            <label for="position">Display Position (required: between 0 and 500)</label>
             <br>
             <label for="details">Display On/Off</label>
-            <select id="details" name = "details" size="1" >
+            <select id="details" name = "details" size="1" class="display_off_or_on">
               <option value="0">Show Workouts</option>
               <option value="1" selected>Hide Workouts</option>
             </select>
@@ -89,10 +88,10 @@ router.post('/edit_categories', (req, res) => {
       } else {
         form_entry_html = form_entry_html + `
             <input type = "number" id="position" name = "position" min="0" max="500" value = "${category_position}" >
-            <label for="position">Display Position (between 0 and 500)</label>
+            <label for="position">Display Position (required: between 0 and 500)</label>
             <br>
             <label for="details">Display On/Off</label>
-            <select id="details" name = "details" size="1" >
+            <select id="details" name = "details" size="1" class="display_off_or_on">
               <option value="0" selected>Show Workouts</option>
               <option value="1" >Hide Workouts</option>
             </select>
@@ -124,26 +123,26 @@ router.post('/edit_categories', (req, res) => {
     try {
       if (DEBUG) console.log('125 edit_categories db', db, et(start_time))
       db_open = await db.open('./db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
-      if (DEBUG)  console.log('127 edit_categories db_open', db_open, et(start_time))
+      if (DEBUG)  console.log('126 edit_categories db_open', db_open, et(start_time))
       category_array = await db.all(retrieve_categories, [], (err, rows) => {
         category_array = rows
         // TODO eliminate one of the two lines below
         module.exports.category_arrayGLOBAL = category_array
         module.exports.category_array = category_array
-        if (DEBUG) console.log('133 router.post in edit_categories  after run_edit_categories()', et(start_time))
+        if (DEBUG) console.log('132 router.post in edit_categories  after run_edit_categories()', et(start_time))
         db.close()
       })
       checked_category_array = await db.all(assigned_categories, [], (err, rows) => {
         checked_category_array = rows
         if (err) {
-          console.log('*** Error finding assigned categories in edit_categories', et(start_time), err)
+          console.log('Error finding assigned categories in edit_categories', et(start_time), err)
         }
       })
-      if (DEBUG) console.log('142 checked_category_array', checked_category_array, et(start_time))
+      if (DEBUG) console.log('141 checked_category_array', checked_category_array, et(start_time))
       edit_categoriesPROMISE = await edit_categories(category_array, checked_category_array)
-      if (DEBUG) console.log('144 checked_category_array', checked_category_array, et(start_time))
+      if (DEBUG) console.log('143 checked_category_array', checked_category_array, et(start_time))
       module.exports.category_array = category_array
-      if (DEBUG) console.log('146 edit_categoriesPROMISE', edit_categoriesPROMISE, et(start_time))
+      if (DEBUG) console.log('145 edit_categoriesPROMISE', edit_categoriesPROMISE, et(start_time))
     } catch (e) {
       console.log('***Promise error edit_categories:)', e)
     }

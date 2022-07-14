@@ -4,14 +4,14 @@ module.exports = function add_workout_html_equals(workout_actionGLOBAL, category
       <h2 class="error">${add_workout_error_message}</h2>
       <h2>${workout_actionGLOBAL} Workout </h2>
       <form action="/add_workout" method="POST">
-        <label for="category_name">Category Name:</label><br>
+        <label for="category_name">Category Name (required):</label><br>
         <input type="text" id="category_name" name="category_name" value="${category_name}" required><br><br>
 
         <label for="workout__name">Workout Name: (required - input any character before hitting cancel)</label><br>
         <input type="text" id="workout_name" name="workout_name" required><br><br>
 
         <label for="workout_url">Workout URL (optional) :</label><br>
-        <input type="text" id="workout_url" name="workout_url" value=""><br><br>
+        <input type="url" id="workout_url" name="workout_url" value=""><br><br>
         
         <label for="date">Workout Dates:</label><br>
         <input type="text" id="workout_date" name="workout_date" value="${new_date}"><br><br>
@@ -20,7 +20,7 @@ module.exports = function add_workout_html_equals(workout_actionGLOBAL, category
         <input type="text" id="workout_length" name="workout_length" value=" "><br><br>
         
         <label for="toRepeat">Repeat Workout:</label><br>
-        <select id="toRepeat" name="toRepeat" class="toRepeat">
+        <select id="toRepeat" name="toRepeat" class="toRepeat_checkbox">
           <option value="Y">Y</option>
           <option value="N" selected>N</option>
         </select><br><br>

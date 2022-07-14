@@ -63,7 +63,7 @@ input:valid {
   border: 2px solid black;
 }
 
-.toRepeat {
+.toRepeat_checkbox, .display_off_or_on {
   border: 2px solid black;
 }
 

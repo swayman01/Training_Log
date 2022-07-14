@@ -34,7 +34,7 @@ router.post('/edit_workout', (req, res) => {
   <input type="text" id="workout_length" name="workout_length" value="${selected_workout.workout_length}" ><br><br>
   
   <label for="toRepeat">Repeat Workout (required):</label><br>
-  <select id="toRepeat" name="toRepeat" class="toRepeat">
+  <select id="toRepeat" name="toRepeat" class="toRepeat_checkbox">
     <option value=${otherRepeat}>${otherRepeat}</option>
     <option value=${toRepeat} selected>${toRepeat}</option>
   </select>
@@ -42,7 +42,7 @@ router.post('/edit_workout', (req, res) => {
   
   <label for="workout_comment">Workout Comment (optional) :</label><br>
   <input type="text" id="workout_comment" name="workout_comment" value="${selected_workout.workout_comment}"><br><br><br>
-  
+
   <input type="submit" value="Save Changes" formaction="/update_db_workout">
   <input type="submit" value="Cancel" formaction="/">
 </form> 
