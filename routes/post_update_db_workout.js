@@ -55,7 +55,7 @@ router.post('/update_db_workout', (req, res) => {
       console.log('Error post_update_db_workout select_categories: ', et(start_time), err)
     }
 
-    if (rows == undefined) {
+    if ((rows == undefined)&&(workout_actionGLOBAL == 'Add')) {
       console.log('Category Does Not Exist. Capability to be added. In the meantime add using DB Browser.', et(start_time))
       res.redirect('/')
     }
@@ -69,7 +69,7 @@ router.post('/update_db_workout', (req, res) => {
 
         async function post_db_return(res) {
           try {
-            if (DEBUG) console.log('65 post_db_return in add workout', et(start_time))
+            if (DEBUG) console.log('72 post_db_return in add workout', et(start_time))
             res.redirect('/')
           } catch (e) {
             console.log('*** Error in Add Workout in post_update_db_workout:)', e)
@@ -83,7 +83,7 @@ router.post('/update_db_workout', (req, res) => {
         `
 
       db1.get(select_workout, [], (err, rows) => {
-        console.log('124', DEBUG)
+        console.log('86', DEBUG)
         if (err) {
           console.log('Error post_update_db_workout db1.get: ', et(start_time), err)
           // TODO Add error handling here
@@ -178,7 +178,7 @@ router.post('/update_db_workout', (req, res) => {
         in_workout_array_flag = 0;
         for (let i = 0; i < workout_array.length; i++) {
           if (workout_array[i].category_name == key) {
-            console.log(workout_array[i].category_name, ' is already in categories to workouts')
+            if (DEBUG) console.log(workout_array[i].category_name, ' is already in categories to workouts')
             in_workout_array_flag = 1;
           }
         }
