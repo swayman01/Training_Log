@@ -3,7 +3,7 @@ module.exports = function add_workout_html_equals(workout_actionGLOBAL, category
       `
       <h2 class="error">${add_workout_error_message}</h2>
       <h2>${workout_actionGLOBAL} Workout </h2>
-      <form action="/add_workout" method="POST">
+      <form action="/add_workout" method="POST" style="display: inline">
         <label for="category_name">Category Name (required):</label><br>
         <input type="text" id="category_name" name="category_name" value="${category_name}" required><br><br>
 
@@ -27,7 +27,11 @@ module.exports = function add_workout_html_equals(workout_actionGLOBAL, category
         
         <label for="workout_comment">Workout Comment (optional) :</label><br>
         <input type="text" id="workout_comment" name="workout_comment" value=""><br><br><br>
+
         <input type="submit" value="Add Workout" formaction="/update_db_workout">
+      </form>
+      
+      <form style="display: inline">
         <input type="submit" value="Cancel" formaction="/">
       </form> 
     </body>
