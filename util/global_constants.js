@@ -6,7 +6,7 @@ const { PromisedDatabase } = require("promised-sqlite3"); // import the class
 const sqlite3 = require('sqlite3').verbose();
 const db = new PromisedDatabase(); // create a instance of PromisedDatabase
     // note: at this state, the wrapped sqlite3.Database object is not created.
-date_format = require('date-and-time')
+date_format = require('date-and-time') // Do not make a constant 7/9/22
 module.exports.base_dir = base_dir
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')

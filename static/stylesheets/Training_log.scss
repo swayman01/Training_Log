@@ -6,7 +6,7 @@ $activecolor: yellow;
 $hovercolor: green; 
 */
 
-// $papercolor: #fbfbf8; // not used
+
 /* Other white colors: https://encycolorpedia.com/fdf5e8 */
 
 $Teracotta: #945D60;
@@ -72,6 +72,9 @@ a:link {
 
 a:visited {
   color: $fontcolor;
+  a:hover {
+    color: $hovercolor;
+  }
 }
 
 a:hover {
@@ -80,6 +83,10 @@ a:hover {
 
 a:active {
   color: $activecolor;
+}
+
+.display_off_or_on {
+  border: 2px solid black;
 }
 
 /* From https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation */
@@ -98,12 +105,15 @@ input:valid {
 
 .flex-container {
   display: flex;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  align-items: left;
+-webkit-box-align: left;
+  -ms-flex-align: left;
+      align-items: left;
   margin-top: .5em;
 }
 
-.flex-container>div {
+.flex-container > div {
   margin-right: .5em;
 }
 
@@ -115,21 +125,28 @@ input:valid {
   color: $hovercolor;
 }
 
-.no_repeat { //Fix this and hover properties
+.no_repeat {
   color: $weakfontcolor;
   font-weight:100;
   font-size:smaller;
 }
 
+  .toRepeat_checkbox, .display_off_or_on, .in_category_checkbox {
+    border: 2px solid black;
+  }
+  
+  .in_category_checkbox {
+    border: 2px solid red;
+  }
+
+
 .plus_button {
   cursor: pointer;
-  // color: red; //used to verify where this class is called
 }
 
 .tooltip {
   position: relative;
   display: inline-block;
-  // border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
@@ -141,10 +158,10 @@ input:valid {
   border-radius: 6px;
   padding: 5px 0;
   font-size: smaller;
-
   /* Position the tooltip */
   position: absolute;
-  top: -20px; left: 20px;
+  top: -20px;
+  left: 20px;
   z-index: 1;
 } 
 
@@ -153,9 +170,9 @@ input:valid {
 }
 
 .TODO {
-  color: red
+  color: red;
 } 
 
 .error {
-  color: red
+  color: red;
 } 

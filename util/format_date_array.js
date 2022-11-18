@@ -18,8 +18,6 @@ module.exports = function (workout_row) { // This file formats the date array
     if (date_array.length < 5) {
         for (let j = 0; j < date_array.length; j++) {
             dateOBJ = new Date(date_array[j])
-            // if (j < 10) console.log('dateOBJ', j, dateOBJ)
-            // if (dateOBJ == 'Invalid Date') formatted_date = "Haven't tried"
             if ((dateOBJ == 'Invalid Date')&&(workout_row['date_array']!='')) formatted_date = '**' + date_array[j] +'**' 
             else {
                 if (workout_row['date_array']=='') formatted_date = "Haven't tried"

@@ -1,11 +1,11 @@
 // This file displays the add workout screen
+const start_time = Date.now()
 const path = require('path')
 const base_dir = path.dirname(path.resolve(__dirname))
 const express = require('express');
 const router = express.Router();
 const exported_variables = require(base_dir + '/util/read_head');
 const global_constants = require(base_dir + '/util/global_constants')
-const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const modify_workout_variables = require(base_dir + '/routes/modify_workout')
 const add_workout_html_equals = require(base_dir + '/util/add_workout_html_equals')

@@ -1,30 +1,27 @@
-// This file displays the edit categories screen
-const start_time = Date.now()
-path = require('path')
-const base_dir = path.dirname(path.resolve(__dirname))
-const express = require('express');
-const router = express.Router();
-const exported_variables = require(base_dir + '/util/read_head');
-const global_constants = require(base_dir+ '/util/global_constants')
-const et = require(base_dir + '/util/elapsed_time')
-const modify_workout_variables = require(base_dir + '/routes/modify_workout')
-var DEBUG = global_constants.DEBUG
-console.log('loaded edit_categories.js', et(start_time))
-// DEBUG = true
+// This function displays the edit categories screen
+function edit_categories() {
+  path = require('path')
+  const base_dir = path.dirname(path.resolve(__dirname))
+  const express = require('express');
+  const router = express.Router();
+  const exported_variables = require(base_dir + '/util/read_head');
+  const global_constants = require(base_dir + '/util/global_constants')
+  const start_time = Date.now()
+  const et = require(base_dir + '/util/elapsed_time')
+  console.log('loaded edit_categories.js', et(start_time))
+  const modify_workout_variables = require(base_dir + '/routes/modify_workout')
+  const post_update_db_workout = require(base_dir + '/routes/post_update_db_workout')
+  var DEBUG = global_constants.DEBUG
+  DEBUG = false
 
-router.post('/', (req, res, next) => {
-  res.redirect("/")
-})
-
-router.post('/edit_categories', (req, res) => {
   const db = global_constants.db
   var checked_category_array = []
   var form_entry_html = ''
-  var error_message = 'Debug test'
+  var edit_category_error_message = post_update_db_workout.edit_category_error_message
   if (DEBUG) console.log('24 router.post(/edit_categories', et(start_time))
   var edit_categories_html = exported_variables.training_log_head_html + `
       <h2>${workout_actionGLOBAL} for Workout ${selected_workout.workout_name}</h2>
-      <h2 class="error">${error_message}</h2>
+      <h2 class="error">${edit_category_error_message}</h2>
       <form action="/update_db_workout" method="POST">
     `
 
@@ -55,7 +52,7 @@ router.post('/edit_categories', (req, res) => {
       category_position = category_array[i].category_position
       isClosed = category_array[i].isClosed
       checked_category_flag = 0
-      if (DEBUG) console.log('56 in edit_categories', i, category_array[i], et(start_time))
+      // if (DEBUG) console.log('56 in edit_categories', i, category_array[i], et(start_time))
       // ref: https://www.javascripttutorial.net/javascript-dom/javascript-checkbox/
       for (let j = 0; j < checked_category_array.length; j++) {
         if (checked_category_array[j].category_name == category_name) {
@@ -64,12 +61,12 @@ router.post('/edit_categories', (req, res) => {
         if (checked_category_flag) {
           form_entry_html = `
             <br>
-            <input type="checkbox" id="${category_name}" name="${category_name}" checked>
+            <input type="checkbox" id="${category_name}" name="${category_name}" checked class="in_category_checkbox">
             <label for="${category_name}">${category_name}</label>
             `
         } else {
           form_entry_html = `
-            <input type="checkbox" id="${category_name}" name="${category_name}" >
+            <input type="checkbox" id="${category_name}" name="${category_name}" class="in_category_checkbox">
             <label for="${category_name}">${category_name}</label><br>
             `
         }
@@ -104,9 +101,9 @@ router.post('/edit_categories', (req, res) => {
       edit_categories_html += form_entry_html
     }
     edit_categories_html += end_edit_categories_html
-    res.end(edit_categories_html)  // Repeats
+    res.end(edit_categories_html) // Repeats
   }
-  
+
   async function init_edit_categories() {
     // get list of categories
     let retrieve_categories = `
@@ -123,15 +120,13 @@ router.post('/edit_categories', (req, res) => {
       `
     var category_array = []
     try {
-      if (DEBUG) console.log('126 edit_categories db', db, et(start_time))
+      if (DEBUG) console.log('123 edit_categories db', db, et(start_time))
       db_open = await db.open('./db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
-      if (DEBUG)  console.log('128 edit_categories db_open', db_open, et(start_time))
+      if (DEBUG) console.log('126 edit_categories db_open', db_open, et(start_time))
       category_array = await db.all(retrieve_categories, [], (err, rows) => {
         category_array = rows
-        // TODO eliminate one of the two lines below
-        module.exports.category_arrayGLOBAL = category_array
         module.exports.category_array = category_array
-        if (DEBUG) console.log('134 router.post in edit_categories  after run_edit_categories()', et(start_time))
+        if (DEBUG) console.log('129 router.post in edit_categories  after run_edit_categories()', et(start_time))
         db.close()
       })
       checked_category_array = await db.all(assigned_categories, [], (err, rows) => {
@@ -140,16 +135,14 @@ router.post('/edit_categories', (req, res) => {
           console.log('Error finding assigned categories in edit_categories', et(start_time), err)
         }
       })
-      if (DEBUG) console.log('143 checked_category_array', checked_category_array, et(start_time))
+      if (DEBUG) console.log('138 checked_category_array', checked_category_array, et(start_time))
       edit_categoriesPROMISE = await edit_categories(category_array, checked_category_array)
-      if (DEBUG) console.log('143 checked_category_array', checked_category_array, et(start_time))
+      if (DEBUG) console.log('140 checked_category_array', checked_category_array, et(start_time))
       module.exports.category_array = category_array
-      if (DEBUG) console.log('145 edit_categoriesPROMISE', edit_categoriesPROMISE, et(start_time))
+      if (DEBUG) console.log('142 edit_categoriesPROMISE', edit_categoriesPROMISE, et(start_time))
     } catch (e) {
       console.log('***Promise error edit_categories:)', e)
     }
   }
   init_edit_categories()
-})
-
-module.exports = router;
+}

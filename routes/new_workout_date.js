@@ -1,10 +1,10 @@
-// This routine adds the new date to the date_array
+// This routine adds the new date to the date_array Training_Log_App
+const start_time = Date.now()
 const path = require('path')
 const base_dir = path.dirname(path.resolve(__dirname))
 const express = require('express');
 const router = express.Router();
 const global_constants = require(base_dir + '/util/global_constants')
-const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const modify_workout_variables = require(base_dir + '/routes/modify_workout')
 const db = global_constants.db

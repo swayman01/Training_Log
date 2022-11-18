@@ -1,15 +1,16 @@
 // This file retrieves the data from the database, completes the html file and sends it to the server
 // Reference: https://github.com/tguichaoua/promised-sqlite3
-// TODO Delete unused classes see debug .txt Training_log, also workout is not used
+// TODO Delete unused classes see debug .txt Training_log, also workout is not used 
 const path = require('path')
 const base_dir = path.dirname(path.resolve(__dirname))
 const global_constants = require(base_dir + '/util/global_constants')
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
+console.log('loaded home_get', et(start_time))
 const express = require('express');
 const router = express.Router();
 const format_date_array = require(base_dir + '/util/format_date_array')
-console.log('loaded home_get', et(start_time))
+const create_category_array = require(base_dir + '/util/create_category_array')
 router.get('/', (req, res, next) => {
     var DEBUG = global_constants.DEBUG
     // DEBUG = false
@@ -34,11 +35,11 @@ router.get('/', (req, res, next) => {
     var workouts_htmlGLOBAL = ''
 
     async function write_html(workout_array) {
+        module.exports.workout_array = workout_array  // for use in edit_categories
         var last_category = -1 // Flag to show that we are on the last category
         if (workout_array.length > 0) {
             if (DEBUG) console.log('40 in write_html: ', workout_array[0]['workout_name'], et(start_time))
             for (let i = 0; i < workout_array.length; i++) {
-                if (DEBUG) console.log('41 in home_get', workout_array[i].workout_name)
                 workout_array[i].date_array = format_date_array(workout_array[i])
                 // Check for end of a category
                 if (last_category != workout_array[i].category_position) {
@@ -52,7 +53,7 @@ router.get('/', (req, res, next) => {
             }
             if (workout_array.length > 0) {
                 write_details_end_html()
-                if (DEBUG) console.log('54 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 15), et(start_time))
+                if (DEBUG) console.log('55 workouts_htmlGLOBAL', workouts_htmlGLOBAL.substring(0, 15), et(start_time))
                 if (typeof workouts_htmlGLOBAL === 'undefined') {} else {
                     if (workouts_htmlGLOBAL.substring(0, 15) == '[object Object]') {
                         workouts_htmlGLOBAL = workouts_htmlGLOBAL.substring(16)
@@ -131,7 +132,8 @@ router.get('/', (req, res, next) => {
 
     async function init() {
         try {
-            if (DEBUG) console.log('133 home_get db', db, et(start_time))
+            if (DEBUG) console.log('134 home_get db', db, et(start_time))
+            await create_category_array()
             await db.open('./db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
             workout_array = await db.all(join_categories_to_workouts, [], (err, rows) => {
             if(err) {console.log('*** Error in db.open: ', err)}      
@@ -144,6 +146,6 @@ router.get('/', (req, res, next) => {
     }
 
     init();
-    if (DEBUG) console.log('146 home_get after init()', et(start_time))
+    if (DEBUG) console.log('148 home_get after init()', et(start_time))
 })
 module.exports = router;

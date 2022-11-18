@@ -46,12 +46,20 @@ a:visited {
   color: #AF473C;
 }
 
+a:visited a:hover {
+  color: #626E60;
+}
+
 a:hover {
   color: #626E60;
 }
 
 a:active {
   color: #945D60;
+}
+
+.display_off_or_on {
+  border: 2px solid black;
 }
 
 /* From https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation */
@@ -72,10 +80,10 @@ input:valid {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-align: left;
-      -ms-flex-align: left;
-          align-items: left;
+  -ms-flex-align: left;
+  align-items: left;
   margin-top: .5em;
 }
 
@@ -95,6 +103,14 @@ input:valid {
   color: #58241e;
   font-weight: 100;
   font-size: smaller;
+}
+
+.toRepeat_checkbox, .display_off_or_on, .in_category_checkbox {
+  border: 2px solid black;
+}
+
+.in_category_checkbox {
+  border: 2px solid red;
 }
 
 .plus_button {

@@ -1,4 +1,5 @@
 app.post('/update_db_date', (req, res) => {
+  Not Used
   console.log('2 app.post update_db_date', Date.now())
   let new_date = req.body.workout_date
   //add date to date array
