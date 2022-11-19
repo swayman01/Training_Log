@@ -10,9 +10,9 @@ const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
 const exported_variables = require(base_dir + '/util/read_head');
 var DEBUG = global_constants.DEBUG
-DEBUG = true
+// DEBUG = true
 console.log('loaded modify_workout.js', et(start_time)) 
-if(DEBUG) console.log('17 in router.post /modify_workout', et(start_time))
+if (DEBUG) console.log('17 in router.post /modify_workout', et(start_time))
 router.post('/modify_workout', (req, res) => {
   const create_category_array = require(base_dir + '/util/create_category_array')
   var workout_id = req.body.name

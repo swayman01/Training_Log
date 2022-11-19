@@ -344,14 +344,15 @@ router.post('/update_db_workout', (req, res) => {
             no_category_checked_flag = 0
           }
         }
+        if (inputs['x_new_category_x']=='on') no_category_checked_flag = 0
         if (no_category_checked_flag) {
-          if (DEBUG) console.log('350 in post_update_db_workout check_for_checked_category checked_categoryDICT', checked_categoryDICT, et(start_time))
+          if (DEBUG) console.log('349 in post_update_db_workout check_for_checked_category checked_categoryDICT', checked_categoryDICT, et(start_time))
           no_category_checked_flag = 0
           // TODO update checked_categoryDICT for correct redisplay on error?
           error_in_edit_categories = 1
           edit_categories_html = create_edit_categories_html(category_array, checked_categoryDICT, edit_categories_error_message = 'ERROR: Each workout must have at least one category')
           // error_in_edit_categories = 0 //Added 11/08/22, then deleted
-          if (DEBUG) console.log('354 in post_update_db_workout check_for_checked_category res.end ... ', et(start_time))
+          if (DEBUG) console.log('355 in post_update_db_workout check_for_checked_category res.end ... ', et(start_time))
           return res.end(edit_categories_html) // Doesn't stop database update of changed categories
           // return 'No Checked Categories'
         } else {
