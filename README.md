@@ -1,4 +1,4 @@
-# Training_Log (WIP)
+# Training_Log
 This is a training log that I created to track my online workouts and help select the workout that I want to do now.
 Features:
  - Workouts grouped by category, sorted from most recent. Workouts may appear in more than one category
