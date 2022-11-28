@@ -5,3 +5,4 @@ Features:
  - Bolded workouts that I want to repeat
  - Open workouts by clicking on the title
  To decide on a workout, I scroll (or search) from the bottom up and pick the first one that meets my needs.
+Demo: https://youtu.be/XO1YpoYSy6Q

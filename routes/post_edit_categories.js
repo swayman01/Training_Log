@@ -10,7 +10,7 @@ const modify_workout_variables = require('./modify_workout')
 const home_get_variables = require('./home_get')
 const create_category_array = require(base_dir + '/../util/create_category_array')
 var DEBUG = global_constants.DEBUG
-DEBUG = true
+// DEBUG = true
 router.post('/', (req, res, next) => {
   if(DEBUG) console.log('15 workoutGlobal in post_edit_categories', workoutGLOBAL)
   res.redirect("/")

@@ -25,7 +25,7 @@ module.exports = function create_edit_categories_html(category_array, checked_ca
   `
 
   var DEBUG = global_constants.DEBUG
-  DEBUG = true
+  // DEBUG = true
   console.log('loaded create_edit_categories_html', et(start_time))
   if (DEBUG) console.log('30 create_edit_categories', et(start_time))
 
