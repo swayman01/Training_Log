@@ -1,4 +1,5 @@
 module.exports = function create_changesDICT(category_array, category_inputs) {
+    // This function returns a dictionary of changes to the category table in the database
     const start_time = Date.now()
     const base_dir = path.dirname(path.resolve(__dirname))
     const et = require(base_dir + '/util/elapsed_time')

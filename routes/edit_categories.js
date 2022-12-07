@@ -128,10 +128,8 @@ router.post('/edit_categories', (req, res) => {
       if (DEBUG)  console.log('128 edit_categories db_open', db_open, et(start_time))
       category_array = await db.all(retrieve_categories, [], (err, rows) => {
         category_array = rows
-        // TODO eliminate one of the two lines below
-        module.exports.category_arrayGLOBAL = category_array
         module.exports.category_array = category_array
-        if (DEBUG) console.log('134 router.post in edit_categories  after run_edit_categories()', et(start_time))
+        if (DEBUG) console.log('132 router.post in edit_categories  after run_edit_categories()', et(start_time))
         db.close()
       })
       checked_category_array = await db.all(assigned_categories, [], (err, rows) => {
@@ -140,7 +138,7 @@ router.post('/edit_categories', (req, res) => {
           console.log('Error finding assigned categories in edit_categories', et(start_time), err)
         }
       })
-      if (DEBUG) console.log('143 checked_category_array', checked_category_array, et(start_time))
+      if (DEBUG) console.log('141 checked_category_array', checked_category_array, et(start_time))
       edit_categoriesPROMISE = await edit_categories(category_array, checked_category_array)
       if (DEBUG) console.log('143 checked_category_array', checked_category_array, et(start_time))
       module.exports.category_array = category_array

@@ -1,4 +1,4 @@
-// TODO change this to reference function, then fix workout_global exports
+
 const express = require('express');
 const router = express.Router();
 const base_dir = path.resolve(__dirname)
@@ -27,7 +27,6 @@ router.post('/post_edit_categories', (req, res) => {
   var workout_array = home_get_variables.workout_array
   var selected_workout = modify_workout_variables.selected_workout
   if(DEBUG) console.log('29 post_edit_categories selected_workout.workout_name ', selected_workout.workout_name)
-  //TODO Pass workout name and check
   for (let i=0; i < category_array.length; i++) {
     for (let j=0; j < workout_array.length; j++) {
       if ((category_array[i].category_name==workout_array[j].category_name)&&(workout_array[j].workout_name==selected_workout.workout_name)) {
@@ -35,7 +34,7 @@ router.post('/post_edit_categories', (req, res) => {
       }
     }
   }
-  if(DEBUG) console.log('38 post_edit_categories checked_categoryDICT', checked_categoryDICT, et(start_time))
+  if(DEBUG) console.log('37 post_edit_categories checked_categoryDICT', checked_categoryDICT, et(start_time))
   module.exports.checked_categoryDICT = checked_categoryDICT
   edit_categories_html = create_edit_categories_html(category_array, checked_categoryDICT, edit_categories_error_message = ' ')
   res.end(edit_categories_html)

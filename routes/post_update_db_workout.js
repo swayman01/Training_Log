@@ -10,18 +10,18 @@ function getMinOfArray(numArray) {
 const path = require('path')
 const base_dir = path.dirname(path.resolve(__dirname))
 const express = require('express');
-const app = express()
+// const app = express()
 const router = express.Router();
 const global_constants = require(base_dir + '/util/global_constants')
 const start_time = Date.now()
 const sqlite3 = require('sqlite3').verbose();
 const et = require(base_dir + '/util/elapsed_time')
-const add_workout = require(base_dir + '/routes/add_workout')
+// const add_workout = require(base_dir + '/routes/add_workout')
 const create_edit_categories_html = require(base_dir + '/util/create_edit_categories_html')
 const exported_variables = require(base_dir + '/util/read_head');
-const post_edit_categories_variables = require(base_dir + '/routes/post_edit_categories')
-const post_edit_categories = require(base_dir + '/routes/post_edit_categories')
-const modify_workout_variables = require('./modify_workout')
+// const post_edit_categories_variables = require(base_dir + '/routes/post_edit_categories')
+// const post_edit_categories = require(base_dir + '/routes/post_edit_categories')
+// const modify_workout_variables = require('./modify_workout')
 const create_changesDICT = require(base_dir + '/util/create_changesDICT')
 var DEBUG = global_constants.DEBUG
 // DEBUG = true
@@ -49,7 +49,7 @@ router.post('/update_db_workout', (req, res) => {
   var workout_actionGLOBAL = modify_workout_variables.workout_actionGLOBAL
   var category_array = create_category_array.category_array //Need to use create_category array so we can update after adding a new category
   const post_edit_categories_variables = require(base_dir + '/routes/post_edit_categories')
-  var checked_categoryDICT = post_edit_categories_variables.checked_categoryDICT
+  // var checked_categoryDICT = post_edit_categories_variables.checked_categoryDICT
   var db = global_constants.db
   var inputs = req.body
   var error_messages = []
@@ -400,13 +400,12 @@ router.post('/update_db_workout', (req, res) => {
         // This function modifies database for changes in category position and display off/on
         // Identify changes in categories and create dictionary of changes to avoid index changes
         changesDICT = create_changesDICT(category_array, category_inputs)
-        // for (let i = 0; i < category_array.length; i++) {
-        if (DEBUG) console.log('404 in post_update_db_workout changesDICT, checked_categoryDICT', changesDICT, '\n', checked_categoryDICT, et(start_time))
+        if (DEBUG) console.log('403 in post_update_db_workout changesDICT, checked_categoryDICT', changesDICT, '\n', checked_categoryDICT, et(start_time))
           // Add checks or make update_db category recursive
           await create_category_array()
           try {
             await db.open(base_dir + '/db/training_log.db')
-            if (DEBUG) console.log('409 in post_update_db_workout after await db.open changesDICT: ', changesDICT, et(start_time))
+            if (DEBUG) console.log('408 in post_update_db_workout after await db.open changesDICT: ', changesDICT, et(start_time))
             category_array = create_category_array.category_array
             for (const [key, value] of Object.entries(changesDICT)) {
               category_name = key

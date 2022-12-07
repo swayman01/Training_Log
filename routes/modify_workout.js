@@ -20,7 +20,6 @@ router.post('/modify_workout', (req, res) => {
   var category_array = create_category_array.category_array
   if(DEBUG) console.log('23 in router.post /modify_workout', category_array[0], et(start_time))
   module.exports.category_name = category_name
-  // module.exports.category_array = category_array
   module.exports.workout_actionGLOBAL = 'Edit Categories' // Needed for create_edit_categories_html
   today = new Date()
   new_date = date_format.format(today, 'MM/DD/YY')
@@ -60,23 +59,22 @@ router.post('/modify_workout', (req, res) => {
   var db1 = new sqlite3.Database(base_dir + '/db/training_log.db', (err) => {
     if (err) {
       console.log('Could not connect to database:', err)
-    } else if (DEBUG) console.log('63 Connected to database in modify_workout', et(start_time))
+    } else if (DEBUG) console.log('62 Connected to database in modify_workout', et(start_time))
   })
 
   var workout_name = ''
   db1.open
   x = db1.get(select_workout, [], (err, row) => {
-    if (DEBUG) console.log('71 modify_workout, workout_name', row.workout_name, et(start_time))
+    if (DEBUG) console.log('68 modify_workout, workout_name', row.workout_name, et(start_time))
     selected_workout = row
-    if (DEBUG) console.log('73 modify_workout x ', x, et(start_time))
+    if (DEBUG) console.log('70 modify_workout x ', x, et(start_time))
     workout_name = selected_workout.workout_name
     db1.close
-    if (DEBUG) console.log('78 in modify_workout.js selected_workout', selected_workout.workout_name, et(start_time))
+    if (DEBUG) console.log('73 in modify_workout.js selected_workout', selected_workout.workout_name, et(start_time))
     module.exports.selected_workout = selected_workout
     add_date_html(workout_name)
   })
   
-  if (DEBUG) console.log('79 in modify_workouts.js category_array', category_array[0], et(start_time))
-  // module.exports.category_array = category_array
+  if (DEBUG) console.log('78 in modify_workouts.js category_array', category_array[0], et(start_time))
 })
 module.exports = router;

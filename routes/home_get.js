@@ -14,7 +14,7 @@ const create_category_array = require(base_dir + '/util/create_category_array')
 router.get('/', (req, res, next) => {
     var DEBUG = global_constants.DEBUG
     // DEBUG = false
-    if (DEBUG) console.log('16 home_get', et(start_time))
+    if (DEBUG) console.log('17 home_get', et(start_time))
     var join_categories_to_workouts = `
         SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
         workout_url, date_array, toRepeat, workout_length, workout_comment, workouts.id
@@ -146,6 +146,6 @@ router.get('/', (req, res, next) => {
     }
 
     init();
-    if (DEBUG) console.log('148 home_get after init()', et(start_time))
+    if (DEBUG) console.log('149 home_get after init()', et(start_time))
 })
 module.exports = router;

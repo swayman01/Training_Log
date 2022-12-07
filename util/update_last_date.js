@@ -1,4 +1,5 @@
 module.exports = function (workout_id, new_date) {
+  NOT USED
   global_constants = require('./global_constants')
     INTERVAL_TIME = global_constants.INTERVAL_TIME
     db = global_constants.db

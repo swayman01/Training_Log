@@ -1,5 +1,6 @@
 module.exports = function add_workout_html_equals(workout_actionGLOBAL, category_name, new_date, add_workout_error_message='') {
-    var add_workout_html_body = 
+  // This returns the html file when a workout already exists  
+  var add_workout_html_body = 
       `
       <h2 class="error">${add_workout_error_message}</h2>
       <h2>${workout_actionGLOBAL} Workout </h2>

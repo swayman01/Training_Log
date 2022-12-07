@@ -1,4 +1,5 @@
 // This function displays the edit categories screen
+Moved to routes
 function edit_categories() {
   path = require('path')
   const base_dir = path.dirname(path.resolve(__dirname))

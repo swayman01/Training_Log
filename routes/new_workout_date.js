@@ -9,8 +9,8 @@ const et = require(base_dir + '/util/elapsed_time')
 const modify_workout_variables = require(base_dir + '/routes/modify_workout')
 const db = global_constants.db
 var DEBUG = global_constants.DEBUG
+DEBUG = false
 console.log('loaded new_workout_date.js', et(start_time))
-
 router.post('/', (req, res, next) => {
   res.redirect("/")
 })
@@ -40,24 +40,24 @@ router.post('/new_workout_date', (req, res) => {
     `
     async function post_db_return(res)
     {
-      if(DEBUG) console.log('39 post_db_return in new_workout_date', et(start_time))
+      if(DEBUG) console.log('43 post_db_return in new_workout_date', et(start_time))
       db.close()
       res.redirect('/')
     }
     async function init_update_dates() {
       try {
-        if (DEBUG) console.log('45 in update_dates', et(start_time))
+        if (DEBUG) console.log('49 in new_workout_date.js', et(start_time))
         db_open = await db.open(base_dir + '/db/training_log.db')
         var db_return = await db.run(update_command, (err) => {
-          if (DEBUG) console.log('48 db_return in update_dates.js', db_return)
+          if (DEBUG) console.log('52 db_return in new_workout_date.js', db_return)
           if (err) {
-            console.log('*** 50 update_command error in new_workout_date', err)
+            console.log('*** 54 update_command error in new_workout_date', err)
           }
-          if (DEBUG) console.log('52 update_command (new_date_array is updated): ', et(start_time)) //new_date_array is updated
+          if (DEBUG) console.log('56 update_command (new_date_array is updated): ', et(start_time)) //new_date_array is updated
         })
         await post_db_return(res)
       } catch (err) {
-        console.log('***Promise error in update_dates***', err, et(start_time))
+        console.log('***Promise error in new_workout_date***', err, et(start_time))
       }
     }
     init_update_dates()

@@ -23,7 +23,7 @@ Promise.all([f1, f2, f3])
     results = res
     training_log_head_html = results[0] + results[1] + results[2]
     module.exports.training_log_head_html = training_log_head_html
-    if(DEBUG) console.log('24 loaded read_head.js Promise fulfilled', et(start_time))
+    if(DEBUG) console.log('26 loaded read_head.js Promise fulfilled', et(start_time))
   })
   .catch(err => {
     console.error(err)

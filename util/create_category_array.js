@@ -1,5 +1,5 @@
 module.exports = async function create_category_array() {
-  // Moved from modify_workouts 9/28/22
+  // This function retrieves category data from the database and puts in an array
   const base_dir = path.dirname(path.resolve(__dirname))
   const global_constants = require(base_dir + '/util/global_constants')
   const start_time = Date.now()
@@ -27,6 +27,6 @@ module.exports = async function create_category_array() {
      catch (e) {
       console.log('Promise error create_category_array)', e)
     }
-    if (DEBUG) console.log('31 in create_category_array', et(start_time))
+    if (DEBUG) console.log('30 in create_category_array', et(start_time))
     return
   }
