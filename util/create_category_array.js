@@ -4,9 +4,9 @@ module.exports = async function create_category_array() {
   const global_constants = require(base_dir + '/util/global_constants')
   const start_time = Date.now()
   const et = require(base_dir + '/util/elapsed_time')
-  console.log('loaded create_category_array ', et(start_time))
   var DEBUG = global_constants.DEBUG
   // DEBUG = true
+  if (DEBUG) console.log('loaded create_category_array ', et(start_time))
   var category_array = []
     let retrieve_categories = `
       SELECT category_position, isClosed, category_name

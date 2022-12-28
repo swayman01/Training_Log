@@ -44,7 +44,7 @@ router.post('/modify_workout', (req, res) => {
           <input type="submit" value="Submit New Date">
           <input type="submit" value="Add New Workout" formaction="/add_workout">
           <input type="submit" value="Edit This Workout" formaction="/edit_workout">
-          <input type="submit" value="Edit categories" formaction="/POST_edit_categories">
+          <input type="submit" value="Edit categories" formaction="/post_edit_categories">
           <input type="submit" value="Cancel" formaction="/">
         </form> 
         </body>
