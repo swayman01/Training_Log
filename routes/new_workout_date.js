@@ -26,6 +26,7 @@ router.post('/new_workout_date', (req, res) => {
     return
   }
   var date_arraySTR = modify_workout_variables.selected_workout.date_array
+  if (date_arraySTR === null) date_arraySTR = ''
   var workout_id = modify_workout_variables.selected_workout.id
   var date_array = date_arraySTR.split(',')
   var new_date_array = [new_date].concat(date_array)
