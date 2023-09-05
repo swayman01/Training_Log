@@ -9,3 +9,5 @@ Training_log.gan
 db/practice_training_log.db
 routes/Training_Log_App_Compare.code-workspace
 tools/
+file_checklist.txt
+ db/training_log_1.db

@@ -13,6 +13,7 @@ $Teracotta: #945D60;
 $Herb: #626E60;
 $Chile: #AF473C;
 $Charcoal: #3C3C3C;
+$HalfChile: #57A39E;
 /* https://www.canva.com/learn/website-color-schemes/ Earthy and Fresh #1 */
 $papercolor: #fbfbf8;
 $headingcolor: $Charcoal;
@@ -36,7 +37,8 @@ $hovercolor: $Herb;
 // $activecolor:  #A9D2CC;
 // $hovercolor: #EC7545;
 
-$weakfontcolor: $fontcolor/2; 
+// $weakfontcolor: $HalfChile; 
+$weakfontcolor: $Chile;
 
 body {
   background-color: $papercolor;
@@ -165,7 +167,7 @@ input:valid {
   z-index: 1;
 } 
 
-.tooltip:hover .tooltiptext {
+.plus_button_tooltip:hover .plus_button_tooltiptext {
   visibility: visible;
 }
 

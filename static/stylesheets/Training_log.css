@@ -16,7 +16,7 @@ body {
   color: #AF473C;
 }
 
-h1, h2, summary, h1 + h5, h2 + h5, summary + h5, h2 + h5, summary + h5, h6 {
+h1, h2, summary, h1 + h5, h2 + h5, summary + h5, h6 {
   text-align: center;
   color: #3C3C3C;
 }
@@ -28,7 +28,6 @@ h2, summary {
 
 summary {
   text-align: left;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
   color: #3C3C3C;
 }
@@ -45,7 +44,6 @@ a:link {
 a:visited {
   color: #AF473C;
 }
-
 a:visited a:hover {
   color: #626E60;
 }
@@ -76,19 +74,14 @@ input:valid {
 }
 
 .flex-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-align: left;
-  -ms-flex-align: left;
   align-items: left;
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 .flex-container > div {
-  margin-right: .5em;
+  margin-right: 0.5em;
 }
 
 .workout-form:active {
@@ -100,7 +93,7 @@ input:valid {
 }
 
 .no_repeat {
-  color: #58241e;
+  color: #AF473C;
   font-weight: 100;
   font-size: smaller;
 }
@@ -138,7 +131,7 @@ input:valid {
   z-index: 1;
 }
 
-.tooltip:hover .tooltiptext {
+.plus_button_tooltip:hover .plus_button_tooltiptext {
   visibility: visible;
 }
 
@@ -148,5 +141,4 @@ input:valid {
 
 .error {
   color: red;
-}
-/*# sourceMappingURL=Training_log.css.map */
+}/*# sourceMappingURL=Training_log.css.map */
