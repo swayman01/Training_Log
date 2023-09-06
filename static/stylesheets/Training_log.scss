@@ -36,9 +36,17 @@ $hovercolor: $Herb;
 // $fontcolor: #B82677;
 // $activecolor:  #A9D2CC;
 // $hovercolor: #EC7545;
-
 // $weakfontcolor: $HalfChile; 
 $weakfontcolor: $Chile;
+
+/* From https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation */
+input:invalid {
+  border: 2px dashed red;
+}
+
+input:valid {
+  border: 2px solid black;
+}
 
 body {
   background-color: $papercolor;
@@ -91,15 +99,6 @@ a:active {
   border: 2px solid black;
 }
 
-/* From https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation */
-input:invalid {
-  border: 2px dashed red;
-}
-
-input:valid {
-  border: 2px solid black;
-}
-
 // ref: https://stackoverflow.com/questions/5196583/target-elements-with-multiple-classes-within-one-rule
 .toRepeat_checkbox, .display_off_or_on {
   border: 2px solid black;
@@ -115,7 +114,7 @@ input:valid {
   margin-top: .5em;
 }
 
-.flex-container > div {
+.flex-container>div {
   margin-right: .5em;
 }
 
@@ -133,7 +132,9 @@ input:valid {
   font-size:smaller;
 }
 
-  .toRepeat_checkbox, .display_off_or_on, .in_category_checkbox {
+  .toRepeat_checkbox,
+  .display_off_or_on,
+  .in_category_checkbox {
     border: 2px solid black;
   }
   
@@ -146,12 +147,12 @@ input:valid {
   cursor: pointer;
 }
 
-.tooltip {
+.plus_button_tooltip {
   position: relative;
   display: inline-block;
 }
 
-.tooltip .tooltiptext {
+.plus_button_tooltiptext {
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -167,8 +168,22 @@ input:valid {
   z-index: 1;
 } 
 
-.plus_button_tooltip:hover .plus_button_tooltiptext {
+.all_workouts_button {
+  cursor: pointer;
+  float:right;
+  position: absolute;
+  right: 120px;
+  color: orange; //used to verify where this class is called 
+}
+
+.all_workouts_button_tooltip:hover .all_workouts_button_tooltiptext {
   visibility: visible;
+}
+
+.return_to_uncategorized {
+  // display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .TODO {

@@ -1,18 +1,14 @@
 // This routine shows all of the workouts, sorted from used most to least
 // It is useful for searching all workouts or for analyzing use
-//TODO Add other sort options
 const path = require('path')
 const base_dir = path.dirname(path.resolve(__dirname))
 const express = require('express');
 const router = express.Router();
 const global_constants = require(base_dir + '/util/global_constants');
-const home_get_variables = require(base_dir + '/routes/home_get');
 const start_time = Date.now();
 const et = require(base_dir + '/util/elapsed_time');
 const format_date_array = require(base_dir + '/util/format_date_array')
 const write_workouts = require(base_dir + '/util/write_workouts')
-// const db = global_constants.db
-// const db1 = global_constants.db1
 const exported_head = require(base_dir + '/util/read_head');
 const return_uncategorized_html = `
 <form class = "return_to_uncategorized" >
@@ -21,7 +17,6 @@ const return_uncategorized_html = `
 <br>
 `
 var all_workouts_array = '';
-var all_workouts_html = ''
 var DEBUG = global_constants.DEBUG;
 DEBUG = true
 console.log('show_all_workouts.js', et(start_time))
@@ -39,10 +34,6 @@ router.post('/show_all_workouts', (req, res) => {
         res.end(exported_head.training_log_head_html + return_uncategorized_html + all_workouts_html);
     }
 
-    // async function getWorkouts(workout) {
-    //     return write_workouts(workout);
-    // } // Didn't work 7/15/23
-    
     async function init() {
         try {
             if (req.body.sortby === "sortby_recent") sort_method = 'last_date DESC'
@@ -81,8 +72,6 @@ router.post('/show_all_workouts', (req, res) => {
                 for (let i = 0; i < all_workouts_array.length; i++) {
                     workout_dates_array = all_workouts_array[i].date_array.split(',')
                     workout_dates_length = workout_dates_array.length
-                    // console.log('88 workout_dates_length, last_element',all_workouts_array[i].workout_name, workout_dates_length, workout_dates_array[workout_dates_length-1])
-                    // Quick check for date format
                     // SOMEDAY: Make date check more robust
                     if (workout_dates_array[workout_dates_array.length - 1].length === 0) {
                         workout_dates_length = workout_dates_array.length - 1
@@ -93,13 +82,9 @@ router.post('/show_all_workouts', (req, res) => {
                 all_workouts_array = all_workouts_array.sort(function (a, b) {
                     return b.used - a.used
                 })
-                // for (let i = 0; i < all_workouts_array.length; i++) console.log(all_workouts_array[i].workout_name, all_workouts_array[i].used) 
             }
 
             if (req.body.sortby === "sortby_length") {
-// Not removing parenthesis
-
-                // const workout_lengthREG = new RegExp('(^([0-1]?\d|2[0-3]):([0-5]?\d):([0-5]?\d)$)|(^([0-5]?\d):([0-5]?\d)$)|(^[0-5]?\d$) ')
                 const length_hhmmssREG = new RegExp(/\d{1,2}:\d{1,2}:\d{1,2}/)
                 const length_mmssREG = new RegExp(/\d{1,2}:\d{1,2}/)
                 //loop and add times used to all workouts_array
@@ -109,7 +94,6 @@ router.post('/show_all_workouts', (req, res) => {
                         let timeARRAY = array_input.split(":")
                         let timeINT = parseInt(timeARRAY[0]) * 3600 + parseInt(timeARRAY[1]) * 60 + parseInt(timeARRAY[2])
                         all_workouts_array[i].workout_lengthINT = timeINT
-                        // console.log("conversion check: ", all_workouts_array[i].workout_length, all_workouts_array[i].workout_lengthINT)
                     }
                     else {
                         if (length_mmssREG.test(all_workouts_array[i].workout_length)) {
@@ -120,7 +104,6 @@ router.post('/show_all_workouts', (req, res) => {
                             if (isNaN(parseInt(timeARRAY[0]) * 60 + parseInt(timeARRAY[1]))) {
                                 console.log('pause', all_workouts_array[i].workout_length)
                             }
-                            // console.log("conversion check: ", all_workouts_array[i].workout_length, all_workouts_array[i].workout_lengthINT)
                     }
                         else console.log(all_workouts_array[i].workout_name, all_workouts_array[i].workout_length, 'not formatted')
                     }
@@ -138,7 +121,5 @@ router.post('/show_all_workouts', (req, res) => {
     
 
     init();
-    // TODO: move res.end to write_all_workouts
-    // res.end(exported_head.training_log_head_html + all_workouts_button + all_workouts_html);
 })
 module.exports = router;

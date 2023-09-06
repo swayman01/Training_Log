@@ -64,6 +64,8 @@
       /routes/post_edit_categories.js
       /util/create_changesDICT.js
       /util/create_checked_categoryDICT.js
+  /routes/show_all_workouts.js
+    /util/write_workouts.js
 */
 // End Flow
 
@@ -79,8 +81,8 @@ const new_workout_date = require(base_dir + '/routes/new_workout_date')
 const add_workout = require(base_dir + '/routes/add_workout')
 const edit_workout = require(base_dir + '/routes/edit_workout')
 const post_edit_categories = require(base_dir + '/routes/post_edit_categories')//
-// const edit_categories = require(base_dir + '/routes/edit_categories')
 const modify_workout = require(base_dir + '/routes/modify_workout')
+const show_all_workouts = require(base_dir + '/routes/show_all_workouts') 
 const et = require('./util/elapsed_time')
 // const global_constants = require(base_dir + '/util/global_constants')
 const port = 5001

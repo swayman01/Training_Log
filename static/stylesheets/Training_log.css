@@ -10,6 +10,15 @@ $hovercolor: green;
 /* https://www.canva.com/learn/website-color-schemes/ Earthy and Fresh #2 */
 /* https://www.susannerieker.com/10-color-schemes-for-your-wellness-or-yoga-website/ 
   Power Yoga*/
+/* From https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation */
+input:invalid {
+  border: 2px dashed red;
+}
+
+input:valid {
+  border: 2px solid black;
+}
+
 body {
   background-color: #fbfbf8;
   font-family: Arial;
@@ -60,15 +69,6 @@ a:active {
   border: 2px solid black;
 }
 
-/* From https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation */
-input:invalid {
-  border: 2px dashed red;
-}
-
-input:valid {
-  border: 2px solid black;
-}
-
 .toRepeat_checkbox, .display_off_or_on {
   border: 2px solid black;
 }
@@ -98,7 +98,9 @@ input:valid {
   font-size: smaller;
 }
 
-.toRepeat_checkbox, .display_off_or_on, .in_category_checkbox {
+.toRepeat_checkbox,
+.display_off_or_on,
+.in_category_checkbox {
   border: 2px solid black;
 }
 
@@ -110,12 +112,12 @@ input:valid {
   cursor: pointer;
 }
 
-.tooltip {
+.plus_button_tooltip {
   position: relative;
   display: inline-block;
 }
 
-.tooltip .tooltiptext {
+.plus_button_tooltiptext {
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -131,8 +133,21 @@ input:valid {
   z-index: 1;
 }
 
-.plus_button_tooltip:hover .plus_button_tooltiptext {
+.all_workouts_button {
+  cursor: pointer;
+  float: right;
+  position: absolute;
+  right: 120px;
+  color: orange;
+}
+
+.all_workouts_button_tooltip:hover .all_workouts_button_tooltiptext {
   visibility: visible;
+}
+
+.return_to_uncategorized {
+  align-items: center;
+  text-align: center;
 }
 
 .TODO {
