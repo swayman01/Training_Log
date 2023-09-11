@@ -76,7 +76,6 @@ router.get('/', (req, res, next) => {
                     }
                     write_details_beginning_html(workout_array[i])
                 }
-                write_workouts(workout_array[i])
                 workout = write_workouts(workout_array[i])
                 workouts_htmlGLOBAL = workouts_htmlGLOBAL + workout
                 last_category = workout_array[i].category_position

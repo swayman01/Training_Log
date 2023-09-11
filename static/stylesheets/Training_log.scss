@@ -54,7 +54,10 @@ body {
   color: $fontcolor;
 }
 
-h1,h1+h5,h2+h5,h6 {
+h1,
+h1+h5,
+h2+h5,
+h6 {
   text-align: center;
   color: $headingcolor;
 }
@@ -72,7 +75,8 @@ summary {
   color: $headingcolor
 }
 
-ul {list-style-type: none;
+ul {
+  list-style-type: none;
   padding-left: 0;
 }
 
@@ -96,11 +100,6 @@ a:active {
 }
 
 .display_off_or_on {
-  border: 2px solid black;
-}
-
-// ref: https://stackoverflow.com/questions/5196583/target-elements-with-multiple-classes-within-one-rule
-.toRepeat_checkbox, .display_off_or_on {
   border: 2px solid black;
 }
 
@@ -138,9 +137,7 @@ a:active {
     border: 2px solid black;
   }
   
-  .in_category_checkbox {
-    border: 2px solid red;
-  }
+ 
 
 
 .plus_button {
@@ -193,3 +190,24 @@ a:active {
 .error {
   color: red;
 } 
+.dropdown {
+  position: absolute;
+  right: -80px;
+  border-radius: var(--radius);
+  margin-top: 0.5rem;
+  color: red; 
+}
+
+.dropdown a {
+  display: flex;
+  align-items: center;
+  column-gap: var(--gap);
+  padding: 0.8rem 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+.dropdown a:hover {
+  background-color: var(--color);
+  color: white;
+}

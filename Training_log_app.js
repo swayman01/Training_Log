@@ -98,6 +98,7 @@ app.use('/', add_workout)
 app.use('/', edit_workout)
 app.use('/', post_edit_categories)
 app.use('/', post_update_db_workout)
+app.use('/', show_all_workouts)
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`, et(start_time))

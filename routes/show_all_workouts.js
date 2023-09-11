@@ -5,6 +5,7 @@ const base_dir = path.dirname(path.resolve(__dirname))
 const express = require('express');
 const router = express.Router();
 const global_constants = require(base_dir + '/util/global_constants');
+const home_get_variables = require(base_dir + '/routes/home_get');
 const start_time = Date.now();
 const et = require(base_dir + '/util/elapsed_time');
 const format_date_array = require(base_dir + '/util/format_date_array')
@@ -49,9 +50,9 @@ router.post('/show_all_workouts', (req, res) => {
             var { PromisedDatabase } = require("promised-sqlite3");
             var db = new PromisedDatabase();
             if (DEBUG) console.log('69 show_all_workouts db', db, et(start_time))
-            await db.open('./db/practice_training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
+            await db.open('./db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
             all_workouts_array = await db.all(select_workouts, [], (err, rows) => {
-                if (DEBUG) console.log('64 in show_all_workouts init rows', rows)
+                if (DEBUG) console.log('55 in show_all_workouts init rows', rows)
                 if (err) {
                     console.log('*** Error in db.open: ', err)
                 }
@@ -119,7 +120,7 @@ router.post('/show_all_workouts', (req, res) => {
         }
     }
     
-
     init();
+   
 })
 module.exports = router;
