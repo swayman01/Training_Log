@@ -15,6 +15,7 @@
     /util/create_category_array.js
       /db/training_log.db
     /util/format_date_array.js
+    /util/format_workout_length.js
     /db/training_log.db
 
   /routes/modify_workout.js

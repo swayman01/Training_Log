@@ -7,6 +7,8 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new PromisedDatabase(); // create a instance of PromisedDatabase
     // note: at this state, the wrapped sqlite3.Database object is not created.
 date_format = require('date-and-time') // Do not make a constant 7/9/22
+const length_hhmmssREG = new RegExp(/\d{1,2}:\d{1,2}:\d{1,2}/)
+const length_mmssREG = new RegExp(/\d{1,2}:\d{1,2}/)
 module.exports.base_dir = base_dir
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
@@ -21,6 +23,8 @@ module.exports.DEBUG = DEBUG
 module.exports.base_dir = base_dir
 var add_workout_error_message = ''
 module.exports.add_workout_error_message = add_workout_error_message
+module.exports.length_hhmmssREG = length_hhmmssREG
+module.exports.length_mmssREG = length_mmssREG
 
 const {
   readFile,

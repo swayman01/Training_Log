@@ -10,6 +10,7 @@ console.log('loaded home_get', et(start_time))
 const express = require('express');
 const router = express.Router();
 const format_date_array = require(base_dir + '/util/format_date_array')
+const format_workout_length = require(base_dir + '/util/format_workout_length')
 const create_category_array = require(base_dir + '/util/create_category_array')
 const write_workouts = require(base_dir + '/util/write_workouts')
 var all_workouts_button = `
@@ -69,6 +70,7 @@ router.get('/', (req, res, next) => {
         if (workout_array.length > 0) {
             for (let i = 0; i < workout_array.length; i++) {
                 workout_array[i].date_array = format_date_array(workout_array[i])
+                workout_array[i].workout_length = format_workout_length(workout_array[i])
                 // Check for end of a category
                 if (last_category != workout_array[i].category_position) {
                     if (last_category != -1) {

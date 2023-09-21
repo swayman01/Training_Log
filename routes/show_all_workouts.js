@@ -5,10 +5,10 @@ const base_dir = path.dirname(path.resolve(__dirname))
 const express = require('express');
 const router = express.Router();
 const global_constants = require(base_dir + '/util/global_constants');
-const home_get_variables = require(base_dir + '/routes/home_get');
 const start_time = Date.now();
 const et = require(base_dir + '/util/elapsed_time');
 const format_date_array = require(base_dir + '/util/format_date_array')
+const format_workout_length = require(base_dir + '/util/format_workout_length')
 const write_workouts = require(base_dir + '/util/write_workouts')
 const exported_head = require(base_dir + '/util/read_head');
 const return_uncategorized_html = `
@@ -22,11 +22,12 @@ var DEBUG = global_constants.DEBUG;
 DEBUG = true
 console.log('show_all_workouts.js', et(start_time))
 router.post('/show_all_workouts', (req, res) => {
-    console.log('in show_all_workouts', et(start_time))
+    if (DEBUG) console.log('in show_all_workouts', et(start_time))
     async function write_all_html(all_workouts_array_1) {
         var all_workouts_html = ''
         for (let i = 0; i < all_workouts_array_1.length; i++) {
-            all_workouts_array_1[i].date_array = format_date_array(all_workouts_array_1[i]);
+            all_workouts_array_1[i].date_array = format_date_array(all_workouts_array_1[i])
+            all_workouts_array_1[i].workout_length = format_workout_length(all_workouts_array_1[i])
             // per https://stackoverflow.com/questions/49938266/how-to-return-values-from-async-functions-using-async-await-from-function
             // if (DEBUG) console.log('41 show_all_workouts date_array', all_workouts_array[i].last_date, all_workouts_array[i].workout_name)
             workout = write_workouts(all_workouts_array_1[i])
@@ -49,7 +50,7 @@ router.post('/show_all_workouts', (req, res) => {
             all_workouts_array = 'blank'
             var { PromisedDatabase } = require("promised-sqlite3");
             var db = new PromisedDatabase();
-            if (DEBUG) console.log('69 show_all_workouts db', db, et(start_time))
+            if (DEBUG) console.log('53 show_all_workouts db', db, et(start_time))
             await db.open('./db/training_log.db'); // create a sqlite3.Database object & open the database on the passed filepath.
             all_workouts_array = await db.all(select_workouts, [], (err, rows) => {
                 if (DEBUG) console.log('55 in show_all_workouts init rows', rows)
@@ -66,7 +67,6 @@ router.post('/show_all_workouts', (req, res) => {
             }
 
             if (req.body.sortby === "sortby_used") {
-//Not working
                 //loop and add times used to all workouts_array
                 var workout_dates_array = []
                 var workout_dates_length = 0
@@ -103,10 +103,10 @@ router.post('/show_all_workouts', (req, res) => {
                             let timeINT = parseInt(timeARRAY[0]) * 60 + parseInt(timeARRAY[1])
                             all_workouts_array[i].workout_lengthINT = timeINT
                             if (isNaN(parseInt(timeARRAY[0]) * 60 + parseInt(timeARRAY[1]))) {
-                                console.log('pause', all_workouts_array[i].workout_length)
+                                // if (DEBUG) console.log('106 pause', all_workouts_array[i].workout_length)
                             }
                     }
-                        else console.log(all_workouts_array[i].workout_name, all_workouts_array[i].workout_length, 'not formatted')
+                        else if (DEBUG) console.log('109', all_workouts_array[i].workout_name, all_workouts_array[i].workout_length, 'not formatted')
                     }
                 }
                 // Reference https://stackoverflow.com/questions/42870356/how-can-i-sort-an-array-of-dictionaries-by-its-key
