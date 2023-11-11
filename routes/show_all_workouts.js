@@ -24,7 +24,7 @@ console.log('show_all_workouts.js', et(start_time))
 router.post('/show_all_workouts', (req, res) => {
     if (DEBUG) console.log('in show_all_workouts', et(start_time))
     async function write_all_html(all_workouts_array_1) {
-        var all_workouts_html = ''
+        var all_workouts_html = '<ul>'
         for (let i = 0; i < all_workouts_array_1.length; i++) {
             all_workouts_array_1[i].date_array = format_date_array(all_workouts_array_1[i])
             all_workouts_array_1[i].workout_length = format_workout_length(all_workouts_array_1[i])
@@ -33,6 +33,7 @@ router.post('/show_all_workouts', (req, res) => {
             workout = write_workouts(all_workouts_array_1[i])
             all_workouts_html = all_workouts_html + workout;
         }
+        all_workouts_html =  all_workouts_html + '</ul>'
         res.end(exported_head.training_log_head_html + return_uncategorized_html + all_workouts_html);
     }
 
