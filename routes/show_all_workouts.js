@@ -61,6 +61,9 @@ router.post('/show_all_workouts', (req, res) => {
             await db.close()
 
             if (req.body.sortby === "sortby_recent") {
+                for (let i = 0; i < all_workouts_array.length; i++) {
+                    if (isNaN(all_workouts_array[i].last_date)) all_workouts_array[i].last_date = 0
+                }
                 all_workouts_array = all_workouts_array.sort(function (a, b) {
                     return b.last_date - a.last_date
                 })

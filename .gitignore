@@ -3,7 +3,6 @@ debug_1.txt
 debug_2.txt
 routes/delete_post_edit_workout.js
 db/training_log.db
-db/training_log copy.db
 debug.txt
 Training_log.gan
 db/practice_training_log.db
@@ -11,3 +10,4 @@ routes/Training_Log_App_Compare.code-workspace
 tools/
 file_checklist.txt
  db/training_log_1.db
+db/training_log.db
