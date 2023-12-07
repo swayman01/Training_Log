@@ -94,15 +94,16 @@ router.post('/show_all_workouts', (req, res) => {
                 const length_mmssREG = new RegExp(/\d{1,2}:\d{1,2}/)
                 //loop and add times used to all workouts_array
                 for (let i = 0; i < all_workouts_array.length; i++) {
+                    let input = (all_workouts_array[i].workout_length)
                     if (length_hhmmssREG.test(all_workouts_array[i].workout_length)) {
-                        let array_input = length_hhmmssREG.exec(all_workouts_array[i].workout_length).input
+                        let array_input = input.substring(input.search(length_hhmmssREG))
                         let timeARRAY = array_input.split(":")
                         let timeINT = parseInt(timeARRAY[0]) * 3600 + parseInt(timeARRAY[1]) * 60 + parseInt(timeARRAY[2])
                         all_workouts_array[i].workout_lengthINT = timeINT
                     }
                     else {
                         if (length_mmssREG.test(all_workouts_array[i].workout_length)) {
-                            let array_input = length_mmssREG.exec(all_workouts_array[i].workout_length).input
+                            let array_input = input.substring(input.search(length_mmssREG))
                             let timeARRAY = array_input.split(":")
                             let timeINT = parseInt(timeARRAY[0]) * 60 + parseInt(timeARRAY[1])
                             all_workouts_array[i].workout_lengthINT = timeINT
