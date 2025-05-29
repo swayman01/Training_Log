@@ -9,3 +9,5 @@ Demo: https://youtu.be/XO1YpoYSy6Q
 
 Release 2.0 September 2023 adds the capability to view all workouts whether in a single list, not by categorizes. This is useful for searching and 
 for analyzing. Search options include total times used, last used, and workout length.
+
+This version is a temporary fix to run on MX Linux. It does not include the node modules because of size limitations
