@@ -1,0 +1,18 @@
+{
+  "name": "training_log",
+  "version": "1.1.0",
+  "description": "Linux MX version",
+  "main": "Training_log_app.js",
+  "repository": "https://github.com/swayman01/Training_Log.git",
+  "author": "Steve Wayman",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "better-sqlite3": "11.9.1",
+    "date-and-time": "3.6.0",
+    "express": "4.21.2",
+    "node": "23.11.0",
+    "nodemon": "^3.1.9",
+    "sqlite3": "5.1.7"
+  }
+}

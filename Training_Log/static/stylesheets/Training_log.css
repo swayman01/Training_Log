@@ -1,0 +1,178 @@
+/* Original Scheme 
+$easytoreadcolor: #fbf5e6;
+$headingcolor: #00303F;
+$fontcolor: blue;
+$activecolor: yellow;
+$hovercolor: green; 
+*/
+/* Other white colors: https://encycolorpedia.com/fdf5e8 */
+/* https://www.canva.com/learn/website-color-schemes/ Earthy and Fresh #1 */
+/* https://www.canva.com/learn/website-color-schemes/ Earthy and Fresh #2 */
+/* https://www.susannerieker.com/10-color-schemes-for-your-wellness-or-yoga-website/ 
+  Power Yoga*/
+/* From https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation */
+input:invalid {
+  border: 2px dashed red;
+}
+
+input:valid {
+  border: 2px solid black;
+}
+
+body {
+  background-color: #fbfbf8;
+  font-family: Arial;
+  color: #AF473C;
+}
+
+h1, h2, summary,
+h1 + h5,
+h2 + h5,
+summary + h5,
+h6 {
+  text-align: center;
+  color: #3C3C3C;
+}
+
+h2, summary {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+summary {
+  text-align: left;
+  transition: 0.4s;
+  color: #3C3C3C;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+a:link {
+  color: #AF473C;
+}
+
+a:visited {
+  color: #AF473C;
+}
+a:visited a:hover {
+  color: #626E60;
+}
+
+a:hover {
+  color: #626E60;
+}
+
+a:active {
+  color: #945D60;
+}
+
+.display_off_or_on {
+  border: 2px solid black;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: left;
+  margin-top: 0.5em;
+}
+
+.flex-container > div {
+  margin-right: 0.5em;
+}
+
+.workout-form:active {
+  color: #945D60;
+}
+
+.workout-form:hover {
+  color: #626E60;
+}
+
+.no_repeat {
+  color: #AF473C;
+  font-weight: 100;
+  font-size: smaller;
+}
+
+.toRepeat_checkbox,
+.display_off_or_on,
+.in_category_checkbox {
+  border: 2px solid black;
+}
+
+.plus_button {
+  cursor: pointer;
+}
+
+.plus_button_tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.plus_button_tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: smaller;
+  /* Position the tooltip */
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  z-index: 1;
+}
+
+.all_workouts_button {
+  cursor: pointer;
+  float: right;
+  position: absolute;
+  right: 120px;
+  color: orange;
+}
+
+.all_workouts_button_tooltip:hover .all_workouts_button_tooltiptext {
+  visibility: visible;
+}
+
+.return_to_uncategorized {
+  align-items: center;
+  text-align: center;
+}
+
+.TODO {
+  color: red;
+}
+
+.error {
+  color: red;
+}
+
+.dropdown {
+  position: absolute;
+  right: -80px;
+  border-radius: var(--radius);
+  margin-top: 0.5rem;
+  color: red;
+}
+
+.dropdown a {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: var(--gap);
+       column-gap: var(--gap);
+  padding: 0.8rem 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+.dropdown a:hover {
+  background-color: var(--color);
+  color: white;
+}/*# sourceMappingURL=Training_log.css.map */
