@@ -7,7 +7,9 @@ module.exports = function (workout_row) {
     const et = require(base_dir + '/util/elapsed_time')
     const length_hhmmssREG =global_constants.length_hhmmssREG
     const length_mmssREG =global_constants.length_mmssREG
-    var DEBUG = global_constants.DEBUG
+    var DEBUG = global_constants.DEBUG;
+    DEBUG = false;
+    // console.log('14 in format_workout_length DEBUG forced to: ', DEBUG);
     workout_length_input = workout_row.workout_length
     var formatted_workout_length = ''
 

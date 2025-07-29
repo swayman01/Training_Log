@@ -217,13 +217,13 @@ router.post('/update_db_workout', (req, res) => {
     }
   
     if (workout_actionGLOBAL == 'Edit Categories') {
-      if (DEBUG) console.log('\n217 Edit Categories in post_update_db_workout ', checked_categoryDICT, et(start_time))
+      if (DEBUG) console.log('\n220 Edit Categories in post_update_db_workout ', checked_categoryDICT, et(start_time))
       async function add_new_category() {
         // This function adds the new category to categories and categories_to_workouts
         category_array = create_category_array.category_array
         check_for_checked_category(inputs)
               // Check for reserved and categories with the same name
-        if (DEBUG) console.log('223 in post_update_db_workout after check_for_checked_category in add_new_category', et(start_time))
+        if (DEBUG) console.log('226 in post_update_db_workout after check_for_checked_category in add_new_category', et(start_time))
         if (typeof inputs.x_new_category_x !== 'undefined') {
           if (inputs.x_new_category_x === 'on') {
             //add New Category
@@ -348,9 +348,12 @@ router.post('/update_db_workout', (req, res) => {
   
       async function process_checked_categories() {
         // Modifies database for changes in checked categories
-        if (DEBUG) console.log('348 post_update_db_workout - process_checked_categories', et(start_time))
+        if (DEBUG) console.log('351 post_update_db_workout - process_checked_categories', et(start_time))
         await create_category_array()
         // await db.open(base_dir + '/db/training_log.db')
+        if (DEBUG) console.log('354 post_update)db_workouts\ndb', db, '\n\ndb1', db1);
+        db = global_constants.db;
+        console.log('356 post_update_db_workout - redeclared db: ', db);
         category_array = create_category_array.category_array
         workout_array = home_get_variables.workout_array
         selected_workout = modify_workout_variables.selected_workout
@@ -364,9 +367,18 @@ router.post('/update_db_workout', (req, res) => {
           if (category_checked_on_screen && category_on_in_database) {
           }
           if (category_checked_on_screen && !category_on_in_database) {
-            if (DEBUG) console.log('364 post_update_db_workout - Add ', category_array[i]['category_name'], ' to categories_to_workouts', et(start_time))
-            await db1.run(`INSERT INTO categories_to_workouts (category_name, workout_name) 
-                    VALUES(?, ?)`, [category_array[i]['category_name'], selected_workout.workout_name]);
+            if (DEBUG) console.log('364 post_update_db_workout - Add ', category_array[i]['category_name'], ' to categories_to_workouts', et(start_time));
+            insert_into_categories_to_workouts = `INSERT INTO categories_to_workouts (category_name, workout_name) VALUES(`;
+            let x1 = "'" + category_array[i]['category_name'] + "'" + ','; console.log(x1);
+            let x2 = "'" + selected_workout.workout_name + "'" + ')'; console.log(x2);
+            insert_into_categories_to_workouts = insert_into_categories_to_workouts + x1 + x2;
+            // console.log([category_array[i]['category_name'], selected_workout.workout_name])
+            // [category_array[i]['category_name'], selected_workout.workout_name]`)`;
+            if(DEBUG) console.log('373 insert_into_categories_to_workouts: ', insert_into_categories_to_workouts);
+            insert_stmt = db.prepare(insert_into_categories_to_workouts);
+            insert_stmt.run();
+            // await db1.run(`INSERT INTO categories_to_workouts (category_name, workout_name) 
+                    // VALUES(`[category_array[i]['category_name'], selected_workout.workout_name])` )`;
           }
           if (!category_checked_on_screen && category_on_in_database) {
             await db1.run(`DELETE FROM categories_to_workouts
@@ -376,21 +388,21 @@ router.post('/update_db_workout', (req, res) => {
         }
         // db.close()
         // check for checked_categories here
-        if (DEBUG) console.log('376 post_update_db_workout exit process categories res.redirect', et(start_time))
+        if (DEBUG) console.log('382 post_update_db_workout exit process categories res.redirect', et(start_time))
       } //end process_categories
   
       async function update_db_categories() {
         try {
-        if (DEBUG) console.log('384 in post_update_db_workout update_db_categories', et(start_time))
+        if (DEBUG) console.log('387 in post_update_db_workout update_db_categories', et(start_time))
         // This function modifies database for changes in category position and display off/on
         // Identify changes in categories and create dictionary of changes to avoid index changes
         changesDICT = create_changesDICT(category_array, category_inputs)
-        if (DEBUG) console.log('388 in post_update_db_workout changesDICT, checked_categoryDICT', changesDICT, '\n', checked_categoryDICT, et(start_time))
+        if (DEBUG) console.log('391 in post_update_db_workout changesDICT, checked_categoryDICT', changesDICT, '\n', checked_categoryDICT, et(start_time))
           // Add checks or make update_db category recursive
           await create_category_array()
           try {
             // await db.open(base_dir + '/db/training_log.db')
-            if (DEBUG) console.log('393 in post_update_db_workout changesDICT: ', changesDICT, et(start_time))
+            if (DEBUG) console.log('396 in post_update_db_workout changesDICT: ', changesDICT, et(start_time))
             category_array = create_category_array.category_array
             for (const [key, value] of Object.entries(changesDICT)) {
               category_name = key
@@ -402,28 +414,30 @@ router.post('/update_db_workout', (req, res) => {
                       isClosed = '${isClosed}'
                       WHERE category_name = '${category_name}'
                       `)
-              }
+              if (DEBUG) console.log('408 category_name: ', category_name, et(start_time));
+            }
             // db.close()
             } catch (e) {
-              console.log('405 *** Error updating categories in database in post_update_db_workout:)', e, et(start_time))
+              console.log('412 *** Error updating categories in database in post_update_db_workout:)', e, et(start_time))
             }
-        if (DEBUG) console.log('407 post_update_db_workout exiting update_db_categories', et(start_time))
+        if (DEBUG) console.log('411 post_update_db_workout exiting update_db_categories', et(start_time))
     }  catch (e) {
-      console.log('409 Error update_db_categories in post_update_db_workout:)', e, et(start_time))
+      console.log('416 Error update_db_categories in post_update_db_workout:)', e, et(start_time))
     }
       } //end update_db__categories
   
       async function init_edit_categories() {
-        if (DEBUG) console.log('414 in post_update_db_workout init_update_edit_categories', et(start_time))
+        if (DEBUG) console.log('421 in post_update_db_workout init_update_edit_categories', et(start_time))
         edit_category_error_message = ' '
         try {
-          await process_checked_categories()
+          //TODO make each of thsese async
+          await process_checked_categories()  // starts at line 349
           await update_db_categories()
           await add_new_category()
           await check_for_checked_category(inputs)
-          if (DEBUG) console.log('421 in post_update_db_workout error_in_edit_categories, error_in_add_new_category ', error_in_edit_categories, error_in_add_new_category, et(start_time))
+          if (DEBUG) console.log('428 in post_update_db_workout error_in_edit_categories, error_in_add_new_category ', error_in_edit_categories, error_in_add_new_category, et(start_time))
           if ((error_in_edit_categories!==1)&&(error_in_add_new_category!==1)) {
-          if (DEBUG) console.log('423 pre await post_db_return', et(start_time))
+          if (DEBUG) console.log('430 pre await post_db_return', et(start_time))
             await post_db_return(res)
           }
           else {
@@ -438,11 +452,16 @@ router.post('/update_db_workout', (req, res) => {
               ORDER BY category_position, last_date DESC
           `
           // await db.open(base_dir + '/db/training_log.db')
-            db.all(join_categories_to_workouts, [], (err, rows) => {
-              if (err) {console.log('*** Error in db.open: ', err)} 
-              home_get_variables.workout_array = rows  
-              console.log('441 in post_update_db_workout db1.all(join_categories_to_workouts', et(start_time))   
-              })
+          var stmt = db.prepare(join_categories_to_workouts);
+            var return_code = stmt.all();
+            console.log('447 DEBUG:', DEBUG);
+            if (DEBUG) console.log('446 in post_update_db_workout returd code for db operation: ', return_code);
+
+            // db.all(join_categories_to_workouts, [], (err, rows) => {
+            //   if (err) {console.log('*** Error in db.open: ', err)} 
+            //   home_get_variables.workout_array = rows  
+            //   console.log('441 in post_update_db_workout db1.all(join_categories_to_workouts', et(start_time))   
+            //   })
               // db.close()
               post_db_return(res)
               console.log('445 in post_update_db_workout after db.all(join_categories_to_workouts error_in_edit_categories, add_new_category', error_in_edit_categories, error_in_add_new_category, et(start_time))

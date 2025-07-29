@@ -43,8 +43,9 @@ var all_workouts_button = `
     `
 
 router.get('/', (req, res, next) => {
-    var DEBUG = global_constants.DEBUG
-    DEBUG = true;
+    var DEBUG = global_constants.DEBUG;
+    DEBUG = false;
+    console.log("47 home_get DEBUG forced to: ", DEBUG)
     if (DEBUG) console.log('47 home_get', et(start_time))
     var join_categories_to_workouts = `
         SELECT category_position, isClosed, category_subheading, categories.category_name, workouts.workout_name,
