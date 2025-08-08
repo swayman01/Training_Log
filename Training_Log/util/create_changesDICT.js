@@ -23,5 +23,6 @@ module.exports = function create_changesDICT(category_array, category_inputs) {
             }
         }
     }
+    console.log('forced DEBUG 26 create_changesDICT: ', changesDICT);
     return changesDICT
 }

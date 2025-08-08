@@ -26,7 +26,8 @@ router.post('/post_edit_categories', (req, res) => {
   if(DEBUG) console.log('25 post_edit_categories, category_array[0]', category_array[0], et(start_time))
   var checked_categoryDICT = {}
   var workout_array = home_get_variables.workout_array
-  var selected_workout = modify_workout_variables.selected_workout
+  var selected_workout = modify_workout_variables.selected_workout;
+  DEBUG = true; console.log('30 post_edit_categories forced DEBUG to true');
   if(DEBUG) console.log('29 post_edit_categories selected_workout.workout_name ', selected_workout.workout_name)
   for (let i=0; i < category_array.length; i++) {
     for (let j=0; j < workout_array.length; j++) {
