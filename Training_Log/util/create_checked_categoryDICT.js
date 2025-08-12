@@ -9,5 +9,6 @@ module.exports = function create_checked_categoryDICT(category_array, workout_ar
             }
         }
     }
+    //Need to add checked categories to checked_categoryDICT
     return checked_categoryDICT
 }

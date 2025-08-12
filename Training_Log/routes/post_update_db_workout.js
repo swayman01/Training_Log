@@ -222,7 +222,7 @@ router.post('/update_db_workout', (req, res) => {
       category_array = create_category_array.category_array;
       workout_array = home_get_variables.workout_array;
       selected_workout = modify_workout_variables.selected_workout;
-      workout_name = selected_workout.workout_name;
+      workout_name = selected_workout.workout_name; //TODO rework logic
       checked_categoryDICT = create_checked_categoryDICT(category_array, workout_array, workout_name);
       if (DEBUG) console.log('\n226 Edit Categories in post_update_db_workout ', checked_categoryDICT, et(start_time))
       async function add_new_category() {
@@ -244,7 +244,7 @@ router.post('/update_db_workout', (req, res) => {
             }
             if (category_name_exists_flag == 1) {
               error_message = category_inputs['x_new_category_name_x'] + ' is already in use'
-              if (DEBUG) console.log('*** 237 post_update_db_workout', error_message, '***')
+              if (DEBUG) console.log('*** 247 post_update_db_workout', error_message, '***')
               error_in_add_new_category = 1
               error_messages.push(error_message)
             }
@@ -332,7 +332,7 @@ router.post('/update_db_workout', (req, res) => {
       } // end add_new_category())
       
       async function check_for_checked_category(inputs) {
-        category_array = create_category_array.category_array  // 8/6/25 Do we need this?
+        // category_array = create_category_array.category_array  // 8/6/25 Do we need this? commented out 8/9/25
         // This function makes sure that at least one category is checked
         let no_category_checked_flag = 1
         for (let i = 0; i < category_array.length; i++) {
@@ -357,15 +357,15 @@ router.post('/update_db_workout', (req, res) => {
         // Modifies database for changes in checked categories
         if (DEBUG) console.log('358 post_update_db_workout - process_checked_categories', et(start_time))
         await create_category_array()
-        await db.open(base_dir + '/db/training_log.db')
+      //TODO update db method here
+        // await db.open(base_dir + '/db/training_log.db')
         if (DEBUG) console.log('361 post_update)db_workouts\ndb', db, '\n\ndb1', db1);
-        db = global_constants.db;
-        console.log('363 post_update_db_workout - redeclared db: ', db);
+        // db = global_constants.db;
         category_array = create_category_array.category_array
         workout_array = home_get_variables.workout_array
         selected_workout = modify_workout_variables.selected_workout
         workout_name = selected_workout.workout_name
-        checked_categoryDICT = create_checked_categoryDICT(category_array, workout_array, workout_name)
+        checked_categoryDICT = create_checked_categoryDICT(category_array, workout_array, workout_name);
         for (let i = 0; i < category_array.length; i++) {
           // Compare inputs and checked_categoryDICT
           // If category is in checked_categoryDICT and inputs do nothing
@@ -388,7 +388,7 @@ router.post('/update_db_workout', (req, res) => {
                     // VALUES(`[category_array[i]['category_name'], selected_workout.workout_name])` )`;
           }
           if (!category_checked_on_screen && category_on_in_database) {
-            await db1.run(`DELETE FROM categories_to_workouts
+            await db1.run(`DELETE FROM categories_to_workouts 
                       WHERE category_name = '${category_array[i]['category_name']}'
                       AND workout_name = '${selected_workout.workout_name}';`)
           }
@@ -450,7 +450,7 @@ router.post('/update_db_workout', (req, res) => {
         edit_category_error_message = ' '
         try {
           //TODO make each of these async
-          // await process_checked_categories()  // starts at line 349
+          await process_checked_categories()  // starts at line 349
           await update_db_categories()  // starts at line 394
           await add_new_category()
           await check_for_checked_category(inputs)
