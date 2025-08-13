@@ -388,9 +388,15 @@ router.post('/update_db_workout', (req, res) => {
                     // VALUES(`[category_array[i]['category_name'], selected_workout.workout_name])` )`;
           }
           if (!category_checked_on_screen && category_on_in_database) {
-            await db1.run(`DELETE FROM categories_to_workouts 
-                      WHERE category_name = '${category_array[i]['category_name']}'
-                      AND workout_name = '${selected_workout.workout_name}';`)
+            delete_categories_from_workouts = 'DELETE FROM categories_to_workouts WHERE category_name = ';
+            let x1 = "'" + category_array[i]['category_name'] + "'"; console.log(x1);
+            let x2 =  ' AND workout_name = ' + "'" + selected_workout.workout_name  + "'"; console.log(x2);
+            delete_categories_from_workouts = delete_categories_from_workouts + x1 + x2; console.log()
+            delete_stmt = db.prepare(delete_categories_from_workouts);
+            delete_stmt.run();
+            // await db1.run(`DELETE FROM categories_to_workouts 
+                      // WHERE category_name = '${category_array[i]['category_name']}'
+                      // AND workout_name = '${selected_workout.workout_name}';`)
           }
         }
         // db.close()
