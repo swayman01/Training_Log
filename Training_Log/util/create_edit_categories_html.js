@@ -81,7 +81,7 @@ module.exports = function create_edit_categories_html(category_array, checked_ca
               <label for="position">Display Position (required: between 0 and 500)</label>
               <br>
               <label for="details">Display On/Off</label>
-              <select id="details" name = "details" size="1" class="display_off_or_on">
+              <select id="details" name = "details" size="1" class="display_create_edit_categories_html(off_or_on">
                 <option value="0" selected>Show Workouts</option>
                 <option value="1" >Hide Workouts</option>
               </select>

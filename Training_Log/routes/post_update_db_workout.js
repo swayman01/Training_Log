@@ -218,7 +218,6 @@ router.post('/update_db_workout', (req, res) => {
     }
   console.log('passed Edit')
     if (workout_actionGLOBAL == 'Edit Categories') {
-      // TODO all 3 parameters are undefined
       category_array = create_category_array.category_array;
       workout_array = home_get_variables.workout_array;
       selected_workout = modify_workout_variables.selected_workout;
@@ -257,7 +256,7 @@ router.post('/update_db_workout', (req, res) => {
             }
             if (reserved_category_flag == 1) {
               error_message = category_inputs['x_new_category_name_x'] + ' is a reserved category. Please choose a different name'
-              if (DEBUG) console.log('250 post_update_db_workout', error_message)
+              if (DEBUG) console.log('259 post_update_db_workout', error_message)
               error_messages.push(error_message)
               error_in_add_new_category = 1
             }
@@ -297,32 +296,47 @@ router.post('/update_db_workout', (req, res) => {
             })
             category_position = getMinOfArray(available_positionsARRAY)
             isClosed = 0
-            try {
-              var db1 = new sqlite3.Database(base_dir + '/db/training_log.db', (err) => {
-                if (err) {
-                  console.log('Error in post_update_db_workout - Could not connect to database:', err)
-                } 
-              })
+            // try {
+            //   var db1 = new sqlite3.Database(base_dir + '/db/training_log.db', (err) => {
+            //     if (err) {
+            //       console.log('Error in post_update_db_workout - Could not connect to database:', err)
+            //     } ; console.log(x1);
+              // insert_into_categories = insert_into_categories + x1; console.log(x1);
               selected_workout = modify_workout_variables.selected_workout // Added 11/10/22 - not sure why global variable doesn't work
-              db1.serialize(() =>  {
-                db1.run(`
-                  INSERT INTO categories(category_name, category_position, isClosed)
-                  VALUES( ? , ? , ? )`, [new_category_name, category_position, isClosed])
-                .run(`INSERT INTO categories_to_workouts (category_name, workout_name) 
-                VALUES(?, ?)`, new_category_name, selected_workout.workout_name)
-                 // Since process category only loops through existing categories, we need to insert the workout here
-              })
+              // db1.serialize(() =>  {
+              //   db1.run(`
+              //     INSERT INTO categories(category_name, category_position, isClosed)
+              //     VALUES( ? , ? , ? )`, [new_category_name, category_position, isClosed])
+              //   .run(`INSERT INTO categories_to_workouts (category_name, workout_name) 
+              //   VALUES(?, ?)`, new_category_name, selected_workout.workout_name)
+              //    // Since process category only loops through existing categories, we need to insert the workout here
+              // })
+
+               let insert_into_categories = `INSERT INTO categories(category_name, category_position, isClosed) VALUES(`;
+               let x1 = "'" + new_category_name + "'," + category_position + ',' + isClosed + ")"; console.log(x1);
+               insert_into_categories = insert_into_categories + x1; console.log(insert_into_categories);
+               insert_stmt_1 = db.prepare(insert_into_categories);
+               insert_stmt_1.run();
+               
+               insert_into_categories_to_workouts = `INSERT INTO categories_to_workouts (category_name, workout_name) VALUES(`;
+               // i is not defined
+               let x3 = "'" + new_category_name + "'," + "'" + selected_workout.workout_name + "'" + ')';console.log(x3);
+              //  let x4 = "'" + selected_workout.workout_name + "'" + ')'; console.log(x4);
+               insert_into_categories_to_workouts = insert_into_categories_to_workouts + x3;
+               insert_stmt = db.prepare(insert_into_categories_to_workouts);
+               insert_stmt.run();
+
               create_category_array()
               category_array = create_category_array.category_array //Added here for update with new categories
-              db1.close((err) => {
-                if (DEBUG) console.log('308 in post_update_db_workout new_category added to database', et(start_time))
-                if (err) {
-                  console.error('310 in post_Update_db_workout db1.close err ', err.message);
-                }
-              });
-        } catch (e) {
-          console.log('*** Error init_update_edit_categories() in post_update_db_workout:)', e, et(start_time))
-        }
+              // db1.close((err) => {
+              //   if (DEBUG) console.log('308 in post_update_db_workout new_category added to database', et(start_time))
+              //   if (err) {
+              //     console.error('310 in post_Update_db_workout db1.close err ', err.message);
+              //   }
+              // });
+        // } catch (e) {
+        //   console.log('*** Error init_update_edit_categories() in post_update_db_workout:)', e, et(start_time))
+        // }
       } //end Add new category and category to workout to database
           } // end (inputs.x_new_category_x === 'on') 
         } else {
@@ -489,7 +503,7 @@ router.post('/update_db_workout', (req, res) => {
             //   })
               // db.close()
               post_db_return(res)
-              console.log('445 in post_update_db_workout after db.all(join_categories_to_workouts error_in_edit_categories, add_new_category', error_in_edit_categories, error_in_add_new_category, et(start_time))
+              console.log('505 in post_update_db_workout after db.all(join_categories_to_workouts error_in_edit_categories, add_new_category', error_in_edit_categories, error_in_add_new_category, et(start_time))
               error_in_edit_categories = 0
               error_in_add_new_category = 0
           }
