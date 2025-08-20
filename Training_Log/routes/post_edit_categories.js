@@ -10,8 +10,7 @@ const modify_workout_variables = require('./modify_workout')
 const home_get_variables = require('./home_get')
 const create_category_array = require(base_dir + '/../util/create_category_array')
 var DEBUG = global_constants.DEBUG
-DEBUG = false;
-console.log('14 post_edit_categories DEBUG forced to: ', DEBUG);
+// DEBUG = false;
 router.post('/', (req, res, next) => {
   if(DEBUG) console.log('15 workoutGlobal in post_edit_categories', workoutGLOBAL)
   res.redirect("/")
@@ -27,7 +26,7 @@ router.post('/post_edit_categories', (req, res) => {
   var checked_categoryDICT = {}
   var workout_array = home_get_variables.workout_array
   var selected_workout = modify_workout_variables.selected_workout;
-  DEBUG = true; console.log('30 post_edit_categories forced DEBUG to true');
+  // DEBUG = true; console.log('30 post_edit_categories forced DEBUG to true');
   if(DEBUG) console.log('29 post_edit_categories selected_workout.workout_name ', selected_workout.workout_name)
   for (let i=0; i < category_array.length; i++) {
     for (let j=0; j < workout_array.length; j++) {

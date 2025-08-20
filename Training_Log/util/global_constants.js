@@ -1,7 +1,7 @@
 // This file is a holding place for constants used across files
 const path = require('path')
 var base_dir = path.dirname(path.resolve(__dirname))
-var DEBUG = true;
+var DEBUG = false;
 const sqlite3 = require('sqlite3').verbose();
 const db = require ('better-sqlite3')('./db/training_log.db'); 
 date_format = require('date-and-time') // Do not make a constant 7/9/22
