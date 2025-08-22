@@ -13,13 +13,13 @@ var DEBUG = global_constants.DEBUG
 // DEBUG = false;
 // console.log('14 in modify workout DEBUG forced to: ', DEBUG)
 console.log('loaded modify_workout.js', et(start_time)) 
-if (DEBUG) console.log('17 in router.post /modify_workout', et(start_time))
+if (DEBUG) console.log('16 in router.post /modify_workout', et(start_time))
 router.post('/modify_workout', (req, res) => {
   const create_category_array = require(base_dir + '/util/create_category_array')
   var workout_id = req.body.name
   var category_name = req.body.category_name
   var category_array = create_category_array.category_array
-  if(DEBUG) console.log('23 in router.post /modify_workout', category_array[0], et(start_time))
+  if(DEBUG) console.log('22 in router.post /modify_workout', category_array[0], et(start_time))
   module.exports.category_name = category_name
   module.exports.workout_actionGLOBAL = 'Edit Categories' // Needed for create_edit_categories_html
   today = new Date()
@@ -66,17 +66,17 @@ router.post('/modify_workout', (req, res) => {
   var workout_name = ''
   db1.open;
   x = db1.get(select_workout, [], (err, row) => {
-    if (DEBUG) console.log('68 modify_workout, workout_name', row.workout_name, et(start_time))
+    if (DEBUG) console.log('69 modify_workout, workout_name', row.workout_name, et(start_time))
     selected_workout = row
-    if (DEBUG) console.log('70 modify_workout x ', x, et(start_time))
+    if (DEBUG) console.log('71 modify_workout x ', x, et(start_time))
     workout_name = selected_workout.workout_name
     db1.close
-    if (DEBUG) console.log('73 in modify_workout.js selected_workout', selected_workout.workout_name, et(start_time))
+    if (DEBUG) console.log('74 in modify_workout.js selected_workout', selected_workout.workout_name, et(start_time))
     module.exports.selected_workout = selected_workout
     add_date_html(workout_name);;
     db1.close;
   })
   
-  if (DEBUG) console.log('78 in modify_workouts.js category_array', category_array[0], et(start_time))
+  if (DEBUG) console.log('80 in modify_workouts.js category_array', category_array[0], et(start_time))
 })
 module.exports = router;

@@ -10,7 +10,7 @@ const length_mmssREG = new RegExp(/\d{1,2}:\d{1,2}/)
 module.exports.base_dir = base_dir
 const start_time = Date.now()
 const et = require(base_dir + '/util/elapsed_time')
-// var db1 = new sqlite3.Database('./db/training_log.db', (err) => {
+// var db1 = new sqlite3.Database('./db/training_log.db', (err) => { //commented out 8/2025
 //   if (err) {
 //     console.log('Error in global_constants - Could not connect to database:', err)
 //   } else console.log('Connected to sqlite3 database in global_constants', et(start_time))
